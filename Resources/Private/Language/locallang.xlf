@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2015-23-06T16:46:59Z"
+          product-name="examples">
+        <header/>
+        <body>
+            <trans-unit id="backendAjaxHook.title" xml:space="preserve">
+                             <source>Flush varnish cache</source>
+                             <target>Varnish cache leeren</target>
+                     </trans-unit>
+            <trans-unit id="configuration.category.varnish" xml:space="preserve">
+                             <source>varnish connection</source>
+                             <target>Verbindung zu Varnish</target>
+                     </trans-unit>
+            <trans-unit id="configuration.category.varnish.hosts" xml:space="preserve">
+                             <source>
+                                 Hosts:
+                                 Holds all varnish hosts to communicate with. Multiple hosts separated with comma.
+                             </source>
+                             <source>
+                                 Hosts:
+                                 Enthält alle Hosts mit denen kommuniziert werden muss.
+                                 Mehrere Hosts werden mit Komma separiert.
+                             </source>
+                     </trans-unit>
+            <trans-unit id="configuration.category.general" xml:space="preserve">
+                             <source>Basic Settings</source>
+                             <target>Basis-Einstellungen</target>
+                     </trans-unit>
+            <trans-unit id="configuration.category.general.debug" xml:space="preserve">
+                             <source>
+                                 Debug:
+                                 If set, varnish will send debugging headers. This is helpful if you want to figure out
+                                 if a page is cached or not and why the page is not cached.
+                             </source>
+                             <source>
+                                 Debug:
+                                 Falls gesetzt, sendet varnish Debugging-Header. Dies is hilfreich um hereuszufinden
+                                 ob eine Seite gecached wurde oder nicht und warum die Seite nicht gecached wurde.
+                             </source>
+                     </trans-unit>
+        </body>
+    </file>
+</xliff>

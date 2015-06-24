@@ -1,0 +1,8 @@
+# customcategory=general=LLL:EXT:varnish/Resources/Private/Language/locallang.xlf:configuration.category.general
+# customcategory=varnish=LLL:EXT:varnish/Resources/Private/Language/locallang.xlf:configuration.category.varnish
+
+# cat=general; type=boolean; label=LLL:EXT:varnish/Resources/Private/Language/locallang.xlf:configuration.category.general.debug
+debug = 0
+
+# cat=varnish; type=string; label=LLL:EXT:varnish/Resources/Private/Language/locallang.xlf:configuration.category.varnish.hosts
+hosts = localhost
