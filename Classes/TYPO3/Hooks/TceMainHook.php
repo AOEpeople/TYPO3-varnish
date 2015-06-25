@@ -26,6 +26,7 @@ namespace AOE\Varnish\TYPO3\Hooks;
 
 use AOE\Varnish\Domain\Model\Tag\PageTag;
 use AOE\Varnish\System\Varnish;
+use TYPO3\CMS\Core\DataHandling\DataHandler;
 
 /**
  * @package AOE\Varnish
@@ -40,9 +41,9 @@ class TceMainHook extends AbstractHook
      * @todo implement cache clearing for "clearCache_pageGrandParent", "clearCache_pageSiblingChildren" and
      *       and "clearCache_disable"  http://docs.typo3.org/typo3cms/TSconfigReference/PageTsconfig/TCEmain/Index.html
      */
-    public function clearCachePostProc(array $parameters, \TYPO3\CMS\Core\DataHandling\DataHandler $parent)
+    public function clearCachePostProc(array $parameters, DataHandler $parent)
     {
-        if ($parent->BE_USER->workspace > 0) {
+        if ($this->isBackendUserInWorkspace($parent)) {
             return;
         }
 
@@ -76,5 +77,17 @@ class TceMainHook extends AbstractHook
             return (integer)$parameters['uid_page'];
         }
         return 0;
+    }
+
+    /**
+     * @param DataHandler $parent
+     * @return boolean
+     */
+    private function isBackendUserInWorkspace(DataHandler $parent)
+    {
+        if ($parent->BE_USER->workspace > 0) {
+            return true;
+        }
+        return false;
     }
 }
