@@ -40,11 +40,33 @@ class TceMainHook extends AbstractHook
     {
         /** @var Varnish $varnish */
         $varnish = $this->objectManager->get('AOE\\Varnish\\System\\Varnish');
-        $pageId = isset($parameters['cacheCmd']) ? $parameters['cacheCmd'] : $parameters['uid_page'];
-        if (is_numeric($pageId) && $pageId > 0) {
+        $pageId = $this->extractPageIdFromParameters($parameters);
+        if ($pageId > 0) {
             $pageTag = new PageTag();
             $pageTag->setPageId($pageId);
             $varnish->banByTag($pageTag);
         }
+    }
+
+    /**
+     * extract page id from all variants of parameters that can be given
+     *
+     * @param array $parameters
+     * @return integer
+     */
+    private function extractPageIdFromParameters(array $parameters)
+    {
+        if (isset($parameters['table']) && $parameters['table'] === 'pages'
+            && isset($parameters['uid']) && is_numeric($parameters['uid'])
+        ) {
+            return (integer)$parameters['uid'];
+        }
+        if (isset($parameters['cacheCmd']) && is_numeric($parameters['cacheCmd'])) {
+            return (integer)$parameters['cacheCmd'];
+        }
+        if (isset($parameters['uid_page']) && is_numeric($parameters['uid_page'])) {
+            return (integer)$parameters['uid_page'];
+        }
+        return 0;
     }
 }
