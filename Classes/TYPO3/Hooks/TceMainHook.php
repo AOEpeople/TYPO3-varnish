@@ -35,9 +35,17 @@ class TceMainHook extends AbstractHook
     /**
      * @param array $parameters
      * @param \TYPO3\CMS\Core\DataHandling\DataHandler $parent
+     *
+     * @todo flush cache for "cacheCmd=pages" need to flush complete varnish cache.
+     * @todo implement cache clearing for "clearCache_pageGrandParent", "clearCache_pageSiblingChildren" and
+     *       and "clearCache_disable"  http://docs.typo3.org/typo3cms/TSconfigReference/PageTsconfig/TCEmain/Index.html
      */
     public function clearCachePostProc(array $parameters, \TYPO3\CMS\Core\DataHandling\DataHandler $parent)
     {
+        if ($parent->BE_USER->workspace > 0) {
+            return;
+        }
+
         /** @var Varnish $varnish */
         $varnish = $this->objectManager->get('AOE\\Varnish\\System\\Varnish');
         $pageId = $this->extractPageIdFromParameters($parameters);

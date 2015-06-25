@@ -26,6 +26,7 @@ namespace AOE\Varnish\TYPO3\Hooks;
 
 use AOE\Varnish\Domain\Model\Tag\PageTag;
 use AOE\Varnish\System\Varnish;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use Zend\Server\Reflection\ReflectionClass;
@@ -57,6 +58,12 @@ class TceMainHookTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->dataHandler = $this->getMock('TYPO3\\CMS\\Core\\DataHandling\\DataHandler');
+
+        /** @var BackendUserAuthentication $beUser */
+        $beUser = $this->getMock('TYPO3\CMS\Core\Authentication\BackendUserAuthentication');
+        $beUser->workspace = 0;
+        $this->dataHandler->BE_USER = $beUser;
+
         $this->varnish = $this->getMockBuilder('AOE\\Varnish\\System\\Varnish')
             ->disableOriginalConstructor()
             ->setMethods(array('banByTag', 'banAll'))
@@ -230,6 +237,23 @@ class TceMainHookTest extends \PHPUnit_Framework_TestCase
 
         $this->tceMainHook->clearCachePostProc(
             array('table' => 'fe_users', 'uid' => 1),
+            $this->dataHandler
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function shouldNOTBanByTagIfBeUserIsInWorkspace()
+    {
+        $this->dataHandler->BE_USER->workspace = 1;
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
+        $varnish = $this->varnish;
+        $varnish->expects($this->never())->method('banByTag');
+
+        $this->tceMainHook->clearCachePostProc(
+            array('cacheCmd' => 4715),
             $this->dataHandler
         );
     }
