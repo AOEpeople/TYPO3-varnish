@@ -16,7 +16,7 @@ $EM_CONF[$_EXTKEY] = array(
         'suggests' => array(
         ),
     ),
-    'state' => 'stable',
+    'state' => 'beta',
     'author' => 'Kevin Schu',
     'author_email' => 'dev@aoe.com',
     'author_company' => 'AOE GmbH',
