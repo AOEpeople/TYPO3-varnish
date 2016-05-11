@@ -12,7 +12,7 @@ sub vcl_deliver {
     }
 
     if(resp.http.X-Debug) {
-        if (obj.hits > 0) {
+        if (resp.http.X-Varnish ~ "[0-9]+ +[0-9]+") {
             set resp.http.X-Cache = "HIT";
         } else {
             set resp.http.X-Cache = "MISS";
@@ -26,6 +26,7 @@ sub vcl_deliver {
         unset resp.http.X-Debug;
         unset resp.http.X-Cacheable;
         unset resp.http.X-Cache;
+        unset resp.http.X-Powered-By;
     }
 
     return (deliver);

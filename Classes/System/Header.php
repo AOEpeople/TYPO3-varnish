@@ -42,6 +42,11 @@ class Header
     const HEADER_DEBUG = 'X-Debug: 1';
 
     /**
+     * @var string
+     */
+    const HEADER_ENABLED = 'X-Varnish-enabled: 1';
+
+    /**
      * @param TagInterface $tag
      * @return void
      */
@@ -59,5 +64,13 @@ class Header
     public function sendDebugHeader()
     {
         header(self::HEADER_DEBUG);
+    }
+
+    /**
+     * @return void
+     */
+    public function sendEnabledHeader()
+    {
+        header(self::HEADER_ENABLED);
     }
 }

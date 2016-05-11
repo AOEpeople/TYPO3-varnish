@@ -6,7 +6,7 @@
  * Note that in vcl_recv only the request object, req is available.
  */
 sub vcl_recv {
-
+    return(hash);
     # Catch BAN Command (flush cache)
     if (req.method == "BAN" && client.ip ~ ban) {
 
@@ -75,7 +75,6 @@ sub vcl_recv {
     if (req.url ~ "^[^?]*\.(css|js|htc|xml|txt|swf|flv|pdf|gif|jpe?g|png|ico)$") {
         unset req.http.Cookie;
     }
-
     # Lookup everything else in the Cache
     return (hash);
 }
