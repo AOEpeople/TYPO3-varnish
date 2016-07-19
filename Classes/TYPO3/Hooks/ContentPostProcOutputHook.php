@@ -55,6 +55,9 @@ class ContentPostProcOutputHook extends AbstractHook
     {
         $this->sendPageTagHeader($parent);
         $this->sendDebugHeader();
+        if ($parent->page['varnish_cache'] === "1"){
+            $this->header->sendEnabledHeader();
+        }
     }
 
     /**
