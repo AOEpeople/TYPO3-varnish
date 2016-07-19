@@ -30,7 +30,7 @@ before_script:
   - git clone --single-branch --branch $TYPO3_BRANCH --depth 1 https://github.com/TYPO3/TYPO3.CMS.git typo3_core
   - mv typo3_core/* .
   - mkdir -p typo3conf/ext/varnish/
-  - mv AOEpeople/TYPO3-varnish/* typo3conf/ext/varnish/
+  - mv TYPO3-varnish/* typo3conf/ext/varnish/
   - composer install
 
 script:
