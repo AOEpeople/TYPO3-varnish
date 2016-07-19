@@ -19,6 +19,10 @@ matrix:
       php: 5.6
     - env: TYPO3_BRANCH=TYPO3_8-2 COVERAGE=0
       php: 5.6
+    - env: TYPO3_BRANCH=TYPO3_8-1 COVERAGE=0
+      php: hhvm
+    - env: TYPO3_BRANCH=TYPO3_8-2 COVERAGE=0
+      php: hhvm
   include:
     - php: 5.6
       env: TYPO3_BRANCH=TYPO3_6-2 COVERAGE=1
@@ -51,6 +55,5 @@ script:
       echo;
       echo "Uploading code coverage results";
       wget https://scrutinizer-ci.com/ocular.phar
-      cp -R typo3conf/ext/varnish/.git .
       php ocular.phar code-coverage:upload --format=php-clover unittest-coverage.clover
     fi
