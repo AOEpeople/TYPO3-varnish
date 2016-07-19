@@ -1,34 +1,10 @@
 <?php
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2015 AOE GmbH <dev@aoe.com>
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+namespace Aoe\Varnish\System;
 
-namespace AOE\Varnish\System;
-
-use AOE\Varnish\Domain\Model\TagInterface;
+use Aoe\Varnish\Domain\Model\TagInterface;
 
 /**
- * @package AOE\Varnish
- * @covers AOE\Varnish\System\Varnish
+ * @covers Aoe\Varnish\System\Varnish
  */
 class VarnishTest extends \PHPUnit_Framework_TestCase
 {
@@ -42,11 +18,9 @@ class VarnishTest extends \PHPUnit_Framework_TestCase
      */
     private $http;
 
-    /**
-     * initialize objects
-     */
-    public function setUp() {
-        $this->http = $this->getMockBuilder('AOE\\Varnish\\System\\Http')
+    public function setUp()
+    {
+        $this->http = $this->getMockBuilder('Aoe\\Varnish\\System\\Http')
             ->setMethods(array('addCommand', '__destruct'))
             ->disableOriginalConstructor()
             ->getMock();
@@ -61,7 +35,7 @@ class VarnishTest extends \PHPUnit_Framework_TestCase
      */
     public function banByTagShouldThrowExceptionOnInvalidTag()
     {
-        $tag = $this->getMockBuilder('AOE\\Varnish\\Domain\\Model\\TagInterface')
+        $tag = $this->getMockBuilder('Aoe\\Varnish\\Domain\\Model\\TagInterface')
             ->setMethods(array('isValid', 'getIdentifier'))
             ->getMock();
         $tag->expects($this->once())->method('isValid')->will($this->returnValue(false));
@@ -76,8 +50,12 @@ class VarnishTest extends \PHPUnit_Framework_TestCase
     {
         /** @var \PHPUnit_Framework_MockObject_MockObject $http */
         $http = $this->http;
-        $http->expects($this->once())->method('addCommand')->with('BAN', 'www.congstar.local', 'X-Ban-Tags:my_identifier');
-        $tag = $this->getMockBuilder('AOE\\Varnish\\Domain\\Model\\TagInterface')
+        $http->expects($this->once())->method('addCommand')->with(
+            'BAN',
+            'www.congstar.local',
+            'X-Ban-Tags:my_identifier'
+        );
+        $tag = $this->getMockBuilder('Aoe\\Varnish\\Domain\\Model\\TagInterface')
             ->setMethods(array('isValid', 'getIdentifier'))
             ->getMock();
         $tag->expects($this->once())->method('isValid')->will($this->returnValue(true));

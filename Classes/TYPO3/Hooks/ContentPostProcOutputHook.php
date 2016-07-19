@@ -1,36 +1,11 @@
 <?php
-/***************************************************************
- *  Copyright notice
- *
- *  (c) 2015 AOE GmbH <dev@aoe.com>
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+namespace Aoe\Varnish\TYPO3\Hooks;
 
-namespace AOE\Varnish\TYPO3\Hooks;
+use Aoe\Varnish\Domain\Model\Tag\PageTag;
+use Aoe\Varnish\System\Header;
+use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-use AOE\Varnish\Domain\Model\Tag\PageTag;
-use AOE\Varnish\System\Header;
-use AOE\Varnish\TYPO3\Configuration\ExtensionConfiguration;
-
-/**
- * @package AOE\Varnish
- */
 class ContentPostProcOutputHook extends AbstractHook
 {
     /**
@@ -38,9 +13,6 @@ class ContentPostProcOutputHook extends AbstractHook
      */
     private $header;
 
-    /**
-     * initialize dependencies
-     */
     public function __construct()
     {
         parent::__construct();
@@ -49,22 +21,22 @@ class ContentPostProcOutputHook extends AbstractHook
 
     /**
      * @param array $parameters
-     * @param \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $parent
+     * @param TypoScriptFrontendController $parent
      */
-    public function sendHeader(array $parameters, \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $parent)
+    public function sendHeader(array $parameters, TypoScriptFrontendController $parent)
     {
         $this->sendPageTagHeader($parent);
         $this->sendDebugHeader();
-        if ($parent->page['varnish_cache'] === "1"){
+        if ($parent->page['varnish_cache'] === '1') {
             $this->header->sendEnabledHeader();
         }
     }
 
     /**
-     * @param \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $parent
+     * @param TypoScriptFrontendController $parent
      * @return void
      */
-    private function sendPageTagHeader(\TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $parent)
+    private function sendPageTagHeader(TypoScriptFrontendController $parent)
     {
         $pageTag = new PageTag();
         $pageTag->setPageId($parent->id);
@@ -77,7 +49,7 @@ class ContentPostProcOutputHook extends AbstractHook
     private function sendDebugHeader()
     {
         /** @var ExtensionConfiguration $configuration */
-        $configuration = $this->objectManager->get('AOE\\Varnish\\TYPO3\\Configuration\\ExtensionConfiguration');
+        $configuration = $this->objectManager->get(ExtensionConfiguration::class);
         if ($configuration->isDebug()) {
             $this->header->sendDebugHeader();
         }
