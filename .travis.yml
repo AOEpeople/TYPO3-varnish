@@ -15,6 +15,10 @@ matrix:
   exclude:
     - env: TYPO3_BRANCH=TYPO3_6-2 COVERAGE=0
       php: 7.0
+    - env: TYPO3_BRANCH=TYPO3_8-1 COVERAGE=0
+      php: 5.6
+    - env: TYPO3_BRANCH=TYPO3_8-2 COVERAGE=0
+      php: 5.6
   include:
     - php: 5.6
       env: TYPO3_BRANCH=TYPO3_6-2 COVERAGE=1
@@ -25,8 +29,8 @@ before_script:
   - cd ..
   - git clone --single-branch --branch $TYPO3_BRANCH --depth 1 https://github.com/TYPO3/TYPO3.CMS.git typo3_core
   - mv typo3_core/* .
-  - mkdir -p typo3conf/ext
-  - mv varnish typo3conf/ext/
+  - mkdir -p typo3conf/ext/varnish/
+  - mv AOEpeople/TYPO3-varnish/* typo3conf/ext/varnish/
   - composer install
 
 script:
