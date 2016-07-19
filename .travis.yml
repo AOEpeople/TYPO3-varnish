@@ -54,6 +54,7 @@ script:
     if [[ "$COVERAGE" == "1" ]]; then
       echo;
       echo "Uploading code coverage results";
+      cd TYPO3-varnish
       wget https://scrutinizer-ci.com/ocular.phar
       php ocular.phar code-coverage:upload --format=php-clover unittest-coverage.clover
     fi
