@@ -1,53 +1,29 @@
 {
-  "name": "aoe/varnish",
-  "description": "enable varnish support with tags",
-  "type": "typo3-cms-extension",
-  "license": "GPL-3.0",
-  "authors": [
-    {
-      "name": "AOE GmbH",
-      "email": "dev@aoe.com"
-    }
-  ],
-  "require": {
-    "php": ">=5.3.0",
-    "typo3/cms-core": ">=6.2.0",
-    "typo3/cms-extbase": ">=6.2.0",
-    "typo3/cms-sv": ">=6.2.0",
-    "typo3/cms-backend": ">=6.2.0",
-    "typo3/cms-reports": ">=6.2.0",
-    "typo3/cms-frontend": ">=6.2.0"
-  },
-  "require-dev": {
-    "typo3/cms": "6.2.*",
-    "phpunit/phpunit": "4.8.*",
-    "typo3-ter/phpunit": "4.4.0",
-    "phpunit/phpcov": "2.0.*",
-    "squizlabs/php_codesniffer": "2.3.*",
-    "sebastian/phpcpd": "2.0.*",
-    "phpmd/phpmd": "2.2.*"
-  },
-  "repositories": [
-    {
-      "type": "package",
-      "package": {
-        "name": "typo3-ter/phpunit",
-        "version": "4.4.0",
-        "dist": {
-          "url": "https://github.com/TYPO3-extensions/phpunit/archive/master.zip",
-          "type": "zip"
-        },
-        "autoload": {
-          "classmap": ["Classes/"]
+    "name": "aoe/varnish",
+    "description": "enable varnish support with tags",
+    "type": "typo3-cms-extension",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "AOE GmbH",
+            "email": "dev@aoe.com"
         }
-      }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "typo3/cms-core": ">=6.2.0",
+        "typo3/cms-extbase": ">=6.2.0",
+        "typo3/cms-sv": ">=6.2.0",
+        "typo3/cms-backend": ">=6.2.0",
+        "typo3/cms-reports": ">=6.2.0",
+        "typo3/cms-frontend": ">=6.2.0"
     },
-    {
-      "type": "composer",
-      "url": "https://composer.typo3.org/"
+    "require-dev": {
+        "typo3/cms": "6.2.*",
+        "phpunit/phpunit": "4.8.*",
+        "phpunit/phpcov": "2.0.*",
+        "squizlabs/php_codesniffer": "2.3.*",
+        "sebastian/phpcpd": "2.0.*",
+        "phpmd/phpmd": "2.2.*"
     }
-  ],
-  "autoload": {
-    "classmap": ["Classes/"]
-  }
 }
