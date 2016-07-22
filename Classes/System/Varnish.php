@@ -2,6 +2,7 @@
 namespace Aoe\Varnish\System;
 
 use Aoe\Varnish\Domain\Model\TagInterface;
+use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
 
 class Varnish
 {
@@ -11,18 +12,19 @@ class Varnish
     private $http;
 
     /**
-     * @param Http $http
+     * @var ExtensionConfiguration
      */
-    public function __construct(Http $http)
-    {
-        $this->http = $http;
-    }
+    private $extensionConfiguration;
 
     /**
-     * @todo replace with extension settings
-     * @var array
+     * @param Http $http
+     * @param ExtensionConfiguration $extensionConfiguration
      */
-    private $hosts = array('www.congstar.local');
+    public function __construct(Http $http, ExtensionConfiguration $extensionConfiguration)
+    {
+        $this->http = $http;
+        $this->extensionConfiguration = $extensionConfiguration;
+    }
 
     /**
      * @param TagInterface $tag
@@ -50,7 +52,7 @@ class Varnish
      */
     private function call($method, $command)
     {
-        foreach ($this->hosts as $host) {
+        foreach ($this->extensionConfiguration->getHosts() as $host) {
             $this->http->addCommand($method, $host, $command);
         }
     }

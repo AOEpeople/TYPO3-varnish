@@ -2,6 +2,7 @@
 namespace Aoe\Varnish\System;
 
 use Aoe\Varnish\Domain\Model\TagInterface;
+use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
 
 /**
  * @covers Aoe\Varnish\System\Varnish
@@ -18,13 +19,26 @@ class VarnishTest extends \PHPUnit_Framework_TestCase
      */
     private $http;
 
+    /**
+     * @var ExtensionConfiguration
+     */
+    private $extensionConfiguration;
+
     public function setUp()
     {
-        $this->http = $this->getMockBuilder('Aoe\\Varnish\\System\\Http')
+        $this->http = $this->getMockBuilder(Http::class)
             ->setMethods(array('addCommand', '__destruct'))
             ->disableOriginalConstructor()
             ->getMock();
-        $this->varnish = new Varnish($this->http);
+        $this->extensionConfiguration = $this->getMockBuilder(ExtensionConfiguration::class)
+            ->setMethods(array('getHosts'))
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->extensionConfiguration
+            ->expects($this->any())
+            ->method('getHosts')
+            ->will($this->returnValue(['domain.tld']));
+        $this->varnish = new Varnish($this->http, $this->extensionConfiguration);
     }
 
     /**
@@ -35,7 +49,7 @@ class VarnishTest extends \PHPUnit_Framework_TestCase
      */
     public function banByTagShouldThrowExceptionOnInvalidTag()
     {
-        $tag = $this->getMockBuilder('Aoe\\Varnish\\Domain\\Model\\TagInterface')
+        $tag = $this->getMockBuilder(TagInterface::class)
             ->setMethods(array('isValid', 'getIdentifier'))
             ->getMock();
         $tag->expects($this->once())->method('isValid')->will($this->returnValue(false));
@@ -52,10 +66,10 @@ class VarnishTest extends \PHPUnit_Framework_TestCase
         $http = $this->http;
         $http->expects($this->once())->method('addCommand')->with(
             'BAN',
-            'www.congstar.local',
+            'domain.tld',
             'X-Ban-Tags:my_identifier'
         );
-        $tag = $this->getMockBuilder('Aoe\\Varnish\\Domain\\Model\\TagInterface')
+        $tag = $this->getMockBuilder(TagInterface::class)
             ->setMethods(array('isValid', 'getIdentifier'))
             ->getMock();
         $tag->expects($this->once())->method('isValid')->will($this->returnValue(true));
@@ -71,7 +85,7 @@ class VarnishTest extends \PHPUnit_Framework_TestCase
     {
         /** @var \PHPUnit_Framework_MockObject_MockObject $http */
         $http = $this->http;
-        $http->expects($this->once())->method('addCommand')->with('BAN', 'www.congstar.local', 'X-Ban-All:1');
+        $http->expects($this->once())->method('addCommand')->with('BAN', 'domain.tld', 'X-Ban-All:1');
         $this->varnish->banAll();
     }
 }
