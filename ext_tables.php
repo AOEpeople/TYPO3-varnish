@@ -13,6 +13,6 @@
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
     'pages',
-    'visibility',
+    'caching',
     'varnish_cache'
 );
