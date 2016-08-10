@@ -17,11 +17,6 @@ class BackendLogin
     const COOKIE_VALUE = 'KLHsa89023qbvqb21pi928300';
 
     /**
-     * @var integer
-     */
-    const COOKIE_LIFETIME = 300;
-
-    /**
      * @var Cookie
      */
     private $cookie;
@@ -51,7 +46,7 @@ class BackendLogin
                 $this->cookie->set(
                     self::COOKIE_NAME,
                     self::COOKIE_VALUE,
-                    time() + self::COOKIE_LIFETIME,
+                    time() + (int)$userAuthObject->auth_timeout_field,
                     '/',
                     $this->getCookieDomain(),
                     true,
