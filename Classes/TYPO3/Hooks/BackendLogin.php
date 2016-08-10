@@ -71,6 +71,9 @@ class BackendLogin
     private function getCookieDomain()
     {
         $cookieDomain = $GLOBALS['TYPO3_CONF_VARS']['SYS']['cookieDomain'];
+        if (!empty($GLOBALS['TYPO3_CONF_VARS']['BE']['cookieDomain'])) {
+            $cookieDomain = $GLOBALS['TYPO3_CONF_VARS']['BE']['cookieDomain'];
+        }
         if (!empty($GLOBALS['TYPO3_CONF_VARS']['FE']['cookieDomain'])) {
             $cookieDomain = $GLOBALS['TYPO3_CONF_VARS']['FE']['cookieDomain'];
         }
