@@ -14,7 +14,7 @@ class BackendAjaxHook extends AbstractHook
     public function banAll(array $parameters, AjaxRequestHandler $parent)
     {
         /** @var Varnish $varnish */
-        $varnish = $this->objectManager->get('Aoe\\Varnish\\System\\Varnish');
+        $varnish = $this->objectManager->get(Varnish::class);
         $varnish->banAll();
 
         if ($GLOBALS['BE_USER'] instanceof BackendUserAuthentication) {

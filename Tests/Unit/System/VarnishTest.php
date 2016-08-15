@@ -3,6 +3,8 @@ namespace Aoe\Varnish\System;
 
 use Aoe\Varnish\Domain\Model\TagInterface;
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Log\Logger;
+use TYPO3\CMS\Core\Log\LogManager;
 
 /**
  * @covers Aoe\Varnish\System\Varnish
@@ -15,21 +17,27 @@ class VarnishTest extends \PHPUnit_Framework_TestCase
     private $varnish;
 
     /**
-     * @var Http
+     * @var Http|\PHPUnit_Framework_MockObject_MockObject
      */
     private $http;
 
     /**
-     * @var ExtensionConfiguration
+     * @var ExtensionConfiguration|\PHPUnit_Framework_MockObject_MockObject
      */
     private $extensionConfiguration;
+
+    /**
+     * @var LogManager|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $logManager;
 
     public function setUp()
     {
         $this->http = $this->getMockBuilder(Http::class)
-            ->setMethods(array('addCommand', '__destruct'))
+            ->setMethods(array('request', 'wait'))
             ->disableOriginalConstructor()
             ->getMock();
+
         $this->extensionConfiguration = $this->getMockBuilder(ExtensionConfiguration::class)
             ->setMethods(array('getHosts'))
             ->disableOriginalConstructor()
@@ -38,7 +46,13 @@ class VarnishTest extends \PHPUnit_Framework_TestCase
             ->expects($this->any())
             ->method('getHosts')
             ->will($this->returnValue(['domain.tld']));
-        $this->varnish = new Varnish($this->http, $this->extensionConfiguration);
+
+        $this->logManager = $this->getMockBuilder(LogManager::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['getLogger'])
+            ->getMock();
+
+        $this->varnish = new Varnish($this->http, $this->extensionConfiguration, $this->logManager);
     }
 
     /**
@@ -62,19 +76,17 @@ class VarnishTest extends \PHPUnit_Framework_TestCase
      */
     public function banByTagShouldCallHttpCorrectly()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject $http */
-        $http = $this->http;
-        $http->expects($this->once())->method('addCommand')->with(
+        $this->http->expects($this->once())->method('request')->with(
             'BAN',
             'domain.tld',
-            'X-Ban-Tags:my_identifier'
+            ['X-Ban-Tags' => 'my_identifier']
         );
+        /** @var TagInterface|\PHPUnit_Framework_MockObject_MockObject $tag */
         $tag = $this->getMockBuilder(TagInterface::class)
             ->setMethods(array('isValid', 'getIdentifier'))
             ->getMock();
         $tag->expects($this->once())->method('isValid')->will($this->returnValue(true));
         $tag->expects($this->once())->method('getIdentifier')->will($this->returnValue('my_identifier'));
-        /** @var TagInterface $tag */
         $this->varnish->banByTag($tag);
     }
 
@@ -83,9 +95,30 @@ class VarnishTest extends \PHPUnit_Framework_TestCase
      */
     public function banAllShouldCallHttpCorrectly()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject $http */
-        $http = $this->http;
-        $http->expects($this->once())->method('addCommand')->with('BAN', 'domain.tld', 'X-Ban-All:1');
+        $this->http->expects($this->once())->method('request')->with('BAN', 'domain.tld', ['X-Ban-All' => '1']);
         $this->varnish->banAll();
+    }
+
+    /**
+     * @test
+     */
+    public function shouldLogOnShutdown()
+    {
+        $this->http->expects($this->once())->method('wait')->will($this->returnValue([
+            ['success' => true, 'reason' => 'banned all'],
+            ['success' => false, 'reason' => 'failed!']
+        ]));
+
+        $logger = $this->getMockBuilder(Logger::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['info', 'alert'])
+            ->getMock();
+        $logger->expects($this->once())->method('info')->with('banned all');
+        $logger->expects($this->once())->method('alert')->with('failed!');
+
+        $this->logManager->expects($this->any())->method('getLogger')
+            ->will($this->returnValue($logger));
+
+        $this->varnish->shutdown();
     }
 }
