@@ -20,6 +20,7 @@ class TceMainHook extends AbstractHook
         if ($this->isBackendUserInWorkspace($parent)) {
             return;
         }
+        
 
         /** @var Varnish $varnish */
         $varnish = $this->objectManager->get(Varnish::class);

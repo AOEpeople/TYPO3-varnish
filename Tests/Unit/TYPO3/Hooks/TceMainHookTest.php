@@ -60,6 +60,7 @@ class TceMainHookTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    
     public function shouldBanByTagIfPidGivenAsCacheCmd()
     {
         $expectedTag = new PageTag();
