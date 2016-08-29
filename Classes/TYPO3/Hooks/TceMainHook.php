@@ -25,8 +25,7 @@ class TceMainHook extends AbstractHook
         $varnish = $this->objectManager->get(Varnish::class);
         $pageId = $this->extractPageIdFromParameters($parameters);
         if ($pageId > 0) {
-            $pageTag = new PageTag();
-            $pageTag->setPageId($pageId);
+            $pageTag = new PageTag($pageId);
             $varnish->banByTag($pageTag);
         }
     }

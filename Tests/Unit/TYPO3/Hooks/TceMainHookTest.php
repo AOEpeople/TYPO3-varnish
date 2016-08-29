@@ -62,8 +62,7 @@ class TceMainHookTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldBanByTagIfPidGivenAsCacheCmd()
     {
-        $expectedTag = new PageTag();
-        $expectedTag->setPageId(4711);
+        $expectedTag = new PageTag(4711);
 
         /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
         $varnish = $this->varnish;
@@ -110,8 +109,7 @@ class TceMainHookTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldBanByTagIfPidGivenAsUidPage()
     {
-        $expectedTag = new PageTag();
-        $expectedTag->setPageId(4712);
+        $expectedTag = new PageTag(4712);
 
         /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
         $varnish = $this->varnish;
@@ -158,8 +156,7 @@ class TceMainHookTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldBanByTagIfPidGivenWithTablePages()
     {
-        $expectedTag = new PageTag();
-        $expectedTag->setPageId(4713);
+        $expectedTag = new PageTag(4713);
 
         /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
         $varnish = $this->varnish;

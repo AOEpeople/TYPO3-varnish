@@ -10,6 +10,11 @@ class PageTag implements TagInterface
      */
     private $pageId;
 
+    public function __construct($pageId)
+    {
+        $this->pageId = $pageId;
+    }
+
     /**
      * @return string
      */
@@ -27,13 +32,5 @@ class PageTag implements TagInterface
             return true;
         }
         return false;
-    }
-
-    /**
-     * @param integer $pageId
-     */
-    public function setPageId($pageId)
-    {
-        $this->pageId = $pageId;
     }
 }
