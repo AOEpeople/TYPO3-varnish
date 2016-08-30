@@ -18,18 +18,9 @@ class PageTagTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function tagShouldBeValidWithStringValuePages()
+    public function tagShouldBeValidWithStringValueTypo3Page()
     {
-        $tag = new PageTag('pages');
-        $this->assertTrue($tag->isValid());
-    }
-
-    /**
-     * @test
-     */
-    public function tagShouldBeValidWithStringValueAll()
-    {
-        $tag = new PageTag('all');
+        $tag = new PageTag('typo3_page');
         $this->assertTrue($tag->isValid());
     }
 

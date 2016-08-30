@@ -2,6 +2,7 @@
 namespace Aoe\Varnish\TYPO3\Hooks;
 
 use Aoe\Varnish\Domain\Model\Tag\PageTag;
+use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 use Aoe\Varnish\System\Varnish;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 
@@ -26,13 +27,13 @@ class TceMainHook extends AbstractHook
 
         // delete all Typo3 pages
         if (isset($parameters['cacheCmd']) && $parameters['cacheCmd'] === 'pages') {
-            $pageTag = new PageTag('TYPO3Pages');
+            $pageTag = new PageTag('typo3_page');
             $varnish->banByTag($pageTag);
         } else {
             $pageId = $this->extractPageIdFromParameters($parameters);
             if ($pageId > 0) {
-                $pageTag = new PageTag($pageId);
-                $varnish->banByTag($pageTag);
+                $pageIdTag = new PageIdTag($pageId);
+                $varnish->banByTag($pageIdTag);
             }
         }
     }

@@ -6,7 +6,7 @@ use Aoe\Varnish\Domain\Model\TagInterface;
 
 class PageTag implements TagInterface
 {
-    const IDS = ['pages', 'all'];
+    const IDS = ['typo3_page'];
 
     /**
      * @var string

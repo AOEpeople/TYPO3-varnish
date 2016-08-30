@@ -2,12 +2,15 @@
 namespace Aoe\Varnish\TYPO3\Hooks;
 
 use Aoe\Varnish\Domain\Model\Tag\PageTag;
+use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 use Aoe\Varnish\System\Header;
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class ContentPostProcOutputHook extends AbstractHook
 {
+    const TYPO3_PAGE_TAG = 'typo3_page';
+
     /**
      * @var Header
      */
@@ -38,7 +41,10 @@ class ContentPostProcOutputHook extends AbstractHook
      */
     private function sendPageTagHeader(TypoScriptFrontendController $parent)
     {
-        $pageTag = new PageTag($parent->id);
+        $pageIdTag = new PageIdTag($parent->id);
+        $this->header->sendHeaderForTag($pageIdTag);
+
+        $pageTag = new PageTag(self::TYPO3_PAGE_TAG);
         $this->header->sendHeaderForTag($pageTag);
     }
 
