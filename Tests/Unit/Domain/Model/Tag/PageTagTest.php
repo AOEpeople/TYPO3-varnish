@@ -9,50 +9,36 @@ class PageTagTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function isValidShouldFailWithNegativePageId()
+    public function tagShouldNotBeValidWithIntegerValue()
     {
-        $tag = new PageTag();
-        $tag->setPageId(-1);
+        $tag = new PageTag(1);
         $this->assertFalse($tag->isValid());
     }
 
     /**
      * @test
      */
-    public function isValidShouldFailWithPageIdZero()
+    public function tagShouldBeValidWithStringValuePages()
     {
-        $tag = new PageTag();
-        $tag->setPageId(0);
-        $this->assertFalse($tag->isValid());
-    }
-
-    /**
-     * @test
-     */
-    public function isValidShouldFailWithPageIdNotNumeric()
-    {
-        $tag = new PageTag();
-        $tag->setPageId('string');
-        $this->assertFalse($tag->isValid());
-    }
-
-    /**
-     * @test
-     */
-    public function isValidWithInteger()
-    {
-        $tag = new PageTag();
-        $tag->setPageId(11);
+        $tag = new PageTag('pages');
         $this->assertTrue($tag->isValid());
     }
 
     /**
      * @test
      */
-    public function getIdentifier()
+    public function tagShouldBeValidWithStringValueAll()
     {
-        $tag = new PageTag();
-        $tag->setPageId(11);
-        $this->assertEquals('page_11', $tag->getIdentifier());
+        $tag = new PageTag('all');
+        $this->assertTrue($tag->isValid());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldGetIdentifier()
+    {
+        $tag = new PageTag('pages');
+        $this->assertEquals('pages', $tag->getIdentifier());
     }
 }

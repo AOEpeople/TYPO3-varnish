@@ -1,20 +1,17 @@
 <?php
 namespace Aoe\Varnish\Domain\Model\Tag;
 
-
 use Aoe\Varnish\Domain\Model\TagInterface;
 
-class PageTag implements TagInterface
+class PageIdTag implements TagInterface
 {
-    const IDS = ['pages', 'all'];
-
     /**
-     * @var string
+     * @var integer
      */
     private $pageId;
 
     /**
-     * @param string $pageId
+     * @param integer $pageId
      */
     public function __construct($pageId)
     {
@@ -26,7 +23,7 @@ class PageTag implements TagInterface
      */
     public function getIdentifier()
     {
-        return $this->pageId;
+        return 'page_' . $this->pageId;
     }
 
     /**
@@ -34,7 +31,7 @@ class PageTag implements TagInterface
      */
     public function isValid()
     {
-        if (in_array($this->pageId, self::IDS)) {
+        if (is_integer($this->pageId) && $this->pageId > 0) {
             return true;
         }
         return false;
