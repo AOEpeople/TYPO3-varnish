@@ -20,14 +20,20 @@ class TceMainHook extends AbstractHook
         if ($this->isBackendUserInWorkspace($parent)) {
             return;
         }
-        
 
         /** @var Varnish $varnish */
         $varnish = $this->objectManager->get(Varnish::class);
-        $pageId = $this->extractPageIdFromParameters($parameters);
-        if ($pageId > 0) {
-            $pageTag = new PageTag($pageId);
+
+        // delete all Typo3 pages
+        if (isset($parameters['cacheCmd']) && $parameters['cacheCmd'] === 'pages') {
+            $pageTag = new PageTag('TYPO3Pages');
             $varnish->banByTag($pageTag);
+        } else {
+            $pageId = $this->extractPageIdFromParameters($parameters);
+            if ($pageId > 0) {
+                $pageTag = new PageTag($pageId);
+                $varnish->banByTag($pageTag);
+            }
         }
     }
 

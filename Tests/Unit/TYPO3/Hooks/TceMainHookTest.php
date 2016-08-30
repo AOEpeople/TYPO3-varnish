@@ -60,7 +60,23 @@ class TceMainHookTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    
+    public function shouldBanAllTYPO3PagesIfCacheCmdIsPages()
+    {
+        $expectedTag = new PageTag('TYPO3Pages');
+
+        /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
+        $varnish = $this->varnish;
+        $varnish->expects($this->once())->method('banByTag')->with($expectedTag);
+
+        $this->tceMainHook->clearCachePostProc(
+            array('cacheCmd' => 'pages'),
+            $this->dataHandler
+        );
+    }
+
+    /**
+     * @test
+     */
     public function shouldBanByTagIfPidGivenAsCacheCmd()
     {
         $expectedTag = new PageTag(4711);
