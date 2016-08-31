@@ -29,7 +29,7 @@ class Header
         if (false === $tag->isValid()) {
             throw new \RuntimeException('Tag is not valid', 1435047447);
         }
-        header(sprintf(self::HEADER_TAGS, $tag->getIdentifier()));
+        header(sprintf(self::HEADER_TAGS, $tag->getIdentifier()), false);
     }
 
     /**

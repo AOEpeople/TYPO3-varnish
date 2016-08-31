@@ -42,9 +42,9 @@ class ContentPostProcOutputHook extends AbstractHook
     private function sendPageTagHeader(TypoScriptFrontendController $parent)
     {
         $pageIdTag = new PageIdTag($parent->id);
-        $this->header->sendHeaderForTag($pageIdTag);
-
         $pageTag = new PageTag(self::TYPO3_PAGE_TAG);
+
+        $this->header->sendHeaderForTag($pageIdTag);
         $this->header->sendHeaderForTag($pageTag);
     }
 

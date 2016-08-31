@@ -1,6 +1,7 @@
 <?php
 namespace Aoe\Varnish\TYPO3\Hooks;
 
+use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 use Aoe\Varnish\Domain\Model\Tag\PageTag;
 use Aoe\Varnish\System\Varnish;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
@@ -79,7 +80,7 @@ class TceMainHookTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldBanByTagIfPidGivenAsCacheCmd()
     {
-        $expectedTag = new PageTag(4711);
+        $expectedTag = new PageIdTag(4711);
 
         /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
         $varnish = $this->varnish;
@@ -134,7 +135,7 @@ class TceMainHookTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldBanByTagIfPidGivenAsUidPage()
     {
-        $expectedTag = new PageTag(4712);
+        $expectedTag = new PageIdTag(4712);
 
         /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
         $varnish = $this->varnish;
@@ -181,7 +182,7 @@ class TceMainHookTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldBanByTagIfPidGivenWithTablePages()
     {
-        $expectedTag = new PageTag(4713);
+        $expectedTag = new PageIdTag(4713);
 
         /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
         $varnish = $this->varnish;

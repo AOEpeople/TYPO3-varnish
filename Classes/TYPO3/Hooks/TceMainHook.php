@@ -12,7 +12,6 @@ class TceMainHook extends AbstractHook
      * @param array $parameters
      * @param DataHandler $parent
      *
-     * @todo flush cache for "cacheCmd=pages" need to flush complete varnish cache.
      * @todo implement cache clearing for "clearCache_pageGrandParent", "clearCache_pageSiblingChildren" and
      *       and "clearCache_disable"  http://docs.typo3.org/typo3cms/TSconfigReference/PageTsconfig/TCEmain/Index.html
      */
