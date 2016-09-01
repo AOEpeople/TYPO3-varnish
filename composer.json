@@ -28,6 +28,8 @@
         "phpmd/phpmd": "2.2.*"
     },
     "autoload": {
-        "classmap": ["Classes/"]
+        "psr-4": {
+            "Aoe\\Varnish\\": "Classes/"
+        }
     }
 }
