@@ -7,21 +7,12 @@ namespace Aoe\Varnish\Domain\Model\Tag;
 class TagTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Tag
-     */
-    private $tag;
-
-    public function setUp()
-    {
-        $this->tag = new Tag();
-    }
-
-    /**
      * @test
      */
     public function isValidShouldFailWithEmptyIdentifier()
     {
-        $this->assertFalse($this->tag->isValid());
+        $tag = new Tag('');
+        $this->assertFalse($tag->isValid());
     }
 
     /**
@@ -29,13 +20,16 @@ class TagTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldGetIdentifier()
     {
-        $this->tag->setIdentifier('myTag');
-        $this->assertEquals('myTag', $this->tag->getIdentifier());
+        $tag = new Tag('myTag');
+        $this->assertEquals('myTag', $tag->getIdentifier());
     }
 
+    /**
+     * @test
+     */
     public function shouldGetIsValidWithIdentifier()
     {
-        $this->tag->setIdentifier('myString');
-        $this->assertEquals(true, $this->tag->isValid());
+        $tag = new Tag('myString');
+        $this->assertEquals(true, $tag->isValid());
     }
 }

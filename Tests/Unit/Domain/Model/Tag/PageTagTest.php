@@ -9,18 +9,9 @@ class PageTagTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function tagShouldNotBeValidWithIntegerValue()
+    public function tagShouldBeValid()
     {
-        $tag = new PageTag(1);
-        $this->assertFalse($tag->isValid());
-    }
-
-    /**
-     * @test
-     */
-    public function tagShouldBeValidWithStringValueTypo3Page()
-    {
-        $tag = new PageTag('typo3_page');
+        $tag = new PageTag();
         $this->assertTrue($tag->isValid());
     }
 
@@ -29,7 +20,7 @@ class PageTagTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldGetIdentifier()
     {
-        $tag = new PageTag('pages');
-        $this->assertEquals('pages', $tag->getIdentifier());
+        $tag = new PageTag();
+        $this->assertEquals('typo3_page', $tag->getIdentifier());
     }
 }

@@ -1,7 +1,7 @@
 <?php
 namespace Aoe\Varnish\System;
 
-use Aoe\Varnish\Domain\Model\Tag\PageTag;
+use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 
 /**
  * @covers Aoe\Varnish\System\Header
@@ -25,9 +25,7 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowRuntimeExceptionWithInvalidTag()
     {
-        $tag = new PageTag(1);
+        $tag = new PageIdTag('adfasdf');
         $this->header->sendHeaderForTag($tag);
     }
-
-
 }
