@@ -26,5 +26,10 @@
         "squizlabs/php_codesniffer": "2.3.*",
         "sebastian/phpcpd": "2.0.*",
         "phpmd/phpmd": "2.2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Aoe\\Varnish\\": "Classes/"
+        }
     }
 }
