@@ -16,3 +16,20 @@
     'caching',
     'varnish_cache'
 );
+
+if (TYPO3_MODE === 'BE') {
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+        'Aoe.' . $_EXTKEY,
+        'web',
+        'varnish',
+        'bottom',
+        array(
+            'Ban' => 'index,banTypo3Pages,banTagByName'
+        ),
+        array(
+            'access' => '',
+            'icon' => 'EXT:varnish/ext_icon.gif',
+            'labels' => 'LLL:EXT:varnish/Resources/Private/Language/locallang_mod.xlf'
+        )
+    );
+}

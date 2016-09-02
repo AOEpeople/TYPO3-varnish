@@ -1,37 +1,16 @@
 <?php
 namespace Aoe\Varnish\Domain\Model\Tag;
 
-
 use Aoe\Varnish\Domain\Model\TagInterface;
 
 class PageTag implements TagInterface
 {
-    const IDS = ['typo3_page'];
-
-    /**
-     * @var string
-     */
-    private $pageId;
-
-    public function __construct($pageId)
-    {
-        $this->pageId = $pageId;
-    }
-
-    /**
-     * @param string $pageId
-     */
-    public function __construct($pageId)
-    {
-        $this->pageId = $pageId;
-    }
-
     /**
      * @return string
      */
     public function getIdentifier()
     {
-        return $this->pageId;
+        return 'typo3_page';
     }
 
     /**
@@ -39,9 +18,6 @@ class PageTag implements TagInterface
      */
     public function isValid()
     {
-        if (in_array($this->pageId, self::IDS)) {
-            return true;
-        }
-        return false;
+        return true;
     }
 }

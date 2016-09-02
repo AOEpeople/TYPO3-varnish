@@ -13,7 +13,7 @@ class Tag implements TagInterface
     /**
      * @param string $identifier
      */
-    public function setIdentifier($identifier)
+    public function __construct($identifier)
     {
         $this->identifier = $identifier;
     }

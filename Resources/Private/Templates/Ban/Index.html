@@ -1,0 +1,17 @@
+<f:layout name="Backend"/>
+
+<f:section name="main">
+    <f:flashMessages renderMode="div"/>
+
+    <h2>Ban all TYPO3 pages</h2>
+    <f:form method="post" action="banTypo3Pages">
+        <f:form.submit id="ban-typo3-pages" value="Ban all TYPO3 pages"/>
+    </f:form>
+
+    <h2>Ban tag by name</h2>
+    <f:form method="post" action="banTagByName">
+        <label for="tagName">Tag-Name</label>
+        <f:form.textfield id="tagName" name="tagName" />
+        <f:form.submit id="ban-tag-by-name" value="Ban tag"/>
+    </f:form>
+</f:section>

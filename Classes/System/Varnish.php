@@ -37,6 +37,9 @@ class Varnish implements SingletonInterface
         register_shutdown_function([$this, 'shutdown']);
     }
 
+    /**
+     * @return array
+     */
     public function shutdown()
     {
         $phrases = $this->http->wait();
@@ -49,11 +52,12 @@ class Varnish implements SingletonInterface
                 }
             }
         }
+        return $phrases;
     }
 
     /**
      * @param TagInterface $tag
-     * @return void
+     * @return Varnish
      */
     public function banByTag(TagInterface $tag)
     {
@@ -61,14 +65,16 @@ class Varnish implements SingletonInterface
             throw new \RuntimeException('Tag is not valid', 1435159558);
         }
         $this->request('BAN', ['X-Ban-Tags' => $tag->getIdentifier()]);
+        return $this;
     }
 
     /**
-     * @return void
+     * @return Varnish
      */
     public function banAll()
     {
         $this->request('BAN', ['X-Ban-All' => '1']);
+        return $this;
     }
 
     /**
