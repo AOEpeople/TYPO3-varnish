@@ -14,6 +14,8 @@ class TceMainHook extends AbstractHook
      *
      * @todo implement cache clearing for "clearCache_pageGrandParent", "clearCache_pageSiblingChildren" and
      *       and "clearCache_disable"  http://docs.typo3.org/typo3cms/TSconfigReference/PageTsconfig/TCEmain/Index.html
+     * @todo find a way how to clear all affected pages after changeing a page title in the main menu or footer
+     * because it is not possible through the existings hooks to access the correct page tags which needs be cleared from cache
      */
     public function clearCachePostProc(array $parameters, DataHandler $parent)
     {
