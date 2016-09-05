@@ -56,8 +56,12 @@ class Http
                 }
             } else {
                 if ($result['state'] === 'rejected') {
+                    $reason = $result['reason'];
+                    if ($reason instanceof \Exception) {
+                        $reason = $reason->getMessage();
+                    }
                     $phrases[] = [
-                        'reason' => $result['reason'],
+                        'reason' => $reason,
                         'success' => false
                     ];
                 } else {
