@@ -28,7 +28,13 @@ class ExtensionConfiguration implements SingletonInterface
      */
     public function getHosts()
     {
-        return explode(',', $this->get('hosts'));
+        $hosts = explode(',', $this->get('hosts'));
+        array_walk($hosts, function (&$value) {
+            if (false === strpos($value, 'https://') && false === strpos($value, 'http://')) {
+                $value = 'http://' . $value;
+            }
+        });
+        return $hosts;
     }
 
     /**
