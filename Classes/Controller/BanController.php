@@ -49,18 +49,32 @@ class BanController extends ActionController
      */
     public function banTagByNameAction($tagName)
     {
-        $results = $this->varnish
-            ->banByTag(new Tag($tagName))
-            ->shutdown();
+        if ($this->isValidTagName($tagName)) {
+            $results = $this->varnish
+                ->banByTag(new Tag($tagName))
+                ->shutdown();
 
-        foreach ($results as $result) {
-            if ($result['success']) {
-                $this->addFlashMessage($result['reason']);
-            } else {
-                $this->addFlashMessage($result['reason'], '', AbstractMessage::ERROR);
+            foreach ($results as $result) {
+                if ($result['success']) {
+                    $this->addFlashMessage($result['reason']);
+                } else {
+                    $this->addFlashMessage($result['reason'], '', AbstractMessage::ERROR);
+                }
             }
         }
-
         $this->redirect('index');
+    }
+
+    /**
+     * @param string $tagName
+     * @return bool
+     */
+    private function isValidTagName($tagName)
+    {
+        if (strlen($tagName) < 2) {
+            $this->addFlashMessage('Bitte geben Sie einen gültigen Tag-Namen ein! ', '', AbstractMessage::ERROR);
+            return false;
+        }
+        return true;
     }
 }

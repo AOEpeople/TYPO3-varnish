@@ -44,7 +44,7 @@ class ExtensionConfigurationTest extends \PHPUnit_Framework_TestCase
             'hosts' => 'www.aoe.com'
         ));
         $configuration = new ExtensionConfiguration();
-        $this->assertEquals(array('www.aoe.com'), $configuration->getHosts());
+        $this->assertEquals(array('http://www.aoe.com'), $configuration->getHosts());
     }
 
     /**
@@ -56,6 +56,6 @@ class ExtensionConfigurationTest extends \PHPUnit_Framework_TestCase
             'hosts' => 'www.aoe.com,test.aoe.com,test1.aoe.com'
         ));
         $configuration = new ExtensionConfiguration();
-        $this->assertEquals(array('www.aoe.com', 'test.aoe.com', 'test1.aoe.com',), $configuration->getHosts());
+        $this->assertEquals(array('http://www.aoe.com', 'http://test.aoe.com', 'http://test1.aoe.com',), $configuration->getHosts());
     }
 }
