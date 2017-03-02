@@ -6,3 +6,9 @@ debug = 0
 
 # cat=varnish; type=string; label=LLL:EXT:varnish/Resources/Private/Language/locallang.xlf:configuration.category.varnish.hosts
 hosts = localhost
+
+# cat=varnish; type=integer; label=LLL:EXT:varnish/Resources/Private/Language/locallang.xlf:configuration.category.varnish.default_timeout
+default_timeout = 0
+
+# cat=varnish; type=integer; label=LLL:EXT:varnish/Resources/Private/Language/locallang.xlf:configuration.category.varnish.ban_timeout
+ban_timeout = 10

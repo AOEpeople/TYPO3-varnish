@@ -4,6 +4,7 @@ namespace Aoe\Varnish\System;
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\RequestOptions;
 
 class Http
 {
@@ -29,11 +30,13 @@ class Http
      * @param string $method
      * @param string $url
      * @param array $headers
+     * @param integer $timeout
      */
-    public function request($method, $url, $headers = [])
+    public function request($method, $url, $headers = [], $timeout = 0)
     {
         $this->promises[] = $this->client->requestAsync($method, $url, [
-            'headers' => $headers
+            RequestOptions::HEADERS => $headers,
+            RequestOptions::TIMEOUT => $timeout
         ]);
     }
 

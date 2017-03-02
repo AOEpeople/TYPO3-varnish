@@ -2,7 +2,7 @@
 namespace Aoe\Varnish\TYPO3\Configuration;
 
 /**
- * @covers Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration
+ * @covers \Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration
  */
 class ExtensionConfigurationTest extends \PHPUnit_Framework_TestCase
 {
@@ -57,5 +57,29 @@ class ExtensionConfigurationTest extends \PHPUnit_Framework_TestCase
         ));
         $configuration = new ExtensionConfiguration();
         $this->assertEquals(array('http://www.aoe.com', 'http://test.aoe.com', 'http://test1.aoe.com',), $configuration->getHosts());
+    }
+
+    /**
+     * @test
+     */
+    public function getDefaultTimeoutShouldReturnInteger()
+    {
+        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['varnish'] = serialize(array(
+            'default_timeout' => '0'
+        ));
+        $configuration = new ExtensionConfiguration();
+        $this->assertEquals(0, $configuration->getDefaultTimeout());
+    }
+
+    /**
+     * @test
+     */
+    public function getBanTimeoutShouldReturnInteger()
+    {
+        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['varnish'] = serialize(array(
+            'ban_timeout' => '10'
+        ));
+        $configuration = new ExtensionConfiguration();
+        $this->assertEquals(10, $configuration->getBanTimeout());
     }
 }

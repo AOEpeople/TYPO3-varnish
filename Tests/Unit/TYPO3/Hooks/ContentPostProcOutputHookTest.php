@@ -1,9 +1,7 @@
 <?php
 namespace Aoe\Varnish\TYPO3\Hooks;
 
-use Aoe\Varnish\System\Header;
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
-use PDepend\DependencyInjection\Extension;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class ContentPostProcOutputHookTest extends \PHPUnit_Framework_TestCase
@@ -167,7 +165,7 @@ class ContentPostProcOutputHookTest extends \PHPUnit_Framework_TestCase
         $objectManager->expects($this->any())
             ->method('get')
             ->with(ExtensionConfiguration::class)
-            ->will($this->returnValue($extensionConfiguration));
+            ->willReturn($extensionConfiguration);
 
         return $objectManager;
     }
@@ -209,7 +207,7 @@ class ContentPostProcOutputHookTest extends \PHPUnit_Framework_TestCase
 
         $extensionConfiguration->expects($this->once())
             ->method('isDebug')
-            ->will($this->returnValue($debugEnabled));
+            ->willReturn($debugEnabled);
 
         return $extensionConfiguration;
     }

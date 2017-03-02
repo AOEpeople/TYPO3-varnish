@@ -9,7 +9,7 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 /**
- * @covers Aoe\Varnish\TYPO3\Hooks\TceMainHook
+ * @covers \Aoe\Varnish\TYPO3\Hooks\TceMainHook
  */
 class TceMainHookTest extends \PHPUnit_Framework_TestCase
 {
@@ -51,7 +51,7 @@ class TceMainHookTest extends \PHPUnit_Framework_TestCase
         $objectManager->expects($this->any())
             ->method('get')
             ->with('Aoe\\Varnish\\System\\Varnish')
-            ->will($this->returnValue($this->varnish));
+            ->willReturn($this->varnish);
 
         $this->tceMainHook = new TceMainHook();
         /** @var ObjectManagerInterface $objectManager */

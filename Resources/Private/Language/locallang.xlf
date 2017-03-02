@@ -5,40 +5,58 @@
         <header/>
         <body>
             <trans-unit id="backendAjaxHook.title" xml:space="preserve">
-                             <source>Flush varnish cache</source>
-                             <target>Varnish cache leeren</target>
-                     </trans-unit>
+                <source>Flush varnish cache</source>
+                <target>Varnish cache leeren</target>
+             </trans-unit>
             <trans-unit id="configuration.category.varnish" xml:space="preserve">
-                             <source>varnish connection</source>
-                             <target>Verbindung zu Varnish</target>
-                     </trans-unit>
+                <source>varnish connection</source>
+                <target>Verbindung zu Varnish</target>
+            </trans-unit>
             <trans-unit id="configuration.category.varnish.hosts" xml:space="preserve">
-                             <source>
-                                 Hosts:
-                                 Holds all varnish hosts to communicate with. Multiple hosts separated with comma.
-                             </source>
-                             <source>
-                                 Hosts:
-                                 Enthält alle Hosts mit denen kommuniziert werden muss.
-                                 Mehrere Hosts werden mit Komma separiert.
-                             </source>
-                     </trans-unit>
+                <source>
+                    Hosts:
+                    Holds all varnish hosts to communicate with. Multiple hosts separated with comma.
+                </source>
+                <source>
+                    Hosts:
+                    Enthält alle Hosts mit denen kommuniziert werden muss.
+                    Mehrere Hosts werden mit Komma separiert.
+                </source>
+            </trans-unit>
+             <trans-unit id="configuration.category.varnish.default_timeout" xml:space="preserve">
+                <source>
+                    Default timeout in seconds for varnish requests:
+                    Default timeout is 0 (zero) which means it never times out during transfer.
+                </source>
+                <source>
+                    Standard-Timeout in Sekunden für Varnish Requests:
+                    Standardmäßig ist der Timeout auf 0 (Null) gesetzt, was heißt es gibt keinen Timeout.
+                </source>
+            </trans-unit>
+            <trans-unit id="configuration.category.varnish.ban_timeout" xml:space="preserve">
+                <source>
+                    Timeout in seconds for varnish BAN requests
+                </source>
+                <source>
+                    Timeout in Sekunden für varnish BAN-Requests
+                </source>
+            </trans-unit>
             <trans-unit id="configuration.category.general" xml:space="preserve">
-                             <source>Basic Settings</source>
-                             <target>Basis-Einstellungen</target>
-                     </trans-unit>
+                <source>Basic Settings</source>
+                <target>Basis-Einstellungen</target>
+            </trans-unit>
             <trans-unit id="configuration.category.general.debug" xml:space="preserve">
-                             <source>
-                                 Debug:
-                                 If set, varnish will send debugging headers. This is helpful if you want to figure out
-                                 if a page is cached or not and why the page is not cached.
-                             </source>
-                             <source>
-                                 Debug:
-                                 Falls gesetzt, sendet varnish Debugging-Header. Dies is hilfreich um hereuszufinden
-                                 ob eine Seite gecached wurde oder nicht und warum die Seite nicht gecached wurde.
-                             </source>
-                     </trans-unit>
+                <source>
+                    Debug:
+                    If set, varnish will send debugging headers. This is helpful if you want to figure out
+                    if a page is cached or not and why the page is not cached.
+                </source>
+                <source>
+                    Debug:
+                    Falls gesetzt, sendet varnish Debugging-Header. Dies is hilfreich um herauszufinden
+                    ob eine Seite gecached wurde oder nicht und warum die Seite nicht gecached wurde.
+                </source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -10,6 +10,9 @@ class ExtensionConfiguration implements SingletonInterface
      */
     private $configuration;
 
+    /**
+     * ExtensionConfiguration constructor.
+     */
     public function __construct()
     {
         $this->configuration = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['varnish']);
@@ -35,6 +38,22 @@ class ExtensionConfiguration implements SingletonInterface
             }
         });
         return $hosts;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getDefaultTimeout()
+    {
+        return (int)$this->get('default_timeout');
+    }
+
+    /**
+     * @return integer
+     */
+    public function getBanTimeout()
+    {
+        return (int)$this->get('ban_timeout');
     }
 
     /**

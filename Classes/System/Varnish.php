@@ -64,7 +64,7 @@ class Varnish implements SingletonInterface
         if (false === $tag->isValid()) {
             throw new \RuntimeException('Tag is not valid', 1435159558);
         }
-        $this->request('BAN', ['X-Ban-Tags' => $tag->getIdentifier()]);
+        $this->request('BAN', ['X-Ban-Tags' => $tag->getIdentifier()], $this->extensionConfiguration->getBanTimeout());
         return $this;
     }
 
@@ -73,18 +73,23 @@ class Varnish implements SingletonInterface
      */
     public function banAll()
     {
-        $this->request('BAN', ['X-Ban-All' => '1']);
+        $this->request('BAN', ['X-Ban-All' => '1'], $this->extensionConfiguration->getBanTimeout());
         return $this;
     }
 
     /**
      * @param string $method
      * @param array $headers
+     * @param integer $timeout
      */
-    private function request($method, $headers = [])
+    private function request($method, $headers = [], $timeout = null)
     {
+        if ($timeout === null) {
+            $timeout = $this->extensionConfiguration->getDefaultTimeout();
+        }
+
         foreach ($this->extensionConfiguration->getHosts() as $host) {
-            $this->http->request($method, $host, $headers);
+            $this->http->request($method, $host, $headers, $timeout);
         }
     }
 }
