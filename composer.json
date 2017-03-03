@@ -31,5 +31,10 @@
         "psr-4": {
             "Aoe\\Varnish\\": "Classes/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "GuzzleHttp\\": ".Build/vendor/guzzlehttp/guzzle/src/"
+        }
     }
 }
