@@ -40,28 +40,31 @@ before_script:
   - cd ..
   - git clone --single-branch --branch $TYPO3_BRANCH --depth 1 https://github.com/TYPO3/TYPO3.CMS.git typo3_core
   - mv typo3_core/* .
-  - mkdir -p typo3conf/ext/varnish/
-  - cp -R TYPO3-varnish/* typo3conf/ext/varnish/
+  - mkdir -p typo3conf/ext/
+  - mv TYPO3-varnish typo3conf/ext/varnish
   - composer install
+  - cd typo3conf/ext/varnish
+  - composer install
+  - cd ../../../
 
 script:
   - >
     if [[ "$COVERAGE" == "0" ]]; then
       echo;
       echo "Running unit tests";
-      ./bin/phpunit --colors -c typo3/sysext/core/Build/UnitTests.xml typo3conf/ext/varnish/Tests/Unit/
+      ./typo3conf/ext/varnish/vendor/bin/phpunit --colors -c typo3/sysext/core/Build/UnitTests.xml typo3conf/ext/varnish/Tests/Unit/
     fi
   - >
     if [[ "$COVERAGE" == "1" ]]; then
       echo;
       echo "Running unit tests";
-      ./bin/phpunit --coverage-clover=unittest-coverage.clover --colors -c typo3/sysext/core/Build/UnitTests.xml typo3conf/ext/varnish/Tests/Unit/
+      ./typo3conf/ext/varnish/vendor/bin/phpunit --coverage-clover=./typo3conf/ext/varnish/unittest-coverage.clover --colors -c typo3/sysext/core/Build/UnitTests.xml typo3conf/ext/varnish/Tests/Unit/
     fi
   - >
     if [[ "$COVERAGE" == "1" ]]; then
       echo;
       echo "Uploading code coverage results";
-      cd TYPO3-varnish
+      cd typo3conf/ext/varnish
       wget https://scrutinizer-ci.com/ocular.phar
       php ocular.phar code-coverage:upload --format=php-clover ../unittest-coverage.clover
     fi
