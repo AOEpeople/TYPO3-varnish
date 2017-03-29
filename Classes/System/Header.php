@@ -21,6 +21,11 @@ class Header
     const HEADER_ENABLED = 'X-Varnish-enabled: 1';
 
     /**
+     * @var string
+     */
+    const HEADER_STRIP_QUERY_PARAMETER = 'X-Varnish-Strip-Query-Parameter: 1';
+
+    /**
      * @param TagInterface $tag
      * @return void
      */
@@ -46,5 +51,13 @@ class Header
     public function sendEnabledHeader()
     {
         header(self::HEADER_ENABLED);
+    }
+
+    /**
+     * @return void
+     */
+    public function sendStripQueryParameterHeader()
+    {
+        header(self::HEADER_STRIP_QUERY_PARAMETER);
     }
 }

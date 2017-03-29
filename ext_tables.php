@@ -8,6 +8,14 @@
             'type' => 'check',
             'default' => '0',
         ],
+    ],
+    'varnish_strip_query_parameter' => [
+        'exclude' => 0,
+        'label' => 'LLL:EXT:varnish/locallang_db.xml:varnish.strip-query-parameter',
+        'config' => [
+            'type' => 'check',
+            'default' => '0',
+        ],
     ]
 ]);
 
@@ -15,6 +23,12 @@
     'pages',
     'caching',
     'varnish_cache'
+);
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
+    'pages',
+    'caching',
+    'varnish_strip_query_parameter'
 );
 
 if (TYPO3_MODE === 'BE') {

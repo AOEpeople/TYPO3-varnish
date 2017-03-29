@@ -7,9 +7,11 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="varnish.field">enable varnish header</label>
+			<label index="varnish.strip-query-parameter">strip query parameter before varnish cache creation</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="varnish.field">Header für Varnish aktivieren</label>
+			<label index="varnish.strip-query-parameter">Query-Parameter für die Erzeugung des Varnish-Cache ignorieren</label>
 		</languageKey>
 	</data>
 </T3locallang>
