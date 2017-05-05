@@ -32,9 +32,6 @@ class ContentPostProcOutputHook extends AbstractHook
         $this->sendDebugHeader();
         if ($parent->page['varnish_cache'] === '1') {
             $this->header->sendEnabledHeader();
-            if ($parent->page['varnish_strip_query_parameter'] === '1') {
-                $this->header->sendStripQueryParameterHeader();
-            }
         }
     }
 
