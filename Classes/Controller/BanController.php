@@ -30,7 +30,7 @@ class BanController extends ActionController
     public function banTypo3PagesAction()
     {
         $results = $this->varnish
-            ->banByTag(new PageTag('typo3_pages'))
+            ->banByTag(new PageTag())
             ->shutdown();
 
         foreach ($results as $result) {
