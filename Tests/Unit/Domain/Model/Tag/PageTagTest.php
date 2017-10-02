@@ -2,7 +2,7 @@
 namespace Aoe\Varnish\Domain\Model\Tag;
 
 /**
- * @covers Aoe\Varnish\Domain\Model\Tag\PageTag
+ * @covers \Aoe\Varnish\Domain\Model\Tag\PageTag
  */
 class PageTagTest extends \PHPUnit_Framework_TestCase
 {

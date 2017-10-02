@@ -4,7 +4,7 @@ namespace Aoe\Varnish\System;
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 
 /**
- * @covers Aoe\Varnish\System\Header
+ * @covers \Aoe\Varnish\System\Header
  */
 class HeaderTest extends \PHPUnit_Framework_TestCase
 {

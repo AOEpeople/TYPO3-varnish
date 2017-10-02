@@ -2,8 +2,12 @@
 namespace Aoe\Varnish\TYPO3\Hooks;
 
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
+/**
+ * @covers \Aoe\Varnish\TYPO3\Hooks\ContentPostProcOutputHook
+ */
 class ContentPostProcOutputHookTest extends \PHPUnit_Framework_TestCase
 {
     /**

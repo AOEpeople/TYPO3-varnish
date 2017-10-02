@@ -2,7 +2,7 @@
 namespace Aoe\Varnish\Domain\Model\Tag;
 
 /**
- * @covers Aoe\Varnish\Domain\Model\Tag\Tag
+ * @covers \Aoe\Varnish\Domain\Model\Tag\Tag
  */
 class TagTest extends \PHPUnit_Framework_TestCase
 {
