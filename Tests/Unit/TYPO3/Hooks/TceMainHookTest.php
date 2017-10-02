@@ -33,24 +33,24 @@ class TceMainHookTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->dataHandler = $this->getMock('TYPO3\\CMS\\Core\\DataHandling\\DataHandler');
+        $this->dataHandler = $this->getMock(DataHandler::class);
 
         /** @var BackendUserAuthentication $beUser */
-        $beUser = $this->getMock('TYPO3\CMS\Core\Authentication\BackendUserAuthentication');
+        $beUser = $this->getMock(BackendUserAuthentication::class);
         $beUser->workspace = 0;
         $this->dataHandler->BE_USER = $beUser;
 
-        $this->varnish = $this->getMockBuilder('Aoe\\Varnish\\System\\Varnish')
+        $this->varnish = $this->getMockBuilder(Varnish::class)
             ->disableOriginalConstructor()
             ->setMethods(array('banByTag', 'banAll'))
             ->getMock();
-        $objectManager = $this->getMockBuilder('TYPO3\\CMS\\Extbase\\Object\\ObjectManagerInterface')
+        $objectManager = $this->getMockBuilder(ObjectManagerInterface::class)
             ->setMethods(array('isRegistered', 'get', 'create', 'getEmptyObject', 'getScope'))
             ->getMock();
 
         $objectManager->expects($this->any())
             ->method('get')
-            ->with('Aoe\\Varnish\\System\\Varnish')
+            ->with(Varnish::class)
             ->willReturn($this->varnish);
 
         $this->tceMainHook = new TceMainHook();
@@ -63,7 +63,7 @@ class TceMainHookTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldBanAllTYPO3PagesIfCacheCmdIsPages()
     {
-        $expectedTag = new PageTag('typo3_page');
+        $expectedTag = new PageTag();
 
         /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
         $varnish = $this->varnish;

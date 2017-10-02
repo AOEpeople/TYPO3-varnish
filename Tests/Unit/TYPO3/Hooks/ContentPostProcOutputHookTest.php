@@ -1,6 +1,7 @@
 <?php
 namespace Aoe\Varnish\TYPO3\Hooks;
 
+use Aoe\Varnish\System\Header;
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -29,7 +30,7 @@ class ContentPostProcOutputHookTest extends \PHPUnit_Framework_TestCase
         $header = $this->getHeaderMock(1, 2, 1);
 
         $this->frontendController = $this
-            ->getMockBuilder('TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController')
+            ->getMockBuilder(TypoScriptFrontendController::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -65,7 +66,7 @@ class ContentPostProcOutputHookTest extends \PHPUnit_Framework_TestCase
         $header = $this->getHeaderMock(1, 2, 0);
 
         $this->frontendController = $this
-            ->getMockBuilder('TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController')
+            ->getMockBuilder(TypoScriptFrontendController::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -101,7 +102,7 @@ class ContentPostProcOutputHookTest extends \PHPUnit_Framework_TestCase
         $header = $this->getHeaderMock(0, 2, 1);
 
         $this->frontendController = $this
-            ->getMockBuilder('TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController')
+            ->getMockBuilder(TypoScriptFrontendController::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -139,7 +140,7 @@ class ContentPostProcOutputHookTest extends \PHPUnit_Framework_TestCase
         $sendHeaderForTagCallingCount,
         $sendDebugHeaderCallingCount
     ) {
-        $header = $this->getMockBuilder('Aoe\\Varnish\\System\\Header')
+        $header = $this->getMockBuilder(Header::class)
             ->disableOriginalConstructor()
             ->setMethods(['sendEnabledHeader', 'sendHeaderForTag', 'sendDebugHeader'])
             ->getMock();
@@ -162,7 +163,7 @@ class ContentPostProcOutputHookTest extends \PHPUnit_Framework_TestCase
      */
     private function getObjectManagerMock(\PHPUnit_Framework_MockObject_MockObject $extensionConfiguration)
     {
-        $objectManager = $this->getMockBuilder('TYPO3\\CMS\\Extbase\\Object\\ObjectManagerInterface')
+        $objectManager = $this->getMockBuilder(ObjectManagerInterface::class)
             ->setMethods(array('isRegistered', 'get', 'create', 'getEmptyObject', 'getScope'))
             ->getMock();
 
@@ -204,7 +205,7 @@ class ContentPostProcOutputHookTest extends \PHPUnit_Framework_TestCase
     private function getExtensionConfigurationMock($debugEnabled)
     {
         $extensionConfiguration = $this
-            ->getMockBuilder('Aoe\\Varnish\\TYPO3\\Configuration\\ExtensionConfiguration')
+            ->getMockBuilder(ExtensionConfiguration::class)
             ->disableOriginalConstructor()
             ->setMethods(['isDebug'])
             ->getMock();
