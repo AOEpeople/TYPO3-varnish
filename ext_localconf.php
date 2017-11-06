@@ -1,4 +1,7 @@
 <?php
+if (!defined('TYPO3_MODE')) {
+    die('Access denied.');
+}
 
 switch (TYPO3_MODE) {
     case 'FE':
