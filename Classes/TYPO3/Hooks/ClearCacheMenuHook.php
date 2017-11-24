@@ -23,7 +23,7 @@ class ClearCacheMenuHook extends AbstractHook implements ClearCacheActionsHookIn
             //@todo change naming of ajax call "BAN:ALL"
             'href' =>  BackendUtility::getAjaxUrl('varnish::BAN:ALL', []),
             'icon' => '<img src="/' . $GLOBALS['TYPO3_LOADED_EXT']['varnish']['siteRelPath'] .
-                'ext_icon.gif" title="' . $title . '" alt="' . $title . '" />',
+                'ext_icon.svg" title="' . $title . '" alt="' . $title . '" width="16" height="16" />',
         );
     }
 }
