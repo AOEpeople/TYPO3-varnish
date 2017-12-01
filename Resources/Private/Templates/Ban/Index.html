@@ -5,13 +5,17 @@
 
     <h2>Ban all TYPO3 pages</h2>
     <f:form method="post" action="banTypo3Pages">
-        <f:form.submit id="ban-typo3-pages" value="Ban all TYPO3 pages"/>
+        <f:form.submit id="ban-typo3-pages" value="Ban all TYPO3 pages" additionalAttributes="{class: 'btn btn-default'}"/>
     </f:form>
 
     <h2>Ban tag by name</h2>
     <f:form method="post" action="banTagByName">
-        <label for="tagName">Tag-Name</label>
-        <f:form.textfield id="tagName" name="tagName" />
-        <f:form.submit id="ban-tag-by-name" value="Ban tag"/>
+        <div class="form-group" style="max-width: 480px;">
+            <label for="tagName">Tag-Name</label>
+            <f:form.textfield id="tagName" name="tagName" additionalAttributes="{class: 'form-control'}"/>
+        </div>
+        <div class="help-block">
+            <f:form.submit id="ban-tag-by-name" value="Ban tag" additionalAttributes="{class: 'btn btn-default'}"/>
+        </div>
     </f:form>
 </f:section>
