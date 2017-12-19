@@ -30,7 +30,7 @@
         "phpmd/phpmd": "2.2.*"
     },
     "replace": {
-        "varnish":  "self.version"
+        "varnish": "self.version"
     },
     "autoload": {
         "psr-4": {
