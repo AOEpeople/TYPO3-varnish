@@ -1,15 +1,18 @@
 <?php
-namespace Aoe\Varnish\System;
+namespace Aoe\Varnish\Tests\Unit\System;
 
 use Aoe\Varnish\Domain\Model\TagInterface;
+use Aoe\Varnish\System\Http;
+use Aoe\Varnish\System\Varnish;
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogManager;
 
 /**
  * @covers \Aoe\Varnish\System\Varnish
  */
-class VarnishTest extends \PHPUnit_Framework_TestCase
+class VarnishTest extends UnitTestCase
 {
     /**
      * @var Varnish

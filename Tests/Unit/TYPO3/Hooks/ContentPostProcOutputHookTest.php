@@ -1,15 +1,17 @@
 <?php
-namespace Aoe\Varnish\TYPO3\Hooks;
+namespace Aoe\Varnish\Tests\Unit\TYPO3\Hooks;
 
 use Aoe\Varnish\System\Header;
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
+use Aoe\Varnish\TYPO3\Hooks\ContentPostProcOutputHook;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * @covers \Aoe\Varnish\TYPO3\Hooks\ContentPostProcOutputHook
  */
-class ContentPostProcOutputHookTest extends \PHPUnit_Framework_TestCase
+class ContentPostProcOutputHookTest extends UnitTestCase
 {
     /**
      * @var ContentPostProcOutputHook

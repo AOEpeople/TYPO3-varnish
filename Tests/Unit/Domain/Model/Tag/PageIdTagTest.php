@@ -1,10 +1,13 @@
 <?php
-namespace Aoe\Varnish\Domain\Model\Tag;
+namespace Aoe\Varnish\Tests\Unit\Domain\Model\Tag;
+
+use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * @covers \Aoe\Varnish\Domain\Model\Tag\PageTag
  */
-class PageIdTagTest extends \PHPUnit_Framework_TestCase
+class PageIdTagTest extends UnitTestCase
 {
     /**
      * @test

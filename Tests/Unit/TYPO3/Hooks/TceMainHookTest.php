@@ -1,9 +1,11 @@
 <?php
-namespace Aoe\Varnish\TYPO3\Hooks;
+namespace Aoe\Varnish\Tests\Unit\TYPO3\Hooks;
 
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 use Aoe\Varnish\Domain\Model\Tag\PageTag;
 use Aoe\Varnish\System\Varnish;
+use Aoe\Varnish\TYPO3\Hooks\TceMainHook;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
@@ -11,7 +13,7 @@ use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 /**
  * @covers \Aoe\Varnish\TYPO3\Hooks\TceMainHook
  */
-class TceMainHookTest extends \PHPUnit_Framework_TestCase
+class TceMainHookTest extends UnitTestCase
 {
     /**
      * @var Varnish

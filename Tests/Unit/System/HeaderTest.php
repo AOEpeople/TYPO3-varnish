@@ -1,12 +1,14 @@
 <?php
-namespace Aoe\Varnish\System;
+namespace Aoe\Varnish\Tests\Unit\System;
 
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
+use Aoe\Varnish\System\Header;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * @covers \Aoe\Varnish\System\Header
  */
-class HeaderTest extends \PHPUnit_Framework_TestCase
+class HeaderTest extends UnitTestCase
 {
     /**
      * @var Header

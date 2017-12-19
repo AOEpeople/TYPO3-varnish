@@ -1,10 +1,13 @@
 <?php
-namespace Aoe\Varnish\Domain\Model\Tag;
+namespace Aoe\Varnish\Tests\Unit\Domain\Model\Tag;
+
+use Aoe\Varnish\Domain\Model\Tag\Tag;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * @covers \Aoe\Varnish\Domain\Model\Tag\Tag
  */
-class TagTest extends \PHPUnit_Framework_TestCase
+class TagTest extends UnitTestCase
 {
     /**
      * @test

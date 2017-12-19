@@ -1,13 +1,15 @@
 <?php
-namespace Aoe\Varnish\System;
+namespace Aoe\Varnish\Tests\Unit\System;
 
+use Aoe\Varnish\System\Http;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * @covers \Aoe\Varnish\System\Http
  */
-class HttpTest extends \PHPUnit_Framework_TestCase
+class HttpTest extends UnitTestCase
 {
     /**
      * @var Client|\PHPUnit_Framework_MockObject_MockObject

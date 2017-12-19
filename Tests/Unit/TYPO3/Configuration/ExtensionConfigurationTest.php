@@ -1,10 +1,13 @@
 <?php
-namespace Aoe\Varnish\TYPO3\Configuration;
+namespace Aoe\Varnish\Tests\Unit\TYPO3\Configuration;
+
+use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
+use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * @covers \Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration
  */
-class ExtensionConfigurationTest extends \PHPUnit_Framework_TestCase
+class ExtensionConfigurationTest extends UnitTestCase
 {
     /**
      * @var boolean
