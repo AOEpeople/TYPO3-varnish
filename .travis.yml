@@ -41,6 +41,11 @@ matrix:
     - env: TYPO3_VERSION=dev-master COVERAGE=0
     - php: 7.2
 
+notifications:
+  email:
+    on_success: never
+    on_failure: never
+
 sudo: false
 
 addons:
