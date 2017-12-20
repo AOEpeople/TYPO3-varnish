@@ -92,3 +92,7 @@ script:
       wget https://scrutinizer-ci.com/ocular.phar
       php ocular.phar code-coverage:upload --format=php-clover unittest-coverage.clover
     fi
+  - >
+    echo;
+      echo "Running php lint";
+      find . -name \*.php ! -path "./.Build/*" ! -path "./scripts/*" ! -path "./typo3_src/*" | parallel --gnu php -d display_errors=stderr -l {} > /dev/null \;
