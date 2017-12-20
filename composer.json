@@ -23,7 +23,6 @@
     "require-dev": {
         "typo3/cms": "^7.6",
         "nimut/testing-framework": "^2.0",
-        "phpunit/phpunit": "4.8.*",
         "phpunit/phpcov": "2.0.*",
         "squizlabs/php_codesniffer": "2.3.*",
         "sebastian/phpcpd": "2.0.*",
