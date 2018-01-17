@@ -1,31 +1,35 @@
 {
     "name": "aoe/varnish",
-    "description": "enable varnish support with tags",
     "type": "typo3-cms-extension",
+    "description": "Enable varnish support with tags",
+    "homepage": "https://github.com/AOEpeople/TYPO3-varnish",
+    "support": {
+        "issues": "https://github.com/AOEpeople/TYPO3-varnish/issues"
+    },
     "license": "GPL-3.0",
     "authors": [
         {
             "name": "AOE GmbH",
-            "email": "dev@aoe.com"
+            "email": "dev@aoe.com",
+            "homepage": "https://www.aoe.com/",
+            "role": "Developer"
         }
     ],
     "require": {
         "php": ">=5.5.0",
         "guzzlehttp/guzzle": "^6.2",
-        "typo3/cms-core": ">=6.2.0,<=7.6.99",
-        "typo3/cms-extbase": ">=6.2.0",
-        "typo3/cms-sv": ">=6.2.0",
-        "typo3/cms-backend": ">=6.2.0",
-        "typo3/cms-reports": ">=6.2.0",
-        "typo3/cms-frontend": ">=6.2.0"
+        "typo3/cms-core": ">=6.2.0,<8.7.99"
     },
     "require-dev": {
-        "typo3/cms": "6.2.*",
-        "phpunit/phpunit": "4.8.*",
+        "typo3/cms": "^7.6",
+        "nimut/testing-framework": "^2.0",
         "phpunit/phpcov": "2.0.*",
         "squizlabs/php_codesniffer": "2.3.*",
         "sebastian/phpcpd": "2.0.*",
         "phpmd/phpmd": "2.2.*"
+    },
+    "replace": {
+        "varnish": "self.version"
     },
     "autoload": {
         "psr-4": {
@@ -34,8 +38,30 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Aoe\\Varnish\\Tests\\": "Tests",
-            "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/"
+            "Aoe\\Varnish\\Tests\\": "Tests"
+        }
+    },
+    "config": {
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin"
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "mkdir -p .Build/Web/typo3conf/ext/",
+            "[ -L .Build/Web/typo3conf/ext/varnish ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/varnish"
+        ],
+        "test:unit": [
+            "[ -e .Build/bin/phpunit ] || composer update",
+            "TYPO3_PATH_ROOT=.Build/Web .Build/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit/ --debug --verbose"
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.0-dev"
+        },
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build/Web"
         }
     }
 }
