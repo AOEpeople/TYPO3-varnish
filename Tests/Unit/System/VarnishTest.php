@@ -138,6 +138,18 @@ class VarnishTest extends UnitTestCase
     /**
      * @test
      */
+    public function banByRegexShouldCallHttpCorrectly()
+    {
+        $this->http
+            ->expects($this->once())
+            ->method('request')
+            ->with('BAN', 'domain.tld', ['X-Ban-Regex' => '/*']);
+        $this->varnish->banByRegex('/*');
+    }
+    
+    /**
+     * @test
+     */
     public function shouldLogOnShutdown()
     {
         $this->http->expects($this->once())->method('wait')->willReturn([

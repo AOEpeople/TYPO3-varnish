@@ -102,6 +102,16 @@ class Varnish implements SingletonInterface
     }
 
     /**
+     * @param string $regex
+     * @return Varnish
+     */
+    public function banByRegex($regex)
+    {
+        $this->request('BAN', ['X-Ban-Regex' => $regex], $this->extensionConfiguration->getBanTimeout());
+        return $this;
+    }
+
+    /**
      * @param string $method
      * @param array $headers
      * @param integer $timeout
