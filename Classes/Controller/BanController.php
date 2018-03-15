@@ -94,6 +94,18 @@ class BanController extends ActionController
      */
     public function banByRegexAction($regex)
     {
+        if (!$this->isCriticalRegex($regex)) {
+            $this->view->assign('regex', $regex);
+        } else {
+            $this->redirect('index');
+        }
+    }
+
+    /**
+     * @param string $regex
+     */
+    public function confirmBanByRegexAction($regex)
+    {
         if (!$this->isCriticalRegex($regex)){
             $results = $this->varnish
                 ->banByRegex($regex)
