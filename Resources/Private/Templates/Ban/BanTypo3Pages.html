@@ -4,10 +4,9 @@
     <f:flashMessages renderMode="div"/>
 
     <h2>Bestätigung</h2>
-    <f:form method="post" action="confirmBanByRegex">
+    <f:form method="post" action="confirmBanTypo3Pages">
         <div class="form-group" style="max-width: 480px;">
-            <label for="">Wollen Sie wirklich einen BAN-Request auf dieses Muster anwenden?</label>
-            <f:form.textfield id="regex" name="regex" value="{regex}" readonly="TRUE" additionalAttributes="{class: 'form-control'}"/>
+            <label for="">Wollen Sie wirklich alle TYPO3-Seiten bannen?</label>
         </div>
         <div class="help-block">
             <f:form.submit id="confirm" value="Ja" additionalAttributes="{class: 'btn btn-default'}"/>

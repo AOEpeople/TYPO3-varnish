@@ -53,6 +53,10 @@ class BanController extends ActionController
 
     public function banTypo3PagesAction()
     {
+    }
+
+    public function confirmBanTypo3PagesAction()
+    {
         $results = $this->varnish
             ->banByTag(new PageTag())
             ->shutdown();
@@ -74,16 +78,26 @@ class BanController extends ActionController
     public function banTagByNameAction($tagName)
     {
         if ($this->isValidTagName($tagName)) {
-            $results = $this->varnish
-                ->banByTag(new Tag($tagName))
-                ->shutdown();
+            $this->view->assign('tagName', $tagName);
+        } else {
+            $this->redirect('index');
+        }
+    }
 
-            foreach ($results as $result) {
-                if ($result['success']) {
-                    $this->addFlashMessage($result['reason']);
-                } else {
-                    $this->addFlashMessage($result['reason'], '', AbstractMessage::ERROR);
-                }
+    /**
+     * @param string $tagName
+     */
+    public function confirmBanTagByNameAction($tagName)
+    {
+        $results = $this->varnish
+            ->banByTag(new Tag($tagName))
+            ->shutdown();
+
+        foreach ($results as $result) {
+            if ($result['success']) {
+                $this->addFlashMessage($result['reason']);
+            } else {
+                $this->addFlashMessage($result['reason'], '', AbstractMessage::ERROR);
             }
         }
         $this->redirect('index');
@@ -106,17 +120,15 @@ class BanController extends ActionController
      */
     public function confirmBanByRegexAction($regex)
     {
-        if (!$this->isCriticalRegex($regex)){
-            $results = $this->varnish
-                ->banByRegex($regex)
-                ->shutdown();
+        $results = $this->varnish
+            ->banByRegex($regex)
+            ->shutdown();
 
-            foreach ($results as $result) {
-                if ($result['success']) {
-                    $this->addFlashMessage($result['reason']);
-                } else {
-                    $this->addFlashMessage($result['reason'], '', AbstractMessage::ERROR);
-                }
+        foreach ($results as $result) {
+            if ($result['success']) {
+                $this->addFlashMessage($result['reason']);
+            } else {
+                $this->addFlashMessage($result['reason'], '', AbstractMessage::ERROR);
             }
         }
         $this->redirect('index');
