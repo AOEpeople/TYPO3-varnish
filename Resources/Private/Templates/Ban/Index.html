@@ -18,4 +18,15 @@
             <f:form.submit id="ban-tag-by-name" value="Ban tag" additionalAttributes="{class: 'btn btn-default'}"/>
         </div>
     </f:form>
+
+    <h2>Ban URLs by RegEx</h2>
+    <f:form method="post" action="banByRegex">
+        <div class="form-group" style="max-width: 480px;">
+            <label for="tagName">RegEx</label>
+            <f:form.textfield id="regex" name="regex" additionalAttributes="{class: 'form-control'}"/>
+        </div>
+        <div class="help-block">
+            <f:form.submit id="ban-tag-by-regex" value="Ban by RegEx" additionalAttributes="{class: 'btn btn-default'}"/>
+        </div>
+    </f:form>
 </f:section>

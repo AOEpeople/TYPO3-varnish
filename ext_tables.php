@@ -10,7 +10,7 @@ if (TYPO3_MODE === 'BE') {
         'varnish',
         'bottom',
         [
-            'Ban' => 'index,banTypo3Pages,banTagByName'
+            'Ban' => 'index,banTypo3Pages,banTagByName,banByRegex'
         ],
         [
             'access' => '',

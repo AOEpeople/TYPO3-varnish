@@ -90,6 +90,40 @@ class BanController extends ActionController
     }
 
     /**
+     * @param string $regex
+     */
+    public function banByRegexAction($regex)
+    {
+        if (!$this->isCriticalRegex($regex)){
+            $results = $this->varnish
+                ->banByRegex($regex)
+                ->shutdown();
+
+            foreach ($results as $result) {
+                if ($result['success']) {
+                    $this->addFlashMessage($result['reason']);
+                } else {
+                    $this->addFlashMessage($result['reason'], '', AbstractMessage::ERROR);
+                }
+            }
+        }
+        $this->redirect('index');
+    }
+
+    /**
+     * @param string $regex
+     * @return bool
+     */
+    private function isCriticalRegex($regex)
+    {
+        if (strlen($regex) < 3) {
+            $this->addFlashMessage('Bitte geben Sie einen spezifischeren RegEx ein!', '', AbstractMessage::ERROR);
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * @param string $tagName
      * @return bool
      */
