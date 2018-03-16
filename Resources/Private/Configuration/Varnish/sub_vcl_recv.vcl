@@ -10,6 +10,12 @@ sub vcl_recv {
     # Catch BAN Command (flush cache)
     if (req.method == "BAN" && client.ip ~ ban) {
 
+        # feature: X-Ban-Regex -> BAN all caches matching the url regex
+        if (req.http.X-Ban-Regex) {
+            ban("obj.http.url ~ " + req.http.X-Ban-Regex);
+            return (synth(200,"Banned " + req.http.X-Ban-Regex));
+        }
+
         # BAN all pages on BAN_ALL
         if(req.http.X-Ban-All) {
             ban("req.url ~ /");

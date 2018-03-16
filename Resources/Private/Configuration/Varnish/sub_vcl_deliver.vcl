@@ -3,6 +3,11 @@
  */
 sub vcl_deliver {
 
+    # feature: X-Ban-Regex
+    # unset resp.http.url set in backend_response to be able to ban cache objects by url regex
+    # this action is a cleanup
+    unset resp.http.url;
+
     # Expires Header set by TYPO3 are used to define Varnish caching only
     # therefore do not send them to the Client
     if (resp.http.Pragma == "public") {

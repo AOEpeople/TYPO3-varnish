@@ -7,6 +7,10 @@ sub vcl_backend_response {
     # set minimum timeouts to auto-discard stored objects
     set beresp.grace = 600s;
 
+    # feature: X-Ban-Regex
+    # set bereq url to in beresp, so it will be attached to the cache object, in order to be able to ban by url regex
+    set beresp.http.url = bereq.url;
+
     # Varnish determined the object was not cacheable
     if (beresp.ttl <= 0s && beresp.http.X-Debug) {
         set beresp.http.X-Cacheable = "NO:TTL zero";
