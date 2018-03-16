@@ -140,7 +140,7 @@ class BanController extends ActionController
      */
     private function isCriticalRegex($regex)
     {
-        if (strlen($regex) < 3) {
+        if (strlen($regex) < 6) {
             $this->addFlashMessage('Bitte geben Sie einen spezifischeren RegEx ein!', '', AbstractMessage::ERROR);
             return true;
         }
