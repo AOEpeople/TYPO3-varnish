@@ -4,12 +4,12 @@
     <f:flashMessages renderMode="div"/>
 
     <h2>Ban all TYPO3 pages</h2>
-    <f:form method="post" action="banTypo3Pages">
+    <f:form method="post" action="confirmBanTypo3Pages">
         <f:form.submit id="ban-typo3-pages" value="Ban all TYPO3 pages" additionalAttributes="{class: 'btn btn-default'}"/>
     </f:form>
 
     <h2>Ban tag by name</h2>
-    <f:form method="post" action="banTagByName">
+    <f:form method="post" action="confirmBanTagByName">
         <div class="form-group" style="max-width: 480px;">
             <label for="tagName">Tag-Name</label>
             <f:form.textfield id="tagName" name="tagName" additionalAttributes="{class: 'form-control'}"/>
@@ -20,7 +20,7 @@
     </f:form>
 
     <h2>Ban URLs by RegEx</h2>
-    <f:form method="post" action="banByRegex">
+    <f:form method="post" action="confirmBanByRegex">
         <div class="form-group" style="max-width: 480px;">
             <label for="tagName">RegEx</label>
             <f:form.textfield id="regex" name="regex" additionalAttributes="{class: 'form-control'}"/>

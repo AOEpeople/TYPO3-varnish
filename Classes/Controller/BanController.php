@@ -51,11 +51,11 @@ class BanController extends ActionController
     {
     }
 
-    public function banTypo3PagesAction()
+    public function confirmBanTypo3PagesAction()
     {
     }
 
-    public function confirmBanTypo3PagesAction()
+    public function banTypo3PagesAction()
     {
         $results = $this->varnish
             ->banByTag(new PageTag())
@@ -75,7 +75,7 @@ class BanController extends ActionController
     /**
      * @param string $tagName
      */
-    public function banTagByNameAction($tagName)
+    public function confirmBanTagByNameAction($tagName)
     {
         if ($this->isValidTagName($tagName)) {
             $this->view->assign('tagName', $tagName);
@@ -87,7 +87,7 @@ class BanController extends ActionController
     /**
      * @param string $tagName
      */
-    public function confirmBanTagByNameAction($tagName)
+    public function banTagByNameAction($tagName)
     {
         $results = $this->varnish
             ->banByTag(new Tag($tagName))
@@ -106,9 +106,9 @@ class BanController extends ActionController
     /**
      * @param string $regex
      */
-    public function banByRegexAction($regex)
+    public function confirmBanByRegexAction($regex)
     {
-        if (!$this->isCriticalRegex($regex)) {
+        if (false === $this->isCriticalRegex($regex)) {
             $this->view->assign('regex', $regex);
         } else {
             $this->redirect('index');
@@ -118,7 +118,7 @@ class BanController extends ActionController
     /**
      * @param string $regex
      */
-    public function confirmBanByRegexAction($regex)
+    public function banByRegexAction($regex)
     {
         $results = $this->varnish
             ->banByRegex($regex)
