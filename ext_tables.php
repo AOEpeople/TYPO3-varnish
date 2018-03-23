@@ -13,7 +13,7 @@ if (TYPO3_MODE === 'BE') {
             'Ban' => 'index,banTypo3Pages,confirmBanTypo3Pages,banTagByName,confirmBanTagByName,banByRegex,confirmBanByRegex'
         ],
         [
-            'access' => '',
+            'access' => 'user,group',
             'icon' => 'EXT:varnish/ext_icon.svg',
             'labels' => 'LLL:EXT:varnish/Resources/Private/Language/locallang_mod.xlf'
         ]
