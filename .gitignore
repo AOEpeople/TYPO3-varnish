@@ -8,12 +8,11 @@
 # For local exclude patterns please edit .git/info/exclude.
 #
 ########################
-#
-# Ignore temporary files (left by editors)
+# temporary files
 *~
 *.bak
-#
-# Ignore by common IDEs used directories/files
+
+# IDE
 nbproject
 *.idea
 *.project
@@ -22,8 +21,15 @@ nbproject
 .settings
 .TemporaryItems
 .webprj
-#
-# Ignore PHP/composer stuff
+
+# Build folder
 .Build
-composer.lock
+
+# PHP Dependencies + Dev
+/composer.lock
+/index.php
+/typo3
+/typo3_src
+/typo3conf
+/vendor
 .php_cs.cache
