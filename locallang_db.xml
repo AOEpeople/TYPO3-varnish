@@ -6,10 +6,10 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-			<label index="varnish.field">enable varnish header</label>
+			<label index="varnish.field">Varnish-Cache enabled</label>
 		</languageKey>
 		<languageKey index="de" type="array">
-			<label index="varnish.field">Header für Varnish aktivieren</label>
+			<label index="varnish.field">Varnish-Cache aktiviert</label>
 		</languageKey>
 	</data>
 </T3locallang>
