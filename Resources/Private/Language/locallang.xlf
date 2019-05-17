@@ -8,6 +8,10 @@
                 <source>Flush varnish cache</source>
                 <target>Varnish cache leeren</target>
              </trans-unit>
+            <trans-unit id="backendAjaxHook.description" xml:space="preserve">
+                <source></source>
+                <target></target>
+             </trans-unit>
             <trans-unit id="configuration.category.varnish" xml:space="preserve">
                 <source>varnish connection</source>
                 <target>Verbindung zu Varnish</target>

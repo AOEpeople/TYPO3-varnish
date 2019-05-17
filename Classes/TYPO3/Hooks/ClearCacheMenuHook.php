@@ -37,17 +37,14 @@ class ClearCacheMenuHook extends AbstractHook implements ClearCacheActionsHookIn
      */
     public function manipulateCacheActions(&$cacheActions, &$optionValues)
     {
-        /** @var LanguageService $languageService */
-        $languageService = $this->objectManager->get(LanguageService::class);
-        $title = $languageService->sL('LLL:EXT:varnish/Resources/Private/Language/locallang.xlf:backendAjaxHook.title');
-
         $cacheActions[] = array(
             'id' => 'varnish',
-            'title' => $title,
+            'title' => 'LLL:EXT:varnish/Resources/Private/Language/locallang.xlf:backendAjaxHook.title',
+            // Use empty description because otherwise title will also be used for it
+            'description' => 'LLL:EXT:varnish/Resources/Private/Language/locallang.xlf:backendAjaxHook.description',
             //@todo change naming of ajax call "BAN:ALL"
             'href' =>  BackendUtility::getAjaxUrl('varnish::BAN:ALL', []),
-            'icon' => '<img src="/' . $GLOBALS['TYPO3_LOADED_EXT']['varnish']['siteRelPath'] .
-                'ext_icon.svg" title="' . $title . '" alt="' . $title . '" width="16" height="16" />',
+            'iconIdentifier' => 'varnish'
         );
     }
 }
