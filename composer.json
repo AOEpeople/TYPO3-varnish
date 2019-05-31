@@ -18,18 +18,14 @@
     "require": {
         "php": "^7.0",
         "guzzlehttp/guzzle": "^6.2",
-        "typo3/cms-core": "7.6.0 || ^8.7"
+        "typo3/cms-core": "7.6.0 || ^8.7",
+        "typo3/cms-frontend": "7.6.0 || ^8.7",
+        "typo3/cms-backend": "7.6.0 || ^8.7",
+        "typo3/cms-extbase": "7.6.0 || ^8.7"
     },
     "require-dev": {
         "typo3/cms": "^7.6 || ^8.7",
-        "nimut/testing-framework": "2.0.*",
-        "phpunit/phpcov": "3.1.*",
-        "squizlabs/php_codesniffer": "3.3.*",
-        "sebastian/phpcpd": "3.0.*",
-        "phpmd/phpmd": "2.6.*"
-    },
-    "replace": {
-        "varnish": "self.version"
+        "nimut/testing-framework": "^4.1"
     },
     "autoload": {
         "psr-4": {

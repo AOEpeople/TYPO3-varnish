@@ -59,10 +59,10 @@ class TceMainHookTest extends UnitTestCase
      */
     public function setUp()
     {
-        $this->dataHandler = $this->getMock(DataHandler::class);
+        $this->dataHandler = $this->getMockBuilder(DataHandler::class)->getMock();
 
         /** @var BackendUserAuthentication $beUser */
-        $beUser = $this->getMock(BackendUserAuthentication::class);
+        $beUser = $this->getMockBuilder(BackendUserAuthentication::class)->getMock();
         $beUser->workspace = 0;
         $this->dataHandler->BE_USER = $beUser;
 
