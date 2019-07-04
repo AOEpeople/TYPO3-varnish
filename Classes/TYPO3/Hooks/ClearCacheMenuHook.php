@@ -4,7 +4,7 @@ namespace Aoe\Varnish\TYPO3\Hooks;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2018 AOE GmbH <dev@aoe.com>
+ *  (c) 2019 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -27,7 +27,6 @@ namespace Aoe\Varnish\TYPO3\Hooks;
 
 use TYPO3\CMS\Backend\Toolbar\ClearCacheActionsHookInterface;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Lang\LanguageService;
 
 class ClearCacheMenuHook extends AbstractHook implements ClearCacheActionsHookInterface
 {
@@ -37,14 +36,13 @@ class ClearCacheMenuHook extends AbstractHook implements ClearCacheActionsHookIn
      */
     public function manipulateCacheActions(&$cacheActions, &$optionValues)
     {
-        $cacheActions[] = array(
+        $cacheActions[] = [
             'id' => 'varnish',
             'title' => 'LLL:EXT:varnish/Resources/Private/Language/locallang.xlf:backendAjaxHook.title',
             // Use empty description because otherwise title will also be used for it
             'description' => 'LLL:EXT:varnish/Resources/Private/Language/locallang.xlf:backendAjaxHook.description',
-            //@todo change naming of ajax call "BAN:ALL"
-            'href' =>  BackendUtility::getAjaxUrl('varnish::BAN:ALL', []),
+            'href' => BackendUtility::getAjaxUrl('varnish::BAN:ALL', []),
             'iconIdentifier' => 'varnish'
-        );
+        ];
     }
 }
