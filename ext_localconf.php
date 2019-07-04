@@ -39,5 +39,5 @@ if (TYPO3_MODE === 'BE') {
     /**
      * Hook to add 'clear-varnish-cache'-button in TYPO3-BE
      */
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['constructPostProcess']['cacheActions'][] = 'EXT:varnish/Classes/TYPO3/Hooks/ClearCacheMenuHook.php:'.Aoe\Varnish\TYPO3\Hooks\ClearCacheMenuHook::class;
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['additionalBackendItems']['cacheActions'][] = 'EXT:varnish/Classes/TYPO3/Hooks/ClearCacheMenuHook.php:'.Aoe\Varnish\TYPO3\Hooks\ClearCacheMenuHook::class;
 }
