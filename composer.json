@@ -50,7 +50,7 @@
             "TYPO3_PATH_ROOT=.Build/Web .Build/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit/ --debug --verbose"
         ],
         "test:functional": [
-            "[ -e .Build/bin/phpunit ] || composer update",
+            "[ -e .Build/bin/phpunit ] || composer update ",
             "TYPO3_PATH_ROOT=$PWD/.Build/Web typo3DatabaseName='test' typo3DatabaseHost='127.0.0.1' typo3DatabaseUsername='root' typo3DatabasePassword='root' .Build/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml Tests/Functional"
         ]
     },
