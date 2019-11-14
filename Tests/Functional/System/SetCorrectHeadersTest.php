@@ -1,6 +1,4 @@
 <?php
-
-
 namespace Aoe\Varnish\System;
 
 /** we replace php function "header" here in order to test the output of headers in the Hook */
@@ -45,7 +43,6 @@ class SetCorrectHeadersTest extends FunctionalTestCase
             throw new \Error($e);
         }
     }
-
 
     public function tearDown()
     {

@@ -7,8 +7,8 @@ php:
 
 env:
   - TYPO3_VERSION=^7.6 COVERAGE=0 FUNCTIONAL_TEST=0
-  - TYPO3_VERSION=^8.7 COVERAGE=0 FUNCTIONAL_TEST=1 typo3DatabaseName=test typo3DatabaseHost=127.0.0.1 typo3DatabaseUsername=travis typo3DatabasePassword=root
-  - TYPO3_VERSION=dev-master COVERAGE=0 FUNCTIONAL_TEST=0
+  - TYPO3_VERSION=^8.7 COVERAGE=0 FUNCTIONAL_TEST=1
+  - TYPO3_VERSION=dev-master COVERAGE=0 FUNCTIONAL_TEST=1
 
 services:
   - mysql
@@ -63,7 +63,8 @@ script:
     if [[ "$FUNCTIONAL_TEST" == "1" ]]; then
       echo;
       echo "Running functional tests";
-      .Build/bin/phpunit --colors -c Tests/Functional/FunctionalTests.xml Tests/Functional
+      export typo3DatabaseName="test" typo3DatabaseHost="127.0.0.1" typo3DatabaseUsername="travis" typo3DatabasePassword="root"
+      .Build/bin/phpunit --colors -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml Tests/Functional
     fi
   - >
     if [[ "$COVERAGE" == "1" ]]; then

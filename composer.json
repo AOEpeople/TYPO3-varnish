@@ -18,10 +18,10 @@
     "require": {
         "php": "^7.0",
         "guzzlehttp/guzzle": "^6.2",
-        "typo3/cms-core": "^8.7",
-        "typo3/cms-frontend": "^8.7",
-        "typo3/cms-backend": "^8.7",
-        "typo3/cms-extbase": "^8.7"
+        "typo3/cms-core": "^7.6 || ^8.7",
+        "typo3/cms-frontend": "^7.6 || ^8.7",
+        "typo3/cms-backend": "^7.6 || ^8.7",
+        "typo3/cms-extbase": "^7.6 || ^8.7"
     },
     "require-dev": {
         "nimut/testing-framework": "^4.1"
@@ -51,7 +51,7 @@
         ],
         "test:functional": [
             "[ -e .Build/bin/phpunit ] || composer update",
-            "TYPO3_PATH_ROOT=$PWD/.Build/Web typo3DatabaseName=\"test\" typo3DatabaseHost=\"127.0.0.1\" typo3DatabaseUsername=\"root\" typo3DatabasePassword=\"root\" .Build/bin/phpunit -c Tests/Functional/FunctionalTests.xml Tests/Functional"
+            "TYPO3_PATH_ROOT=$PWD/.Build/Web typo3DatabaseName='test' typo3DatabaseHost='127.0.0.1' typo3DatabaseUsername='root' typo3DatabasePassword='root' .Build/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml Tests/Functional"
         ]
     },
     "extra": {
