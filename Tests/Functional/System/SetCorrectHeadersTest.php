@@ -59,7 +59,7 @@ class SetCorrectHeadersTest extends FunctionalTestCase
 
         // execute
         /** @var TypoScriptFrontendController $tsfe */
-        $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class, [], $pageUid, 'GET');
+        $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class, $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 'GET');
         $tsfe->processOutput();
 
         // verify
@@ -86,7 +86,7 @@ class SetCorrectHeadersTest extends FunctionalTestCase
 
         // execute
         /** @var TypoScriptFrontendController $tsfe */
-        $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class, [], $pageUid, 'GET');
+        $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class, $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 'GET');
         $tsfe->processOutput();
 
         // verify
@@ -109,7 +109,7 @@ class SetCorrectHeadersTest extends FunctionalTestCase
 
         // execute
         /** @var TypoScriptFrontendController $tsfe */
-        $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class, [], $pageUid, 'GET');
+        $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class, $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 'GET');
         $tsfe->processOutput();
 
         // verify
@@ -133,7 +133,7 @@ class SetCorrectHeadersTest extends FunctionalTestCase
 
         // execute
         /** @var TypoScriptFrontendController $tsfe */
-        $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class, [], $pageUid, 'GET');
+        $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class, $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 'GET');
 
         /** @var PageRepository sys_page */
         $tsfe->sys_page = GeneralUtility::makeInstance(PageRepository::class);
@@ -158,7 +158,7 @@ class SetCorrectHeadersTest extends FunctionalTestCase
 
         // execute
         /** @var TypoScriptFrontendController $tsfe */
-        $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class, [], $pageUid, 'GET');
+        $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class, $GLOBALS['TYPO3_CONF_VARS'], $pageUid, 'GET');
 
         /** @var PageRepository sys_page */
         $tsfe->sys_page = GeneralUtility::makeInstance(PageRepository::class);
