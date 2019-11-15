@@ -4,7 +4,7 @@ namespace Aoe\Varnish\TYPO3\Hooks;
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2018 AOE GmbH <dev@aoe.com>
+ *  (c) 2019 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -54,7 +54,7 @@ class ContentPostProcOutputHook extends AbstractHook
     {
         $this->sendPageTagHeader($parent);
         $this->sendDebugHeader();
-        if ($parent->page['varnish_cache'] === '1') {
+        if ((int)$parent->page['varnish_cache'] === 1) {
             $this->header->sendEnabledHeader();
         }
     }

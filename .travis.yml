@@ -4,19 +4,19 @@ php:
   - 7.0
   - 7.1
   - 7.2
+  - 7.3
 
 env:
-  - TYPO3_VERSION=^7.6 COVERAGE=0
-  - TYPO3_VERSION=^8.7 COVERAGE=0
-  - TYPO3_VERSION=dev-master COVERAGE=0
+  - TYPO3_VERSION=^7.6 COVERAGE=0 FUNCTIONAL_TEST=0
+  - TYPO3_VERSION=^8.7 COVERAGE=0 FUNCTIONAL_TEST=1
+
+services:
+  - mysql
 
 matrix:
   include:
-    - env: TYPO3_VERSION=^7.6 COVERAGE=1
+    - env: TYPO3_VERSION=^7.6 COVERAGE=1 FUNCTIONAL_TEST=1
       php: 7.0
-  allow_failures:
-    - env: TYPO3_VERSION=dev-master COVERAGE=0
-    - php: 7.2
 
 notifications:
   email:
@@ -55,6 +55,13 @@ script:
       echo;
       echo "Running unit tests";
       .Build/bin/phpunit --colors -c $UNIT_XML Tests/Unit
+    fi
+  - >
+    if [[ "$FUNCTIONAL_TEST" == "1" ]]; then
+      echo;
+      echo "Running functional tests";
+      export typo3DatabaseName="test" typo3DatabaseHost="127.0.0.1" typo3DatabaseUsername="root" typo3DatabasePassword=""
+      .Build/bin/phpunit --colors -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml Tests/Functional
     fi
   - >
     if [[ "$COVERAGE" == "1" ]]; then
