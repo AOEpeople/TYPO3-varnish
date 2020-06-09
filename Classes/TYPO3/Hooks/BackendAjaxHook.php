@@ -26,30 +26,53 @@ namespace Aoe\Varnish\TYPO3\Hooks;
  ***************************************************************/
 
 use Aoe\Varnish\System\Varnish;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
-use TYPO3\CMS\Core\Http\AjaxRequestHandler;
 
 class BackendAjaxHook extends AbstractHook
 {
     /**
-     * @param array $parameters
-     * @param AjaxRequestHandler $parent
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @return ResponseInterface
      */
-    public function banAll(array $parameters, AjaxRequestHandler $parent)
+    public function banAll(ServerRequestInterface $request, ResponseInterface $response)
     {
         /** @var Varnish $varnish */
         $varnish = $this->objectManager->get(Varnish::class);
         $varnish->banAll();
 
-        if ($GLOBALS['BE_USER'] instanceof BackendUserAuthentication) {
-            $GLOBALS['BE_USER']->writelog(
+        if ($this->isAuthorizedBackendSession()) {
+            $this->getBackendUser()->writelog(
                 3,
                 1,
                 0,
                 0,
                 'User %s has cleared the Varnish cache',
-                [$GLOBALS['BE_USER']->user['username']]
+                [$this->getBackendUser()->user['username']]
             );
         }
+
+        return $response;
+    }
+
+    /**
+     * Checks if a user is logged in and the session is active.
+     *
+     * @return bool
+     */
+    protected function isAuthorizedBackendSession()
+    {
+        $backendUser = $this->getBackendUser();
+        return $backendUser !== null && $backendUser instanceof BackendUserAuthentication && isset($backendUser->user['uid']);
+    }
+
+    /**
+     * @return BackendUserAuthentication|null
+     */
+    protected function getBackendUser()
+    {
+        return isset($GLOBALS['BE_USER']) ? $GLOBALS['BE_USER'] : null;
     }
 }

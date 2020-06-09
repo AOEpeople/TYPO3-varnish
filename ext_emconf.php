@@ -8,13 +8,13 @@ $EM_CONF[$_EXTKEY] = [
     'version' => '1.4.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '7.6.0-8.7.99'
+            'typo3' => '8.7.0-8.7.99'
         ],
         'conflicts' => [],
         'suggests' => []
     ],
     'state' => 'beta',
-    'author' => 'Kevin Schu',
+    'author' => 'AOE Developers',
     'author_email' => 'dev@aoe.com',
     'author_company' => 'AOE GmbH',
 ];
