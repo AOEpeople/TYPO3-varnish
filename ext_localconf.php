@@ -24,14 +24,9 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['headerNoC
  * Hook to clear varnish-cache - hook is called whenever the cache of an page should be deleted
  * Is used in TYPO3-Context: FE and BE
  */
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][] = 'EXT:varnish/Classes/TYPO3/Hooks/TceMainHook.php:'.Aoe\Varnish\TYPO3\Hooks\TceMainHook::class.'->clearCachePostProc';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clearCachePostProc'][] = Aoe\Varnish\TYPO3\Hooks\TceMainHook::class .'->clearCachePostProc';
 
 if (TYPO3_MODE === 'BE') {
-    ExtensionManagementUtility::registerAjaxHandler(
-        'varnish::BAN:ALL',
-        'Aoe\\Varnish\\TYPO3\\Hooks\\BackendAjaxHook->banAll'
-    );
-
     /** @var IconRegistry $iconRegistry */
     $iconRegistry = GeneralUtility::makeInstance(IconRegistry::class);
     $iconRegistry->registerIcon('varnish', SvgIconProvider::class, ['source' => 'EXT:varnish/ext_icon.svg']);
@@ -39,5 +34,5 @@ if (TYPO3_MODE === 'BE') {
     /**
      * Hook to add 'clear-varnish-cache'-button in TYPO3-BE
      */
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['additionalBackendItems']['cacheActions'][] = 'EXT:varnish/Classes/TYPO3/Hooks/ClearCacheMenuHook.php:'.Aoe\Varnish\TYPO3\Hooks\ClearCacheMenuHook::class;
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['additionalBackendItems']['cacheActions'][] = Aoe\Varnish\TYPO3\Hooks\ClearCacheMenuHook::class;
 }
