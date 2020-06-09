@@ -18,10 +18,10 @@
     "require": {
         "php": "^7.0",
         "guzzlehttp/guzzle": "^6.2",
-        "typo3/cms-core": "^7.6 || ^8.7",
-        "typo3/cms-frontend": "^7.6 || ^8.7",
-        "typo3/cms-backend": "^7.6 || ^8.7",
-        "typo3/cms-extbase": "^7.6 || ^8.7"
+        "typo3/cms-core": "^8.7",
+        "typo3/cms-frontend": "^8.7",
+        "typo3/cms-backend": "^8.7",
+        "typo3/cms-extbase": "^8.7"
     },
     "require-dev": {
         "nimut/testing-framework": "^4.1"
