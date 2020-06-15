@@ -12,7 +12,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Hook to send varnish-header
  * Is used in TYPO3-Context: FE (but we should always see those hooks also in the BE-configuration-module for a better overview of configured hooks)
  */
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['contentPostProc-output'][] = 'EXT:varnish/Classes/TYPO3/Hooks/ContentPostProcOutputHook.php:'.Aoe\Varnish\TYPO3\Hooks\ContentPostProcOutputHook::class.'->sendHeader';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['contentPostProc-output'][] = Aoe\Varnish\TYPO3\Hooks\ContentPostProcOutputHook::class.'->sendHeader';
 
 /**
  * Hook to clear varnish-cache - hook is called when crawler-extension crawl the page
