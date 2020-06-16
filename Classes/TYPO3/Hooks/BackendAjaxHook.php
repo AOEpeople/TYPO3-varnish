@@ -54,7 +54,7 @@ class BackendAjaxHook extends AbstractHook
             );
         }
 
-        return $response;
+        return json_encode($response);
     }
 
     /**
