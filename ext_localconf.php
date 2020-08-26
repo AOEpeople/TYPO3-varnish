@@ -29,7 +29,7 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['clea
 if (TYPO3_MODE === 'BE') {
     /** @var IconRegistry $iconRegistry */
     $iconRegistry = GeneralUtility::makeInstance(IconRegistry::class);
-    $iconRegistry->registerIcon('varnish', SvgIconProvider::class, ['source' => 'EXT:varnish/ext_icon.svg']);
+    $iconRegistry->registerIcon('varnish', SvgIconProvider::class, ['source' => 'EXT:varnish/Resources/Public/Icons/Extension.svg']);
 
     /**
      * Hook to add 'clear-varnish-cache'-button in TYPO3-BE

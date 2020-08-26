@@ -14,7 +14,7 @@ if (TYPO3_MODE === 'BE') {
         ],
         [
             'access' => 'user,group',
-            'icon' => 'EXT:varnish/ext_icon.svg',
+            'icon' => 'EXT:varnish/Resources/Public/Icons/Extension.svg',
             'labels' => 'LLL:EXT:varnish/Resources/Private/Language/locallang_mod.xlf'
         ]
     );
