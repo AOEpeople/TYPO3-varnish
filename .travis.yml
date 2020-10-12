@@ -1,8 +1,6 @@
 language: php
 
 php:
-  - 7.0
-  - 7.1
   - 7.2
   - 7.3
 
@@ -16,7 +14,7 @@ services:
 matrix:
   include:
     - env: TYPO3_VERSION=^7.6 COVERAGE=1 FUNCTIONAL_TEST=1
-      php: 7.0
+      php: 7.2
 
 notifications:
   email:
