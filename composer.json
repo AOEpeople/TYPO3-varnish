@@ -16,15 +16,15 @@
         }
     ],
     "require": {
-        "php": "^7.0",
-        "guzzlehttp/guzzle": "^6.2",
+        "php": "^7.2",
+        "guzzlehttp/guzzle": "^6.5 || ^7.2",
         "typo3/cms-core": "^8.7",
         "typo3/cms-frontend": "^8.7",
         "typo3/cms-backend": "^8.7",
         "typo3/cms-extbase": "^8.7"
     },
     "require-dev": {
-        "nimut/testing-framework": "^4.1"
+        "nimut/testing-framework": "^5.1"
     },
     "autoload": {
         "psr-4": {
