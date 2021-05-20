@@ -26,6 +26,7 @@ namespace Aoe\Varnish\TYPO3\Configuration;
  ***************************************************************/
 
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ExtensionConfiguration implements SingletonInterface
 {
@@ -39,7 +40,7 @@ class ExtensionConfiguration implements SingletonInterface
      */
     public function __construct()
     {
-        $this->configuration = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['varnish']);
+        $this->configuration = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get('varnish');
     }
 
     /**
