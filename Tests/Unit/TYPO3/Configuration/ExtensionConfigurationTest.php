@@ -43,9 +43,7 @@ class ExtensionConfigurationTest extends UnitTestCase
      */
     public function isDebugShouldReturnTrue()
     {
-        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['varnish'] = serialize(array(
-            'debug' => 1
-        ));
+        $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['varnish'] = ['debug' => 1];
         $configuration = new ExtensionConfiguration();
         $this->assertTrue($configuration->isDebug());
     }
@@ -55,9 +53,7 @@ class ExtensionConfigurationTest extends UnitTestCase
      */
     public function isDebugShouldReturnFalse()
     {
-        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['varnish'] = serialize(array(
-            'debug' => 0
-        ));
+        $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['varnish'] = ['debug' => 0];
         $configuration = new ExtensionConfiguration();
         $this->assertFalse($configuration->isDebug());
     }
@@ -67,9 +63,7 @@ class ExtensionConfigurationTest extends UnitTestCase
      */
     public function getHostsShouldSingleHost()
     {
-        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['varnish'] = serialize(array(
-            'hosts' => 'www.aoe.com'
-        ));
+        $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['varnish'] = ['hosts' => 'www.aoe.com'];
         $configuration = new ExtensionConfiguration();
         $this->assertEquals(array('http://www.aoe.com'), $configuration->getHosts());
     }
@@ -79,9 +73,10 @@ class ExtensionConfigurationTest extends UnitTestCase
      */
     public function getHostsShouldMultipleHost()
     {
-        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['varnish'] = serialize(array(
-            'hosts' => 'www.aoe.com,test.aoe.com,test1.aoe.com'
-        ));
+        $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['varnish'] =
+            [
+                'hosts' => 'www.aoe.com,test.aoe.com,test1.aoe.com'
+            ];
         $configuration = new ExtensionConfiguration();
         $this->assertEquals(array('http://www.aoe.com', 'http://test.aoe.com', 'http://test1.aoe.com',), $configuration->getHosts());
     }
@@ -91,9 +86,7 @@ class ExtensionConfigurationTest extends UnitTestCase
      */
     public function getDefaultTimeoutShouldReturnInteger()
     {
-        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['varnish'] = serialize(array(
-            'default_timeout' => '0'
-        ));
+        $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['varnish'] = ['default_timeout' => '0'];
         $configuration = new ExtensionConfiguration();
         $this->assertEquals(0, $configuration->getDefaultTimeout());
     }
@@ -103,9 +96,7 @@ class ExtensionConfigurationTest extends UnitTestCase
      */
     public function getBanTimeoutShouldReturnInteger()
     {
-        $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['varnish'] = serialize(array(
-            'ban_timeout' => '10'
-        ));
+        $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['varnish'] = ['ban_timeout' => '10'];
         $configuration = new ExtensionConfiguration();
         $this->assertEquals(10, $configuration->getBanTimeout());
     }
