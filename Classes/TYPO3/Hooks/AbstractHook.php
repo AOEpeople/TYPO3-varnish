@@ -30,8 +30,20 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 abstract class AbstractHook
 {
-    public function __construct()
+
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
+     */
+    protected $objectManager;
+
+    public function injectObjectManager(ObjectManagerInterface $objectManager): void
     {
-        $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $this->objectManager = $objectManager;
+    }
+
+    public function __construct(ObjectManagerInterface $objectManager)
+    {
+        $this->objectManager = $objectManager;
     }
 }

@@ -31,7 +31,10 @@ use Aoe\Varnish\System\Varnish;
 use Aoe\Varnish\TYPO3\Hooks\TceMainHook;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Cache\Backend\NullBackend;
+use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 /**
@@ -59,6 +62,15 @@ class TceMainHookTest extends UnitTestCase
      */
     public function setUp()
     {
+        /// https://github.com/TYPO3/TYPO3.CMS/blob/master/typo3/sysext/backend/Tests/Unit/Utility/BackendUtilityTest.php#L1044-L1053
+        $cacheConfigurations = [
+            'runtime' => [
+                'backend' => NullBackend::class
+            ]
+        ];
+        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+        $cacheManager->setCacheConfigurations($cacheConfigurations);
+
         $this->dataHandler = $this->getMockBuilder(DataHandler::class)->getMock();
 
         /** @var BackendUserAuthentication $beUser */
@@ -70,18 +82,9 @@ class TceMainHookTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->setMethods(array('banByTag', 'banAll'))
             ->getMock();
-        $objectManager = $this->getMockBuilder(ObjectManagerInterface::class)
-            ->setMethods(array('isRegistered', 'get', 'create', 'getEmptyObject', 'getScope'))
-            ->getMock();
 
-        $objectManager->expects($this->any())
-            ->method('get')
-            ->with(Varnish::class)
-            ->willReturn($this->varnish);
-
-        $this->tceMainHook = new TceMainHook();
-        /** @var ObjectManagerInterface $objectManager */
-        $this->tceMainHook->injectObjectManager($objectManager);
+        $this->tceMainHook = $this->createPartialMock(TceMainHook::class, ['getVarnish']);
+        $this->tceMainHook->expects($this->any())->method('getVarnish')->willReturn($this->varnish);
     }
 
     /**

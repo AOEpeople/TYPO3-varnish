@@ -1,6 +1,7 @@
 <?php
 namespace Aoe\Varnish\System;
 
+use function GuzzleHttp\Promise\settle;
 /***************************************************************
  *  Copyright notice
  *
@@ -71,7 +72,7 @@ class Http
     public function wait()
     {
         $phrases = [];
-        $results = \GuzzleHttp\Promise\settle($this->promises)->wait();
+        $results = settle($this->promises)->wait();
         foreach ($results as $result) {
             if ($result['state'] === 'fulfilled') {
                 $response = $result['value'];

@@ -29,9 +29,15 @@ use Aoe\Varnish\Domain\Model\Tag\PageTag;
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 use Aoe\Varnish\System\Varnish;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class TceMainHook extends AbstractHook
 {
+    /**
+     * @var Varnish
+     */
+    private $varnish;
+
     /**
      * @param array $parameters
      * @param DataHandler $parent
@@ -47,8 +53,7 @@ class TceMainHook extends AbstractHook
             return;
         }
 
-        /** @var Varnish $varnish */
-        $varnish = $this->objectManager->get(Varnish::class);
+        $varnish = $this->getVarnish();
 
         // delete all Typo3 pages
         if (isset($parameters['cacheCmd']) && $parameters['cacheCmd'] === 'pages') {
@@ -61,6 +66,11 @@ class TceMainHook extends AbstractHook
                 $varnish->banByTag($pageIdTag);
             }
         }
+    }
+
+    protected function getVarnish(): Varnish
+    {
+        $this->varnish = $this->varnish ?? GeneralUtility::makeInstance(Varnish::class);
     }
 
     /**

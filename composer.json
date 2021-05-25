@@ -24,7 +24,7 @@
         "typo3/cms-extbase": "^10.4"
     },
     "require-dev": {
-        "nimut/testing-framework": "^5.1"
+        "nimut/testing-framework": "^5.2.1"
     },
     "autoload": {
         "psr-4": {
@@ -47,11 +47,7 @@
         ],
         "test:unit": [
             "[ -e .Build/bin/phpunit ] || composer update",
-            "TYPO3_PATH_ROOT=.Build/Web .Build/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit/ --debug --verbose"
-        ],
-        "test:functional": [
-            "[ -e .Build/bin/phpunit ] || composer update ",
-            "TYPO3_PATH_ROOT=$PWD/.Build/Web typo3DatabaseName='test' typo3DatabaseHost='127.0.0.1' typo3DatabaseUsername='root' typo3DatabasePassword='root' .Build/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml Tests/Functional"
+            "TYPO3_PATH_ROOT=.Build/Web .Build/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit/"
         ]
     },
     "extra": {
@@ -63,5 +59,8 @@
             "web-dir": ".Build/Web",
             "extension-key": "varnish"
         }
+    },
+    "conflict": {
+        "opsone-ch/varnish": "*"
     }
 }

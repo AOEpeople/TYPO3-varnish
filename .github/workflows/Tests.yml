@@ -56,31 +56,8 @@ jobs:
           export "UNIT_XML"=.Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml
           .Build/bin/phpunit --whitelist Classes --coverage-clover=unittest-coverage.clover --colors -c $UNIT_XML Tests/Unit
 
-      - name: Functional Tests without coverage
-        run: |
-          export "FUNCTIONAL_XML"=.Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml
-          .Build/bin/phpunit --whitelist Classes --colors -c $FUNCTIONAL_XML Tests/Functional
-        if: matrix.typo3 != '^10.4'
-        env:
-          typo3DatabaseHost: 127.0.0.1
-          typo3DatabaseName: typo3
-          typo3DatabasePassword: root
-          typo3DatabaseUsername: root
-
-      - name: Functional Tests with coverage
-        run: |
-          export "FUNCTIONAL_XML"=.Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml
-          .Build/bin/phpunit --whitelist Classes --coverage-clover=functional-coverage.clover --colors -c $FUNCTIONAL_XML Tests/Functional
-        if: matrix.typo3 == '^10.4'
-        env:
-          typo3DatabaseHost: 127.0.0.1
-          typo3DatabaseName: typo3
-          typo3DatabasePassword: root
-          typo3DatabaseUsername: root
-
       - name: Upload coverage results to Scrutinizer
         if: matrix.typo3 == '^10.4' && matrix.php == '7.4'
         run: |
           wget https://scrutinizer-ci.com/ocular.phar
           php ocular.phar code-coverage:upload --format=php-clover unittest-coverage.clover
-          php ocular.phar code-coverage:upload --format=php-clover functional-coverage.clover

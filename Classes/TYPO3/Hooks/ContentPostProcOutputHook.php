@@ -29,6 +29,7 @@ use Aoe\Varnish\Domain\Model\Tag\PageTag;
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 use Aoe\Varnish\System\Header;
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class ContentPostProcOutputHook extends AbstractHook
@@ -42,7 +43,6 @@ class ContentPostProcOutputHook extends AbstractHook
 
     public function __construct()
     {
-        parent::__construct();
         $this->header = new Header();
     }
 
@@ -77,8 +77,7 @@ class ContentPostProcOutputHook extends AbstractHook
      */
     private function sendDebugHeader()
     {
-        /** @var ExtensionConfiguration $configuration */
-        $configuration = $this->objectManager->get(ExtensionConfiguration::class);
+        $configuration = new ExtensionConfiguration();
         if ($configuration->isDebug()) {
             $this->header->sendDebugHeader();
         }

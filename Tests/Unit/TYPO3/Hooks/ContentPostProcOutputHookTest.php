@@ -29,6 +29,9 @@ use Aoe\Varnish\System\Header;
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
 use Aoe\Varnish\TYPO3\Hooks\ContentPostProcOutputHook;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\CMS\Core\Cache\Backend\NullBackend;
+use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -40,12 +43,17 @@ class ContentPostProcOutputHookTest extends UnitTestCase
     /**
      * @var ContentPostProcOutputHook
      */
-    private $hook;
+    private $subject;
 
     /**
      * @var TypoScriptFrontendController
      */
     private $frontendController;
+
+    protected function setUp(): void
+    {
+        $this->subject = GeneralUtility::makeInstance(ContentPostProcOutputHook::class);
+    }
 
     /**
      * @test
@@ -54,33 +62,17 @@ class ContentPostProcOutputHookTest extends UnitTestCase
     {
         // mocking
         $header = $this->getHeaderMock(1, 2, 1);
+        $this->getFrontendControllerMock('1');
 
-        $this->frontendController = $this
-            ->getMockBuilder(TypoScriptFrontendController::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['varnish'] = ['debug' => 1];
 
-        $this->setTypoScriptFrontendControllerReflectionProperties(
-            $this->frontendController,
-            12345,
-            '1'
-        );
-
-        $extensionConfiguration = $this->getExtensionConfigurationMock(true);
-        $objectManager = $this->getObjectManagerMock($extensionConfiguration);
-
-        $this->hook = new ContentPostProcOutputHook();
-
-        $hookReflection = new \ReflectionClass($this->hook);
+        $hookReflection = new \ReflectionClass($this->subject);
         $reflectionPropertyHeader = $hookReflection->getProperty('header');
         $reflectionPropertyHeader->setAccessible(true);
-        $reflectionPropertyHeader->setValue($this->hook, $header);
-
-        /** @var ObjectManagerInterface $objectManager */
-        $this->hook->injectObjectManager($objectManager);
+        $reflectionPropertyHeader->setValue($this->subject, $header);
 
         // execute
-        $this->hook->sendHeader([], $this->frontendController);
+        $this->subject->sendHeader([], $this->frontendController);
     }
 
     /**
@@ -91,32 +83,17 @@ class ContentPostProcOutputHookTest extends UnitTestCase
         // mocking
         $header = $this->getHeaderMock(1, 2, 0);
 
-        $this->frontendController = $this
-            ->getMockBuilder(TypoScriptFrontendController::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->getFrontendControllerMock('1');
 
-        $this->setTypoScriptFrontendControllerReflectionProperties(
-            $this->frontendController,
-            12345,
-            '1'
-        );
+        $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['varnish'] = ['debug' => 0];
 
-        $extensionConfiguration = $this->getExtensionConfigurationMock(false);
-        $objectManager = $this->getObjectManagerMock($extensionConfiguration);
-
-        $this->hook = new ContentPostProcOutputHook();
-
-        $hookReflection = new \ReflectionClass($this->hook);
+        $hookReflection = new \ReflectionClass($this->subject);
         $reflectionPropertyHeader = $hookReflection->getProperty('header');
         $reflectionPropertyHeader->setAccessible(true);
-        $reflectionPropertyHeader->setValue($this->hook, $header);
-
-        /** @var ObjectManagerInterface $objectManager */
-        $this->hook->injectObjectManager($objectManager);
+        $reflectionPropertyHeader->setValue($this->subject, $header);
 
         // execute
-        $this->hook->sendHeader([], $this->frontendController);
+        $this->subject->sendHeader([], $this->frontendController);
     }
 
     /**
@@ -127,32 +104,17 @@ class ContentPostProcOutputHookTest extends UnitTestCase
         // mocking
         $header = $this->getHeaderMock(0, 2, 1);
 
-        $this->frontendController = $this
-            ->getMockBuilder(TypoScriptFrontendController::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $this->getFrontendControllerMock('0');
 
-        $this->setTypoScriptFrontendControllerReflectionProperties(
-            $this->frontendController,
-            12345,
-            '0'
-        );
+        $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['varnish'] = ['debug' => 1];
 
-        $extensionConfiguration = $this->getExtensionConfigurationMock(true);
-        $objectManager = $this->getObjectManagerMock($extensionConfiguration);
-
-        $this->hook = new ContentPostProcOutputHook();
-
-        $hookReflection = new \ReflectionClass($this->hook);
+        $hookReflection = new \ReflectionClass($this->subject);
         $reflectionPropertyHeader = $hookReflection->getProperty('header');
         $reflectionPropertyHeader->setAccessible(true);
-        $reflectionPropertyHeader->setValue($this->hook, $header);
-
-        /** @var ObjectManagerInterface $objectManager */
-        $this->hook->injectObjectManager($objectManager);
+        $reflectionPropertyHeader->setValue($this->subject, $header);
 
         // execute
-        $this->hook->sendHeader([], $this->frontendController);
+        $this->subject->sendHeader([], $this->frontendController);
     }
 
     /**
@@ -184,24 +146,6 @@ class ContentPostProcOutputHookTest extends UnitTestCase
     }
 
     /**
-     * @param \PHPUnit_Framework_MockObject_MockObject $extensionConfiguration
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    private function getObjectManagerMock(\PHPUnit_Framework_MockObject_MockObject $extensionConfiguration)
-    {
-        $objectManager = $this->getMockBuilder(ObjectManagerInterface::class)
-            ->setMethods(array('isRegistered', 'get', 'create', 'getEmptyObject', 'getScope'))
-            ->getMock();
-
-        $objectManager->expects($this->any())
-            ->method('get')
-            ->with(ExtensionConfiguration::class)
-            ->willReturn($extensionConfiguration);
-
-        return $objectManager;
-    }
-
-    /**
      * @param \PHPUnit_Framework_MockObject_MockObject $object
      * @param int $pageId
      * @param string $varnishCacheEnabled
@@ -224,22 +168,17 @@ class ContentPostProcOutputHookTest extends UnitTestCase
         );
     }
 
-    /**
-     * @param boolean $debugEnabled
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    private function getExtensionConfigurationMock($debugEnabled)
+    private function getFrontendControllerMock(string $vanishCacheEnabled): void
     {
-        $extensionConfiguration = $this
-            ->getMockBuilder(ExtensionConfiguration::class)
+        $this->frontendController = $this
+            ->getMockBuilder(TypoScriptFrontendController::class)
             ->disableOriginalConstructor()
-            ->setMethods(['isDebug'])
             ->getMock();
 
-        $extensionConfiguration->expects($this->once())
-            ->method('isDebug')
-            ->willReturn($debugEnabled);
-
-        return $extensionConfiguration;
+        $this->setTypoScriptFrontendControllerReflectionProperties(
+            $this->frontendController,
+            12345,
+            $vanishCacheEnabled
+        );
     }
 }
