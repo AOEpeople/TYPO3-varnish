@@ -29,7 +29,6 @@ use Aoe\Varnish\Domain\Model\Tag\PageTag;
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 use Aoe\Varnish\System\Header;
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class ContentPostProcOutputHook extends AbstractHook

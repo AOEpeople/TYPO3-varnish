@@ -27,17 +27,10 @@ namespace Aoe\Varnish\TYPO3\Hooks;
 
 use Aoe\Varnish\Domain\Model\Tag\PageTag;
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
-use Aoe\Varnish\System\Varnish;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class TceMainHook extends AbstractHook
 {
-    /**
-     * @var Varnish
-     */
-    private $varnish;
-
     /**
      * @param array $parameters
      * @param DataHandler $parent
@@ -66,11 +59,6 @@ class TceMainHook extends AbstractHook
                 $varnish->banByTag($pageIdTag);
             }
         }
-    }
-
-    protected function getVarnish(): Varnish
-    {
-        $this->varnish = $this->varnish ?? GeneralUtility::makeInstance(Varnish::class);
     }
 
     /**

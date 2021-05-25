@@ -25,12 +25,15 @@ namespace Aoe\Varnish\TYPO3\Hooks;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use Aoe\Varnish\System\Varnish;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 abstract class AbstractHook
 {
-
+    /**
+     * @var Varnish
+     */
+    protected $varnish;
 
     /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
@@ -42,8 +45,10 @@ abstract class AbstractHook
         $this->objectManager = $objectManager;
     }
 
-    public function __construct(ObjectManagerInterface $objectManager)
+    protected function getVarnish(): Varnish
     {
-        $this->objectManager = $objectManager;
+        $this->varnish = $this->varnish ?? GeneralUtility::makeInstance(Varnish::class);
+        return $this->varnish;
     }
+
 }

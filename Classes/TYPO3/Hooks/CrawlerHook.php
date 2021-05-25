@@ -53,11 +53,6 @@ class CrawlerHook extends AbstractHook
         return ExtensionManagementUtility::isLoaded('crawler');
     }
 
-    protected function getVarnish(): Varnish
-    {
-        $this->varnish = $this->varnish ?? GeneralUtility::makeInstance(Varnish::class);
-    }
-
     /**
      * @param integer $pageId
      */

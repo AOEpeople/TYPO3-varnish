@@ -1,7 +1,6 @@
 <?php
 namespace Aoe\Varnish\System;
 
-use function GuzzleHttp\Promise\settle;
 /***************************************************************
  *  Copyright notice
  *
@@ -30,6 +29,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\RequestOptions;
+use function GuzzleHttp\Promise\settle;
 
 class Http
 {
