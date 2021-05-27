@@ -26,13 +26,9 @@ namespace Aoe\Varnish\Tests\Unit\TYPO3\Hooks;
  ***************************************************************/
 
 use Aoe\Varnish\System\Header;
-use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
 use Aoe\Varnish\TYPO3\Hooks\ContentPostProcOutputHook;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Cache\Backend\NullBackend;
-use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
