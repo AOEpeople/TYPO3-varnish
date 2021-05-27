@@ -26,21 +26,17 @@ namespace Aoe\Varnish\TYPO3\Hooks;
  ***************************************************************/
 
 use Aoe\Varnish\System\Varnish;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Http\Response;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 class BackendAjaxHook extends AbstractHook
 {
-    /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
-     * @return ResponseInterface
-     */
-    public function banAll(ServerRequestInterface $request, ResponseInterface $response)
+    public function banAll(ServerRequestInterface $request): Response
     {
-        /** @var Varnish $varnish */
-        $varnish = $this->objectManager->get(Varnish::class);
+        $varnish = $this->getVarnish();
         $varnish->banAll();
 
         if ($this->isAuthorizedBackendSession()) {
@@ -54,7 +50,17 @@ class BackendAjaxHook extends AbstractHook
             );
         }
 
-        return json_encode($response);
+        // We need to return a response to satisfy the
+        // TYPO3\CMS\Backend\Http\RouteDispatcher::dispatch()
+        // don't like the solution, but haven't come up with something better yet.
+        return new Response();
+    }
+
+    protected function getVarnish(): Varnish
+    {
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $this->varnish = $objectManager->get(Varnish::class);
+        return $this->varnish;
     }
 
     /**

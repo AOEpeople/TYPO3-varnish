@@ -42,7 +42,6 @@ class ContentPostProcOutputHook extends AbstractHook
 
     public function __construct()
     {
-        parent::__construct();
         $this->header = new Header();
     }
 
@@ -77,8 +76,7 @@ class ContentPostProcOutputHook extends AbstractHook
      */
     private function sendDebugHeader()
     {
-        /** @var ExtensionConfiguration $configuration */
-        $configuration = $this->objectManager->get(ExtensionConfiguration::class);
+        $configuration = new ExtensionConfiguration();
         if ($configuration->isDebug()) {
             $this->header->sendDebugHeader();
         }

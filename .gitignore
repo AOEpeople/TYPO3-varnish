@@ -24,6 +24,7 @@ nbproject
 
 # Build folder
 .Build
+var
 
 # PHP Dependencies + Dev
 /composer.lock

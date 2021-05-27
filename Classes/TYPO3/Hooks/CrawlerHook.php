@@ -60,8 +60,7 @@ class CrawlerHook extends AbstractHook
     {
         $pageIdTag = new PageIdTag($pageId);
 
-        /** @var Varnish $varnish */
-        $varnish = $this->objectManager->get(Varnish::class);
+        $varnish = $this->getVarnish();
         $varnish->banByTag($pageIdTag);
     }
 

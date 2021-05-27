@@ -44,7 +44,6 @@ class BanController extends ActionController
     public function __construct(Varnish $varnish)
     {
         $this->varnish = $varnish;
-        parent::__construct();
     }
 
     public function indexAction()

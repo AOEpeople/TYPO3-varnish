@@ -112,16 +112,13 @@ class CrawlerHookTest extends UnitTestCase
      */
     private function initializeTest($isCrawlerExtensionLoaded)
     {
-        $this->varnish = $this->getMockBuilder(Varnish::class)->disableOriginalConstructor()->setMethods(array('banByTag'))->getMock();
-
-        /* @var $objectManager ObjectManagerInterface|PHPUnit_Framework_MockObject_MockObject */
-        $objectManager = $this->getMockBuilder(ObjectManagerInterface::class)
-            ->setMethods(['create', 'get', 'getEmptyObject', 'getScope', 'isRegistered'])
+        $this->varnish = $this->getMockBuilder(Varnish::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array('banByTag', 'banAll'))
             ->getMock();
-        $objectManager->expects(self::any())->method('get')->with(Varnish::class)->willReturn($this->varnish);
 
-        $this->crawlerHook = $this->getMockBuilder(CrawlerHook::class)->setMethods(array('isCrawlerExtensionLoaded'))->getMock();
+        $this->crawlerHook = $this->createPartialMock(CrawlerHook::class, ['isCrawlerExtensionLoaded', 'getVarnish']);
+        $this->crawlerHook->expects(self::any())->method('getVarnish')->willReturn($this->varnish);
         $this->crawlerHook->expects(self::any())->method('isCrawlerExtensionLoaded')->willReturn($isCrawlerExtensionLoaded);
-        $this->crawlerHook->injectObjectManager($objectManager);
     }
 }

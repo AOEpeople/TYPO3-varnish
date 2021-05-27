@@ -27,6 +27,7 @@ namespace Aoe\Varnish\System;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Promise\Utils;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\RequestOptions;
 
@@ -71,7 +72,7 @@ class Http
     public function wait()
     {
         $phrases = [];
-        $results = \GuzzleHttp\Promise\settle($this->promises)->wait();
+        $results = Utils::settle($this->promises)->wait();
         foreach ($results as $result) {
             if ($result['state'] === 'fulfilled') {
                 $response = $result['value'];
