@@ -142,12 +142,12 @@ class ContentPostProcOutputHookTest extends UnitTestCase
     }
 
     /**
-     * @param \PHPUnit_Framework_MockObject_MockObject $object
+     * @param \PHPUnit\Framework\MockObject\MockObject $object
      * @param int $pageId
      * @param string $varnishCacheEnabled
      */
     private function setTypoScriptFrontendControllerReflectionProperties(
-        \PHPUnit_Framework_MockObject_MockObject $object,
+        \PHPUnit\Framework\MockObject\MockObject $object,
         $pageId,
         $varnishCacheEnabled
     ) {

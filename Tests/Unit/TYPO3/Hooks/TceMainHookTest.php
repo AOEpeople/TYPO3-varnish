@@ -60,7 +60,7 @@ class TceMainHookTest extends UnitTestCase
     /**
      * initialize objects
      */
-    public function setUp()
+    public function setUp(): void
     {
         /// https://github.com/TYPO3/TYPO3.CMS/blob/master/typo3/sysext/backend/Tests/Unit/Utility/BackendUtilityTest.php#L1044-L1053
         $cacheConfigurations = [

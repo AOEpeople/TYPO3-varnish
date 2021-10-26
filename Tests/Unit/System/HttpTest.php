@@ -45,7 +45,7 @@ class HttpTest extends UnitTestCase
      */
     private $http;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->client = $this->getMockBuilder(Client::class)
             ->setMethods(['requestAsync'])

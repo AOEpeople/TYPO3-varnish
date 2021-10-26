@@ -58,7 +58,7 @@ class VarnishTest extends UnitTestCase
      */
     private $logManager;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->http = $this->getMockBuilder(Http::class)
             ->setMethods(array('request', 'wait'))
@@ -92,12 +92,11 @@ class VarnishTest extends UnitTestCase
 
     /**
      * @test
-     *
-     * @expectedException \RuntimeException
-     * @expectedExceptionCode 1435159558
      */
     public function banByTagShouldThrowExceptionOnInvalidTag()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionCode(1435159558);
         $tag = $this->getMockBuilder(TagInterface::class)
             ->setMethods(array('isValid', 'getIdentifier'))
             ->getMock();
