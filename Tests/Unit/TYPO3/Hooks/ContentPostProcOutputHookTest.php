@@ -28,6 +28,7 @@ namespace Aoe\Varnish\Tests\Unit\TYPO3\Hooks;
 use Aoe\Varnish\System\Header;
 use Aoe\Varnish\TYPO3\Hooks\ContentPostProcOutputHook;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -117,7 +118,7 @@ class ContentPostProcOutputHookTest extends UnitTestCase
      * @param int $sendEnabledHeaderCallingCount
      * @param int $sendHeaderForTagCallingCount
      * @param int $sendDebugHeaderCallingCount
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject
      */
     private function getHeaderMock(
         $sendEnabledHeaderCallingCount,
@@ -142,12 +143,12 @@ class ContentPostProcOutputHookTest extends UnitTestCase
     }
 
     /**
-     * @param \PHPUnit_Framework_MockObject_MockObject $object
+     * @param MockObject $object
      * @param int $pageId
      * @param string $varnishCacheEnabled
      */
     private function setTypoScriptFrontendControllerReflectionProperties(
-        \PHPUnit_Framework_MockObject_MockObject $object,
+        MockObject $object,
         $pageId,
         $varnishCacheEnabled
     ) {
