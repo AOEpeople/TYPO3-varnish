@@ -35,7 +35,6 @@ use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 /**
  * @covers \Aoe\Varnish\TYPO3\Hooks\TceMainHook
@@ -94,7 +93,7 @@ class TceMainHookTest extends UnitTestCase
     {
         $expectedTag = new PageTag();
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
+        /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
         $varnish->expects($this->once())->method('banByTag')->with($expectedTag);
 
@@ -111,7 +110,7 @@ class TceMainHookTest extends UnitTestCase
     {
         $expectedTag = new PageIdTag(4711);
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
+        /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
         $varnish->expects($this->once())->method('banByTag')->with($expectedTag);
 
@@ -134,7 +133,7 @@ class TceMainHookTest extends UnitTestCase
      */
     public function shouldNOTBanByTagIfPidGivenAsCacheCmdAndPageIdIsZero()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
+        /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
         $varnish->expects($this->never())->method('banByTag');
 
@@ -149,7 +148,7 @@ class TceMainHookTest extends UnitTestCase
      */
     public function shouldNOTBanByTagIfPidGivenAsCacheCmdAndPageIdIsNegative()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
+        /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
         $varnish->expects($this->never())->method('banByTag');
 
@@ -166,7 +165,7 @@ class TceMainHookTest extends UnitTestCase
     {
         $expectedTag = new PageIdTag(4712);
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
+        /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
         $varnish->expects($this->once())->method('banByTag')->with($expectedTag);
 
@@ -181,7 +180,7 @@ class TceMainHookTest extends UnitTestCase
      */
     public function shouldNOTBanByTagIfPidGivenAsUidPageAndPageIdIsZero()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
+        /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
         $varnish->expects($this->never())->method('banByTag');
 
@@ -196,7 +195,7 @@ class TceMainHookTest extends UnitTestCase
      */
     public function shouldNOTBanByTagIfPidGivenAsUidPageAndPageIdIsNegative()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
+        /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
         $varnish->expects($this->never())->method('banByTag');
 
@@ -213,7 +212,7 @@ class TceMainHookTest extends UnitTestCase
     {
         $expectedTag = new PageIdTag(4713);
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
+        /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
         $varnish->expects($this->once())->method('banByTag')->with($expectedTag);
 
@@ -228,7 +227,7 @@ class TceMainHookTest extends UnitTestCase
      */
     public function shouldNOTBanByTagIfPidGivenWithTablePagesAndPageIdIsZero()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
+        /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
         $varnish->expects($this->never())->method('banByTag');
 
@@ -243,7 +242,7 @@ class TceMainHookTest extends UnitTestCase
      */
     public function shouldNOTBanByTagIfPidGivenWithTablePagesAndPageIdIsNegative()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
+        /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
         $varnish->expects($this->never())->method('banByTag');
 
@@ -258,7 +257,7 @@ class TceMainHookTest extends UnitTestCase
      */
     public function shouldNOTBanByTagIfPidGivenWithOtherTableThanPages()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
+        /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
         $varnish->expects($this->never())->method('banByTag');
 
@@ -275,7 +274,7 @@ class TceMainHookTest extends UnitTestCase
     {
         $this->dataHandler->BE_USER->workspace = 1;
 
-        /** @var \PHPUnit_Framework_MockObject_MockObject $varnish */
+        /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
         $varnish->expects($this->never())->method('banByTag');
 

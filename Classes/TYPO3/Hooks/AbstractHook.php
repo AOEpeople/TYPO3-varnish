@@ -35,20 +35,9 @@ abstract class AbstractHook
      */
     protected $varnish;
 
-    /**
-     * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
-     */
-    protected $objectManager;
-
-    public function injectObjectManager(ObjectManagerInterface $objectManager): void
-    {
-        $this->objectManager = $objectManager;
-    }
-
     protected function getVarnish(): Varnish
     {
         $this->varnish = $this->varnish ?? GeneralUtility::makeInstance(Varnish::class);
         return $this->varnish;
     }
-
 }

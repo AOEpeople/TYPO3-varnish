@@ -45,17 +45,17 @@ class VarnishTest extends UnitTestCase
     private $varnish;
 
     /**
-     * @var Http|\PHPUnit_Framework_MockObject_MockObject
+     * @var Http|\PHPUnit\Framework\MockObject\MockObject
      */
     private $http;
 
     /**
-     * @var ExtensionConfiguration|\PHPUnit_Framework_MockObject_MockObject
+     * @var ExtensionConfiguration|\PHPUnit\Framework\MockObject\MockObject
      */
     private $extensionConfiguration;
 
     /**
-     * @var LogManager|\PHPUnit_Framework_MockObject_MockObject
+     * @var LogManager|\PHPUnit\Framework\MockObject\MockObject
      */
     private $logManager;
 
@@ -118,7 +118,7 @@ class VarnishTest extends UnitTestCase
             ['X-Ban-Tags' => 'my_identifier'],
             10
         );
-        /** @var TagInterface|\PHPUnit_Framework_MockObject_MockObject $tag */
+        /** @var TagInterface|\PHPUnit\Framework\MockObject\MockObject $tag */
         $tag = $this->getMockBuilder(TagInterface::class)
             ->setMethods(array('isValid', 'getIdentifier'))
             ->getMock();

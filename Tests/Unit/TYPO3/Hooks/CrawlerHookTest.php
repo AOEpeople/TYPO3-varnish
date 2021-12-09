@@ -29,9 +29,7 @@ use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 use Aoe\Varnish\System\Varnish;
 use Aoe\Varnish\TYPO3\Hooks\CrawlerHook;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-use PHPUnit_Framework_MockObject_MockObject;
 
 /**
  * @covers \Aoe\Varnish\TYPO3\Hooks\CrawlerHook

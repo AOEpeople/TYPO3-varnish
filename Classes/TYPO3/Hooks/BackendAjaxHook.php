@@ -25,12 +25,9 @@ namespace Aoe\Varnish\TYPO3\Hooks;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Aoe\Varnish\System\Varnish;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Http\Response;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 class BackendAjaxHook extends AbstractHook
 {
@@ -54,13 +51,6 @@ class BackendAjaxHook extends AbstractHook
         // TYPO3\CMS\Backend\Http\RouteDispatcher::dispatch()
         // don't like the solution, but haven't come up with something better yet.
         return new Response();
-    }
-
-    protected function getVarnish(): Varnish
-    {
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $this->varnish = $objectManager->get(Varnish::class);
-        return $this->varnish;
     }
 
     /**
