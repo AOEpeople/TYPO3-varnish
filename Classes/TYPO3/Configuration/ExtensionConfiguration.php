@@ -25,8 +25,8 @@ namespace Aoe\Varnish\TYPO3\Configuration;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration as Typo3ExtensionConfiguration;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ExtensionConfiguration implements SingletonInterface
 {
@@ -36,11 +36,11 @@ class ExtensionConfiguration implements SingletonInterface
     private $configuration;
 
     /**
-     * ExtensionConfiguration constructor.
+     * @param Typo3ExtensionConfiguration $typo3ExtensionConfiguration
      */
-    public function __construct()
+    public function __construct(Typo3ExtensionConfiguration $typo3ExtensionConfiguration)
     {
-        $this->configuration = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get('varnish');
+        $this->configuration = $typo3ExtensionConfiguration->get('varnish');
     }
 
     /**
