@@ -5,14 +5,7 @@ if (!defined('TYPO3_MODE')) {
 
 use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 use TYPO3\CMS\Core\Imaging\IconRegistry;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-
-/**
- * Hook to send varnish-header
- * Is used in TYPO3-Context: FE (but we should always see those hooks also in the BE-configuration-module for a better overview of configured hooks)
- */
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['contentPostProc-output'][] = Aoe\Varnish\TYPO3\Hooks\ContentPostProcOutputHook::class.'->sendHeader';
 
 /**
  * Hook to clear varnish-cache - hook is called when crawler-extension crawl the page

@@ -1,10 +1,10 @@
 <?php
-namespace Aoe\Varnish\TYPO3\Hooks;
+namespace Aoe\Varnish\TYPO3;
 
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2019 AOE GmbH <dev@aoe.com>
+ *  (c) 2021 AOE GmbH <dev@aoe.com>
  *
  *  All rights reserved
  *
@@ -25,37 +25,63 @@ namespace Aoe\Varnish\TYPO3\Hooks;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Aoe\Varnish\Domain\Model\Tag\PageTag;
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
+use Aoe\Varnish\Domain\Model\Tag\PageTag;
 use Aoe\Varnish\System\Header;
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-class ContentPostProcOutputHook extends AbstractHook
+class AdditionalResponseHeaders implements MiddlewareInterface
 {
-    const TYPO3_PAGE_TAG = 'typo3_page';
+    /**
+     * @var ExtensionConfiguration
+     */
+    private $extensionConfiguration;
 
     /**
      * @var Header
      */
     private $header;
 
-    public function __construct()
+    /**
+     * @param ExtensionConfiguration $extensionConfiguration
+     * @param Header $header
+     */
+    public function __construct(ExtensionConfiguration $extensionConfiguration, Header $header)
     {
-        $this->header = new Header();
+        $this->extensionConfiguration = $extensionConfiguration;
+        $this->header = $header;
     }
 
     /**
-     * @param array $parameters
-     * @param TypoScriptFrontendController $parent
+     * @param ServerRequestInterface  $request
+     * @param RequestHandlerInterface $handler
+     * @return ResponseInterface
      */
-    public function sendHeader(array $parameters, TypoScriptFrontendController $parent)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $this->sendPageTagHeader($parent);
+        $tsfe = $this->getTsfe($request);
+        $this->sendPageTagHeader($tsfe);
         $this->sendDebugHeader();
-        if ((int)$parent->page['varnish_cache'] === 1) {
+        if ((int)$tsfe->page['varnish_cache'] === 1) {
             $this->header->sendEnabledHeader();
         }
+
+        return $handler->handle($request);
+    }
+
+    /**
+     * @param ServerRequest $request
+     * @return TypoScriptFrontendController
+     */
+    private function getTsfe(ServerRequestInterface $request)
+    {
+        return $request->getAttribute('frontend.controller');
     }
 
     /**
@@ -65,7 +91,7 @@ class ContentPostProcOutputHook extends AbstractHook
     private function sendPageTagHeader(TypoScriptFrontendController $parent)
     {
         $pageIdTag = new PageIdTag($parent->id);
-        $pageTag = new PageTag(self::TYPO3_PAGE_TAG);
+        $pageTag = new PageTag();
 
         $this->header->sendHeaderForTag($pageIdTag);
         $this->header->sendHeaderForTag($pageTag);
@@ -76,8 +102,7 @@ class ContentPostProcOutputHook extends AbstractHook
      */
     private function sendDebugHeader()
     {
-        $configuration = new ExtensionConfiguration();
-        if ($configuration->isDebug()) {
+        if ($this->extensionConfiguration->isDebug()) {
             $this->header->sendDebugHeader();
         }
     }
