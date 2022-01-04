@@ -81,7 +81,8 @@ class AdditionalResponseHeaders implements MiddlewareInterface
      */
     private function getTsfe(ServerRequestInterface $request)
     {
-        return $request->getAttribute('frontend.controller');
+        // @TODO: We need the fallback '?? $GLOBALS['TSFE']' ONLY for TYPO3v10 - can be removed when we skip support for TYPO3v10!
+        return $request->getAttribute('frontend.controller') ?? $GLOBALS['TSFE'];
     }
 
     /**
