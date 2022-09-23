@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\System;
 
 /***************************************************************
@@ -32,42 +33,32 @@ class Header
     /**
      * @var string
      */
-    const HEADER_TAGS = 'X-Tags: %s';
+    public const HEADER_TAGS = 'X-Tags: %s';
 
     /**
      * @var string
      */
-    const HEADER_DEBUG = 'X-Debug: 1';
+    public const HEADER_DEBUG = 'X-Debug: 1';
 
     /**
      * @var string
      */
-    const HEADER_ENABLED = 'X-Varnish-enabled: 1';
+    public const HEADER_ENABLED = 'X-Varnish-enabled: 1';
 
-    /**
-     * @param TagInterface $tag
-     * @return void
-     */
-    public function sendHeaderForTag(TagInterface $tag)
+    public function sendHeaderForTag(TagInterface $tag): void
     {
-        if (false === $tag->isValid()) {
-            throw new \RuntimeException('Tag is not valid', 1435047447);
+        if (!$tag->isValid()) {
+            throw new \RuntimeException('Tag is not valid', 1_435_047_447);
         }
         header(sprintf(self::HEADER_TAGS, $tag->getIdentifier()), false);
     }
 
-    /**
-     * @return void
-     */
-    public function sendDebugHeader()
+    public function sendDebugHeader(): void
     {
         header(self::HEADER_DEBUG);
     }
 
-    /**
-     * @return void
-     */
-    public function sendEnabledHeader()
+    public function sendEnabledHeader(): void
     {
         header(self::HEADER_ENABLED);
     }

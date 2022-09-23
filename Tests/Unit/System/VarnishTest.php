@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\Tests\Unit\System;
 
 /***************************************************************
@@ -38,10 +39,7 @@ use TYPO3\CMS\Core\Log\LogManager;
  */
 class VarnishTest extends UnitTestCase
 {
-    /**
-     * @var Varnish
-     */
-    private $varnish;
+    private Varnish $varnish;
 
     /**
      * @var Http|\PHPUnit_Framework_MockObject_MockObject
@@ -58,10 +56,10 @@ class VarnishTest extends UnitTestCase
      */
     private $logManager;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->http = $this->getMockBuilder(Http::class)
-            ->setMethods(array('request', 'wait'))
+            ->setMethods(['request', 'wait'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -70,15 +68,12 @@ class VarnishTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
         $this->extensionConfiguration
-            ->expects($this->any())
             ->method('getHosts')
             ->willReturn(['domain.tld']);
         $this->extensionConfiguration
-            ->expects($this->any())
             ->method('getBanTimeout')
             ->willReturn(10);
         $this->extensionConfiguration
-            ->expects($this->any())
             ->method('getDefaultTimeout')
             ->willReturn(0);
 
@@ -90,54 +85,52 @@ class VarnishTest extends UnitTestCase
         $this->varnish = new Varnish($this->http, $this->extensionConfiguration, $this->logManager);
     }
 
-    /**
-     * @test
-     */
-    public function banByTagShouldThrowExceptionOnInvalidTag()
+    public function testBanByTagShouldThrowExceptionOnInvalidTag()
     {
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionCode(1435159558);
+        $this->expectExceptionCode(1_435_159_558);
         $tag = $this->getMockBuilder(TagInterface::class)
-            ->setMethods(array('isValid', 'getIdentifier'))
+            ->setMethods(['isValid', 'getIdentifier'])
             ->getMock();
-        $tag->expects($this->once())->method('isValid')->willReturn(false);
+        $tag->expects($this->once())
+            ->method('isValid')
+            ->willReturn(false);
         /** @var TagInterface $tag */
         $this->varnish->banByTag($tag);
     }
 
-    /**
-     * @test
-     */
-    public function banByTagShouldCallHttpCorrectly()
+    public function testBanByTagShouldCallHttpCorrectly()
     {
-        $this->http->expects($this->once())->method('request')->with(
-            'BAN',
-            'domain.tld',
-            ['X-Ban-Tags' => 'my_identifier'],
-            10
-        );
+        $this->http->expects($this->once())
+            ->method('request')
+            ->with(
+                'BAN',
+                'domain.tld',
+                ['X-Ban-Tags' => 'my_identifier'],
+                10
+            );
         /** @var TagInterface|\PHPUnit_Framework_MockObject_MockObject $tag */
         $tag = $this->getMockBuilder(TagInterface::class)
-            ->setMethods(array('isValid', 'getIdentifier'))
+            ->setMethods(['isValid', 'getIdentifier'])
             ->getMock();
-        $tag->expects($this->once())->method('isValid')->willReturn(true);
-        $tag->expects($this->once())->method('getIdentifier')->willReturn('my_identifier');
+        $tag->expects($this->once())
+            ->method('isValid')
+            ->willReturn(true);
+        $tag->expects($this->once())
+            ->method('getIdentifier')
+            ->willReturn('my_identifier');
         $this->varnish->banByTag($tag);
     }
 
-    /**
-     * @test
-     */
-    public function banAllShouldCallHttpCorrectly()
+    public function testBanAllShouldCallHttpCorrectly()
     {
-        $this->http->expects($this->once())->method('request')->with('BAN', 'domain.tld', ['X-Ban-All' => '1'], 10);
+        $this->http->expects($this->once())
+            ->method('request')
+            ->with('BAN', 'domain.tld', ['X-Ban-All' => '1'], 10);
         $this->varnish->banAll();
     }
 
-    /**
-     * @test
-     */
-    public function banByRegexShouldCallHttpCorrectly()
+    public function testBanByRegexShouldCallHttpCorrectly()
     {
         $this->http
             ->expects($this->once())
@@ -145,25 +138,29 @@ class VarnishTest extends UnitTestCase
             ->with('BAN', 'domain.tld', ['X-Ban-Regex' => '/*']);
         $this->varnish->banByRegex('/*');
     }
-    
-    /**
-     * @test
-     */
-    public function shouldLogOnShutdown()
+
+    public function testShouldLogOnShutdown()
     {
-        $this->http->expects($this->once())->method('wait')->willReturn([
-            ['success' => true, 'reason' => 'banned all'],
-            ['success' => false, 'reason' => 'failed!']
-        ]);
+        $this->http->expects($this->once())
+            ->method('wait')
+            ->willReturn([
+                ['success' => true, 'reason' => 'banned all'],
+                ['success' => false, 'reason' => 'failed!'],
+            ]);
 
         $logger = $this->getMockBuilder(Logger::class)
             ->disableOriginalConstructor()
             ->setMethods(['info', 'alert'])
             ->getMock();
-        $logger->expects($this->once())->method('info')->with('banned all');
-        $logger->expects($this->once())->method('alert')->with('failed!');
+        $logger->expects($this->once())
+            ->method('info')
+            ->with('banned all');
+        $logger->expects($this->once())
+            ->method('alert')
+            ->with('failed!');
 
-        $this->logManager->expects($this->any())->method('getLogger')
+        $this->logManager
+            ->method('getLogger')
             ->willReturn($logger);
 
         $this->varnish->shutdown();

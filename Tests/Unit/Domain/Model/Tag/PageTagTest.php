@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\Tests\Unit\Domain\Model\Tag;
 
 /***************************************************************
@@ -33,21 +34,15 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class PageTagTest extends UnitTestCase
 {
-    /**
-     * @test
-     */
-    public function tagShouldBeValid()
+    public function testTagShouldBeValid()
     {
         $tag = new PageTag();
         $this->assertTrue($tag->isValid());
     }
 
-    /**
-     * @test
-     */
-    public function shouldGetIdentifier()
+    public function testShouldGetIdentifier()
     {
         $tag = new PageTag();
-        $this->assertEquals('typo3_page', $tag->getIdentifier());
+        $this->assertSame('typo3_page', $tag->getIdentifier());
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\Tests\Unit\Domain\Model\Tag;
 
 /***************************************************************
@@ -33,30 +34,21 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class TagTest extends UnitTestCase
 {
-    /**
-     * @test
-     */
-    public function isValidShouldFailWithEmptyIdentifier()
+    public function testSsValidShouldFailWithEmptyIdentifier()
     {
         $tag = new Tag('');
         $this->assertFalse($tag->isValid());
     }
 
-    /**
-     * @test
-     */
-    public function shouldGetIdentifier()
+    public function testShouldGetIdentifier()
     {
         $tag = new Tag('myTag');
-        $this->assertEquals('myTag', $tag->getIdentifier());
+        $this->assertSame('myTag', $tag->getIdentifier());
     }
 
-    /**
-     * @test
-     */
-    public function shouldGetIsValidWithIdentifier()
+    public function testShouldGetIsValidWithIdentifier()
     {
         $tag = new Tag('myString');
-        $this->assertEquals(true, $tag->isValid());
+        $this->assertTrue($tag->isValid());
     }
 }

@@ -1,0 +1,6 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Cognitive complexity for \"Aoe\\\\Varnish\\\\System\\\\Http\\:\\:wait\\(\\)\" is 11, keep it under 8$#"
+			count: 1
+			path: ../Classes/System/Http.php

@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\Tests\Unit\TYPO3\Hooks;
 
 /***************************************************************
@@ -28,6 +29,7 @@ namespace Aoe\Varnish\Tests\Unit\TYPO3\Hooks;
 use Aoe\Varnish\System\Header;
 use Aoe\Varnish\TYPO3\Hooks\ContentPostProcOutputHook;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -51,10 +53,7 @@ class ContentPostProcOutputHookTest extends UnitTestCase
         $this->subject = GeneralUtility::makeInstance(ContentPostProcOutputHook::class);
     }
 
-    /**
-     * @test
-     */
-    public function shouldSendAllHeader()
+    public function testShouldSendAllHeader()
     {
         // mocking
         $header = $this->getHeaderMock(1, 2, 1);
@@ -71,10 +70,7 @@ class ContentPostProcOutputHookTest extends UnitTestCase
         $this->subject->sendHeader([], $this->frontendController);
     }
 
-    /**
-     * @test
-     */
-    public function shouldNotSendDebugHeader()
+    public function testShouldNotSendDebugHeader()
     {
         // mocking
         $header = $this->getHeaderMock(1, 2, 0);
@@ -92,10 +88,7 @@ class ContentPostProcOutputHookTest extends UnitTestCase
         $this->subject->sendHeader([], $this->frontendController);
     }
 
-    /**
-     * @test
-     */
-    public function shouldNotSendVarnishEnabledHeader()
+    public function testShouldNotSendVarnishEnabledHeader()
     {
         // mocking
         $header = $this->getHeaderMock(0, 2, 1);
@@ -114,15 +107,12 @@ class ContentPostProcOutputHookTest extends UnitTestCase
     }
 
     /**
-     * @param int $sendEnabledHeaderCallingCount
-     * @param int $sendHeaderForTagCallingCount
-     * @param int $sendDebugHeaderCallingCount
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject
      */
     private function getHeaderMock(
-        $sendEnabledHeaderCallingCount,
-        $sendHeaderForTagCallingCount,
-        $sendDebugHeaderCallingCount
+        int $sendEnabledHeaderCallingCount,
+        int $sendHeaderForTagCallingCount,
+        int $sendDebugHeaderCallingCount
     ) {
         $header = $this->getMockBuilder(Header::class)
             ->disableOriginalConstructor()
@@ -141,15 +131,10 @@ class ContentPostProcOutputHookTest extends UnitTestCase
         return $header;
     }
 
-    /**
-     * @param \PHPUnit\Framework\MockObject\MockObject $object
-     * @param int $pageId
-     * @param string $varnishCacheEnabled
-     */
     private function setTypoScriptFrontendControllerReflectionProperties(
-        \PHPUnit\Framework\MockObject\MockObject $object,
-        $pageId,
-        $varnishCacheEnabled
+        MockObject $object,
+        int $pageId,
+        string $varnishCacheEnabled
     ) {
         $reflection = new \ReflectionClass($object);
         $reflectionPropertyId = $reflection->getProperty('id');

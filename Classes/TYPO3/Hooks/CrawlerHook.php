@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\TYPO3\Hooks;
 
 /***************************************************************
@@ -26,7 +27,6 @@ namespace Aoe\Varnish\TYPO3\Hooks;
  ***************************************************************/
 
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
-use Aoe\Varnish\System\Varnish;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -38,25 +38,19 @@ class CrawlerHook extends AbstractHook
      * @param array                        $parameters   Parameters delivered by TypoScriptFrontend
      * @param TypoScriptFrontendController $parentObject The calling parent object (TypoScriptFrontend)
      */
-    public function clearVarnishCache(array $parameters, TypoScriptFrontendController $parentObject)
+    public function clearVarnishCache(array $parameters, TypoScriptFrontendController $parentObject): void
     {
         if ($this->isCrawlerExtensionLoaded() && $this->isCrawlerRunning($parentObject)) {
             $this->clearPageCacheInVarnish($parentObject->id);
         }
     }
 
-    /**
-     * @return boolean
-     */
-    protected function isCrawlerExtensionLoaded()
+    protected function isCrawlerExtensionLoaded(): bool
     {
         return ExtensionManagementUtility::isLoaded('crawler');
     }
 
-    /**
-     * @param integer $pageId
-     */
-    private function clearPageCacheInVarnish($pageId)
+    private function clearPageCacheInVarnish(int $pageId): void
     {
         $pageIdTag = new PageIdTag($pageId);
 
@@ -64,14 +58,8 @@ class CrawlerHook extends AbstractHook
         $varnish->banByTag($pageIdTag);
     }
 
-    /**
-     * @param TypoScriptFrontendController $tsfe
-     * @return boolean
-     */
-    private function isCrawlerRunning(TypoScriptFrontendController $tsfe) {
-        if ($tsfe->applicationData['tx_crawler']['running']) {
-            return true;
-        }
-        return false;
+    private function isCrawlerRunning(TypoScriptFrontendController $tsfe): bool
+    {
+        return isset($tsfe->applicationData['tx_crawler']['running']);
     }
 }

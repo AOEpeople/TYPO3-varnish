@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\Tests\Unit\TYPO3\Hooks;
 
 /***************************************************************
@@ -29,29 +30,18 @@ use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 use Aoe\Varnish\System\Varnish;
 use Aoe\Varnish\TYPO3\Hooks\CrawlerHook;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-use PHPUnit_Framework_MockObject_MockObject;
 
 /**
  * @covers \Aoe\Varnish\TYPO3\Hooks\CrawlerHook
  */
 class CrawlerHookTest extends UnitTestCase
 {
-    /**
-     * @var Varnish
-     */
-    private $varnish;
+    private Varnish $varnish;
 
-    /**
-     * @var CrawlerHook
-     */
-    private $crawlerHook;
+    private CrawlerHook $crawlerHook;
 
-    /**
-     * @test
-     */
-    public function shouldClearVarnishCache()
+    public function testShouldClearVarnishCache()
     {
         $this->initializeTest(true);
 
@@ -62,10 +52,7 @@ class CrawlerHookTest extends UnitTestCase
         $this->crawlerHook->clearVarnishCache([], $tsfe);
     }
 
-    /**
-     * @test
-     */
-    public function shouldNotClearVarnishCacheWhenCrawlerExtensionIsNotLoaded()
+    public function testShouldNotClearVarnishCacheWhenCrawlerExtensionIsNotLoaded()
     {
         $this->initializeTest(false);
 
@@ -76,10 +63,7 @@ class CrawlerHookTest extends UnitTestCase
         $this->crawlerHook->clearVarnishCache([], $tsfe);
     }
 
-    /**
-     * @test
-     */
-    public function shouldNotClearVarnishCacheWhenCrawlerIsNotRunning()
+    public function testShouldNotClearVarnishCacheWhenCrawlerIsNotRunning()
     {
         $this->initializeTest(true);
 
@@ -90,31 +74,22 @@ class CrawlerHookTest extends UnitTestCase
         $this->crawlerHook->clearVarnishCache([], $tsfe);
     }
 
-    /**
-     * @param integer $pageId
-     * @param boolean $isCrawlerRunning
-     * @return TypoScriptFrontendController
-     */
-    private function createTsfeMock($pageId, $isCrawlerRunning)
+    private function createTsfeMock(int $pageId, bool $isCrawlerRunning): TypoScriptFrontendController
     {
-        /* @var $tsfe TypoScriptFrontendController */
+        /** @var TypoScriptFrontendController $tsfe */
         $tsfe = $this->getMockBuilder(TypoScriptFrontendController::class)->disableOriginalConstructor()->getMock();
         $tsfe->id = $pageId;
-        if ($isCrawlerRunning === true) {
+        if ($isCrawlerRunning) {
             $tsfe->applicationData['tx_crawler']['running'] = true;
         }
         return $tsfe;
     }
 
-    /**
-     * @param boolean $isCrawlerExtensionLoaded
-     * @return void
-     */
-    private function initializeTest($isCrawlerExtensionLoaded)
+    private function initializeTest(bool $isCrawlerExtensionLoaded): void
     {
         $this->varnish = $this->getMockBuilder(Varnish::class)
             ->disableOriginalConstructor()
-            ->setMethods(array('banByTag', 'banAll'))
+            ->setMethods(['banByTag', 'banAll'])
             ->getMock();
 
         $this->crawlerHook = $this->createPartialMock(CrawlerHook::class, ['isCrawlerExtensionLoaded', 'getVarnish']);

@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\Tests\Unit\TYPO3\Configuration;
 
 /***************************************************************
@@ -38,66 +39,48 @@ class ExtensionConfigurationTest extends UnitTestCase
      */
     protected $backupGlobals = true;
 
-    /**
-     * @test
-     */
-    public function isDebugShouldReturnTrue()
+    public function testIsDebugShouldReturnTrue()
     {
         $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['varnish'] = ['debug' => 1];
         $configuration = new ExtensionConfiguration();
         $this->assertTrue($configuration->isDebug());
     }
 
-    /**
-     * @test
-     */
-    public function isDebugShouldReturnFalse()
+    public function testIsDebugShouldReturnFalse()
     {
         $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['varnish'] = ['debug' => 0];
         $configuration = new ExtensionConfiguration();
         $this->assertFalse($configuration->isDebug());
     }
 
-    /**
-     * @test
-     */
-    public function getHostsShouldSingleHost()
+    public function testGetHostsShouldSingleHost()
     {
         $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['varnish'] = ['hosts' => 'www.aoe.com'];
         $configuration = new ExtensionConfiguration();
-        $this->assertEquals(array('http://www.aoe.com'), $configuration->getHosts());
+        $this->assertSame(['http://www.aoe.com'], $configuration->getHosts());
     }
 
-    /**
-     * @test
-     */
-    public function getHostsShouldMultipleHost()
+    public function testGetHostsShouldMultipleHost()
     {
         $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['varnish'] =
             [
-                'hosts' => 'www.aoe.com,test.aoe.com,test1.aoe.com'
+                'hosts' => 'www.aoe.com,test.aoe.com,test1.aoe.com',
             ];
         $configuration = new ExtensionConfiguration();
-        $this->assertEquals(array('http://www.aoe.com', 'http://test.aoe.com', 'http://test1.aoe.com',), $configuration->getHosts());
+        $this->assertSame(['http://www.aoe.com', 'http://test.aoe.com', 'http://test1.aoe.com'], $configuration->getHosts());
     }
 
-    /**
-     * @test
-     */
-    public function getDefaultTimeoutShouldReturnInteger()
+    public function testGetDefaultTimeoutShouldReturnInteger()
     {
         $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['varnish'] = ['default_timeout' => '0'];
         $configuration = new ExtensionConfiguration();
-        $this->assertEquals(0, $configuration->getDefaultTimeout());
+        $this->assertSame(0, $configuration->getDefaultTimeout());
     }
 
-    /**
-     * @test
-     */
-    public function getBanTimeoutShouldReturnInteger()
+    public function testGetBanTimeoutShouldReturnInteger()
     {
         $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['varnish'] = ['ban_timeout' => '10'];
         $configuration = new ExtensionConfiguration();
-        $this->assertEquals(10, $configuration->getBanTimeout());
+        $this->assertSame(10, $configuration->getBanTimeout());
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\TYPO3\Configuration;
 
 /***************************************************************
@@ -30,62 +31,43 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ExtensionConfiguration implements SingletonInterface
 {
-    /**
-     * @var array
-     */
-    private $configuration;
+    private array $configuration = [];
 
-    /**
-     * ExtensionConfiguration constructor.
-     */
     public function __construct()
     {
         $this->configuration = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get('varnish');
     }
 
-    /**
-     * @return boolean
-     */
-    public function isDebug()
+    public function isDebug(): bool
     {
-        return (boolean)$this->get('debug');
+        return (bool) $this->get('debug');
     }
 
     /**
-     * @return array
+     * @return string[]
      */
-    public function getHosts()
+    public function getHosts(): array
     {
         $hosts = explode(',', $this->get('hosts'));
-        array_walk($hosts, function (&$value) {
-            if (false === strpos($value, 'https://') && false === strpos($value, 'http://')) {
+        array_walk($hosts, function (&$value): void {
+            if (!str_contains($value, 'https://') && !str_contains($value, 'http://')) {
                 $value = 'http://' . $value;
             }
         });
         return $hosts;
     }
 
-    /**
-     * @return integer
-     */
-    public function getDefaultTimeout()
+    public function getDefaultTimeout(): int
     {
-        return (int)$this->get('default_timeout');
+        return (int) $this->get('default_timeout');
     }
 
-    /**
-     * @return integer
-     */
-    public function getBanTimeout()
+    public function getBanTimeout(): int
     {
-        return (int)$this->get('ban_timeout');
+        return (int) $this->get('ban_timeout');
     }
 
-    /**
-     * @param string $key
-     * @return string
-     */
-    private function get($key)
+    private function get(string $key): string
     {
         return $this->configuration[$key];
     }

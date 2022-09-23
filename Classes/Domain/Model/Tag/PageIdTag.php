@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\Domain\Model\Tag;
 
 /***************************************************************
@@ -30,34 +31,25 @@ use Aoe\Varnish\Domain\Model\TagInterface;
 class PageIdTag implements TagInterface
 {
     /**
-     * @var integer
+     * @var int
      */
     private $pageId;
 
     /**
-     * @param integer $pageId
+     * @param int $pageId
      */
     public function __construct($pageId)
     {
         $this->pageId = $pageId;
     }
 
-    /**
-     * @return string
-     */
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return 'page_' . $this->pageId;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isValid()
+    public function isValid(): bool
     {
-        if (is_integer($this->pageId) && $this->pageId > 0) {
-            return true;
-        }
-        return false;
+        return is_int($this->pageId) && $this->pageId > 0;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\TYPO3\Hooks;
 
 /***************************************************************
@@ -40,14 +41,15 @@ class BackendAjaxHook extends AbstractHook
         $varnish->banAll();
 
         if ($this->isAuthorizedBackendSession()) {
-            $this->getBackendUser()->writelog(
-                3,
-                1,
-                0,
-                0,
-                'User %s has cleared the Varnish cache',
-                [$this->getBackendUser()->user['username']]
-            );
+            $this->getBackendUser()
+                ->writelog(
+                    3,
+                    1,
+                    0,
+                    0,
+                    'User %s has cleared the Varnish cache',
+                    [$this->getBackendUser()->user['username']]
+                );
         }
 
         // We need to return a response to satisfy the
@@ -65,19 +67,14 @@ class BackendAjaxHook extends AbstractHook
 
     /**
      * Checks if a user is logged in and the session is active.
-     *
-     * @return bool
      */
-    protected function isAuthorizedBackendSession()
+    protected function isAuthorizedBackendSession(): bool
     {
         $backendUser = $this->getBackendUser();
         return $backendUser !== null && $backendUser instanceof BackendUserAuthentication && isset($backendUser->user['uid']);
     }
 
-    /**
-     * @return BackendUserAuthentication|null
-     */
-    protected function getBackendUser()
+    protected function getBackendUser(): ?BackendUserAuthentication
     {
         return isset($GLOBALS['BE_USER']) ? $GLOBALS['BE_USER'] : null;
     }

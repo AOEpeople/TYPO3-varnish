@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\Tests\Unit\Domain\Model\Tag;
 
 /***************************************************************
@@ -33,48 +34,33 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class PageIdTagTest extends UnitTestCase
 {
-    /**
-     * @test
-     */
-    public function isValidShouldFailWithNegativePageId()
+    public function testIsValidShouldFailWithNegativePageId()
     {
         $tag = new PageIdTag(-1);
         $this->assertFalse($tag->isValid());
     }
 
-    /**
-     * @test
-     */
-    public function isValidShouldFailWithPageIdZero()
+    public function testIsValidShouldFailWithPageIdZero()
     {
         $tag = new PageIdTag(0);
         $this->assertFalse($tag->isValid());
     }
 
-    /**
-     * @test
-     */
-    public function isValidShouldFailWithPageIdNotNumeric()
+    public function testIsValidShouldFailWithPageIdNotNumeric()
     {
         $tag = new PageIdTag('string');
         $this->assertFalse($tag->isValid());
     }
 
-    /**
-     * @test
-     */
-    public function isValidWithInteger()
+    public function testIsValidWithInteger()
     {
         $tag = new PageIdTag(11);
         $this->assertTrue($tag->isValid());
     }
 
-    /**
-     * @test
-     */
-    public function getIdentifier()
+    public function testGetIdentifier()
     {
         $tag = new PageIdTag(11);
-        $this->assertEquals('page_11', $tag->getIdentifier());
+        $this->assertSame('page_11', $tag->getIdentifier());
     }
 }
