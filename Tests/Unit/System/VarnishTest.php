@@ -31,6 +31,7 @@ use Aoe\Varnish\System\Http;
 use Aoe\Varnish\System\Varnish;
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use RuntimeException;
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogManager;
 
@@ -42,17 +43,17 @@ class VarnishTest extends UnitTestCase
     private Varnish $varnish;
 
     /**
-     * @var Http|\PHPUnit_Framework_MockObject_MockObject
+     * @var Http|\PHPUnit\Framework\MockObject\MockObject
      */
     private $http;
 
     /**
-     * @var ExtensionConfiguration|\PHPUnit_Framework_MockObject_MockObject
+     * @var ExtensionConfiguration|\PHPUnit\Framework\MockObject\MockObject
      */
     private $extensionConfiguration;
 
     /**
-     * @var LogManager|\PHPUnit_Framework_MockObject_MockObject
+     * @var LogManager|\PHPUnit\Framework\MockObject\MockObject
      */
     private $logManager;
 
@@ -87,8 +88,9 @@ class VarnishTest extends UnitTestCase
 
     public function testBanByTagShouldThrowExceptionOnInvalidTag()
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionCode(1_435_159_558);
+
         $tag = $this->getMockBuilder(TagInterface::class)
             ->setMethods(['isValid', 'getIdentifier'])
             ->getMock();
@@ -109,7 +111,7 @@ class VarnishTest extends UnitTestCase
                 ['X-Ban-Tags' => 'my_identifier'],
                 10
             );
-        /** @var TagInterface|\PHPUnit_Framework_MockObject_MockObject $tag */
+        /** @var TagInterface|\PHPUnit\Framework\MockObject\MockObject $tag */
         $tag = $this->getMockBuilder(TagInterface::class)
             ->setMethods(['isValid', 'getIdentifier'])
             ->getMock();

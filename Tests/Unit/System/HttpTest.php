@@ -37,7 +37,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class HttpTest extends UnitTestCase
 {
     /**
-     * @var Client|\PHPUnit_Framework_MockObject_MockObject
+     * @var Client|\PHPUnit\Framework\MockObject\MockObject
      */
     private $client;
 

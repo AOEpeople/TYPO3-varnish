@@ -29,6 +29,7 @@ namespace Aoe\Varnish\Tests\Unit\System;
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 use Aoe\Varnish\System\Header;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use RuntimeException;
 
 /**
  * @covers \Aoe\Varnish\System\Header
@@ -44,7 +45,7 @@ class HeaderTest extends UnitTestCase
 
     public function testShouldThrowRuntimeExceptionWithInvalidTag()
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionCode(1_435_047_447);
         $tag = new PageIdTag('adfasdf');
         $this->header->sendHeaderForTag($tag);

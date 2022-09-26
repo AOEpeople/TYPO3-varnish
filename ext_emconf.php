@@ -5,10 +5,10 @@ $EM_CONF[$_EXTKEY] = [
     'description' => 'Allow varnish connection within TYPO3',
     'category' => 'misc',
     'shy' => 0,
-    'version' => '10.0.1',
+    'version' => '10.1.2',
     'constraints' => [
         'depends' => [
-            'typo3' => '10.4.0-10.4.99'
+            'typo3' => '10.4.0-11.5.99'
         ],
         'conflicts' => [],
         'suggests' => []

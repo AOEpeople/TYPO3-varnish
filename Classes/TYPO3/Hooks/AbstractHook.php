@@ -28,18 +28,10 @@ namespace Aoe\Varnish\TYPO3\Hooks;
 
 use Aoe\Varnish\System\Varnish;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 abstract class AbstractHook
 {
     protected Varnish $varnish;
-
-    protected ?ObjectManagerInterface $objectManager = null;
-
-    public function injectObjectManager(ObjectManagerInterface $objectManager): void
-    {
-        $this->objectManager = $objectManager;
-    }
 
     protected function getVarnish(): Varnish
     {

@@ -1,16 +1,15 @@
 <?php
-if (!defined('TYPO3_MODE')) {
-    die('Access denied.');
-}
+
+use Aoe\Varnish\Controller\BanController;
 
 if (TYPO3_MODE === 'BE') {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'Aoe.varnish',
+        'varnish',
         'web',
         'varnish',
         'bottom',
         [
-            'Ban' => 'index,banTypo3Pages,confirmBanTypo3Pages,banTagByName,confirmBanTagByName,banByRegex,confirmBanByRegex'
+            BanController::class => 'index,banTypo3Pages,confirmBanTypo3Pages,banTagByName,confirmBanTagByName,banByRegex,confirmBanByRegex'
         ],
         [
             'access' => 'user,group',
