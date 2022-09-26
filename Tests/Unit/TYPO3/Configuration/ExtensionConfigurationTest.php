@@ -52,34 +52,35 @@ class ExtensionConfigurationTest extends UnitTestCase
 
     public function testGetHostsShouldSingleHost()
     {
-        $this->assertEquals(
+        $this->assertSame(
             ['http://www.aoe.com'],
-            $this->createConfiguration('hosts', 'www.aoe.com')->getHosts()
+            $this->createConfiguration('hosts', 'www.aoe.com')
+                ->getHosts()
         );
     }
 
     public function testGetHostsShouldMultipleHost()
     {
-        $this->assertEquals(
+        $this->assertSame(
             ['http://www.aoe.com', 'http://test.aoe.com', 'http://test1.aoe.com'],
-            $this->createConfiguration('hosts', 'www.aoe.com,test.aoe.com,test1.aoe.com')->getHosts()
+            $this->createConfiguration('hosts', 'www.aoe.com,test.aoe.com,test1.aoe.com')
+                ->getHosts()
         );
     }
 
     public function testGetDefaultTimeoutShouldReturnInteger()
     {
-        $this->assertEquals(0, $this->createConfiguration('default_timeout', '0')->getDefaultTimeout());
+        $this->assertSame(0, $this->createConfiguration('default_timeout', '0')->getDefaultTimeout());
     }
 
     public function testGetBanTimeoutShouldReturnInteger()
     {
-        $this->assertEquals(10, $this->createConfiguration('ban_timeout', '10')->getBanTimeout());
+        $this->assertSame(10, $this->createConfiguration('ban_timeout', '10')->getBanTimeout());
     }
 
     /**
      * @param string|integer $key
      * @param string|integer $value
-     * @return ExtensionConfiguration
      */
     private function createConfiguration($key, $value): ExtensionConfiguration
     {

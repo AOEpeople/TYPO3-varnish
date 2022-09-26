@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer;
 use PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -44,6 +45,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             DocBlockLineLengthFixer::class => null,
             ArrayListItemNewlineFixer::class => null,
             ArrayOpenerAndCloserNewlineFixer::class => null,
+            FunctionTypehintSpaceFixer::class => [
+                __DIR__ . '/../Tests/Unit/TYPO3/AdditionalResponseHeadersTest.php',
+                __DIR__ . '/../Classes/TYPO3/Hooks/ClearCacheMenuHook.php',
+                __DIR__ . '/../Classes/TYPO3/Configuration/ExtensionConfiguration.php',
+            ],
 
             // @todo strict php
             DeclareStrictTypesFixer::class => null,
