@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\Tests\Unit\TYPO3\Configuration;
 
 /***************************************************************
@@ -35,63 +36,51 @@ use TYPO3\CMS\Core\Configuration\ExtensionConfiguration as Typo3ExtensionConfigu
 class ExtensionConfigurationTest extends UnitTestCase
 {
     /**
-     * @test
+     * @var boolean
      */
-    public function isDebugShouldReturnTrue()
+    protected $backupGlobals = true;
+
+    public function testIsDebugShouldReturnTrue()
     {
         $this->assertTrue($this->createConfiguration('debug', 1)->isDebug());
     }
 
-    /**
-     * @test
-     */
-    public function isDebugShouldReturnFalse()
+    public function testIsDebugShouldReturnFalse()
     {
         $this->assertFalse($this->createConfiguration('debug', 0)->isDebug());
     }
 
-    /**
-     * @test
-     */
-    public function getHostsShouldSingleHost()
+    public function testGetHostsShouldSingleHost()
     {
-        $this->assertEquals(
+        $this->assertSame(
             ['http://www.aoe.com'],
-            $this->createConfiguration('hosts', 'www.aoe.com')->getHosts()
+            $this->createConfiguration('hosts', 'www.aoe.com')
+                ->getHosts()
         );
     }
 
-    /**
-     * @test
-     */
-    public function getHostsShouldMultipleHost()
+    public function testGetHostsShouldMultipleHost()
     {
-        $this->assertEquals(
+        $this->assertSame(
             ['http://www.aoe.com', 'http://test.aoe.com', 'http://test1.aoe.com'],
-            $this->createConfiguration('hosts', 'www.aoe.com,test.aoe.com,test1.aoe.com')->getHosts()
+            $this->createConfiguration('hosts', 'www.aoe.com,test.aoe.com,test1.aoe.com')
+                ->getHosts()
         );
     }
 
-    /**
-     * @test
-     */
-    public function getDefaultTimeoutShouldReturnInteger()
+    public function testGetDefaultTimeoutShouldReturnInteger()
     {
-        $this->assertEquals(0, $this->createConfiguration('default_timeout', '0')->getDefaultTimeout());
+        $this->assertSame(0, $this->createConfiguration('default_timeout', '0')->getDefaultTimeout());
     }
 
-    /**
-     * @test
-     */
-    public function getBanTimeoutShouldReturnInteger()
+    public function testGetBanTimeoutShouldReturnInteger()
     {
-        $this->assertEquals(10, $this->createConfiguration('ban_timeout', '10')->getBanTimeout());
+        $this->assertSame(10, $this->createConfiguration('ban_timeout', '10')->getBanTimeout());
     }
 
     /**
      * @param string|integer $key
      * @param string|integer $value
-     * @return ExtensionConfiguration
      */
     private function createConfiguration($key, $value): ExtensionConfiguration
     {

@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\Tests\Unit\System;
 
 /***************************************************************
@@ -35,24 +36,17 @@ use RuntimeException;
  */
 class HeaderTest extends UnitTestCase
 {
-    /**
-     * @var Header
-     */
-    private $header;
+    private Header $header;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->header = new Header();
     }
 
-    /**
-     * @test
-     */
-    public function shouldThrowRuntimeExceptionWithInvalidTag()
+    public function testShouldThrowRuntimeExceptionWithInvalidTag()
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionCode(1435047447);
-
+        $this->expectExceptionCode(1_435_047_447);
         $tag = new PageIdTag('adfasdf');
         $this->header->sendHeaderForTag($tag);
     }

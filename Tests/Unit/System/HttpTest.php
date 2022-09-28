@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\Tests\Unit\System;
 
 /***************************************************************
@@ -40,12 +41,9 @@ class HttpTest extends UnitTestCase
      */
     private $client;
 
-    /**
-     * @var Http
-     */
-    private $http;
+    private Http $http;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->client = $this->getMockBuilder(Client::class)
             ->setMethods(['requestAsync'])
@@ -55,24 +53,23 @@ class HttpTest extends UnitTestCase
         $this->http = new Http($this->client);
     }
 
-    /**
-     * @test
-     */
-    public function requestShouldCallClientCorrectly()
+    public function testRequestShouldCallClientCorrectly()
     {
         $method = 'BAN';
         $url = 'domain.tld';
         $headers = ['X-Ban-Tags' => 'my_identifier'];
         $timeout = 10;
 
-        $this->client->expects($this->once())->method('requestAsync')->with(
-            $method,
-            $url,
-            [
-                RequestOptions::HEADERS => $headers,
-                RequestOptions::TIMEOUT => $timeout
-            ]
-        );
+        $this->client->expects($this->once())
+            ->method('requestAsync')
+            ->with(
+                $method,
+                $url,
+                [
+                    RequestOptions::HEADERS => $headers,
+                    RequestOptions::TIMEOUT => $timeout,
+                ]
+            );
 
         $this->http->request(
             $method,
@@ -82,24 +79,23 @@ class HttpTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
-    public function requestShouldCallClientWithDefaultParams()
+    public function testRequestShouldCallClientWithDefaultParams()
     {
         $method = 'BAN';
         $url = 'domain.tld';
         $headers = [];
         $timeout = 0;
 
-        $this->client->expects($this->once())->method('requestAsync')->with(
-            $method,
-            $url,
-            [
-                RequestOptions::HEADERS => $headers,
-                RequestOptions::TIMEOUT => $timeout
-            ]
-        );
+        $this->client->expects($this->once())
+            ->method('requestAsync')
+            ->with(
+                $method,
+                $url,
+                [
+                    RequestOptions::HEADERS => $headers,
+                    RequestOptions::TIMEOUT => $timeout,
+                ]
+            );
 
         $this->http->request(
             $method,

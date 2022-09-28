@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\Controller;
 
 /***************************************************************
@@ -33,28 +34,22 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 class BanController extends ActionController
 {
-    /**
-     * @var Varnish
-     */
-    private $varnish;
+    private Varnish $varnish;
 
-    /**
-     * @param Varnish $varnish
-     */
     public function __construct(Varnish $varnish)
     {
         $this->varnish = $varnish;
     }
 
-    public function indexAction()
+    public function indexAction(): void
     {
     }
 
-    public function confirmBanTypo3PagesAction()
+    public function confirmBanTypo3PagesAction(): void
     {
     }
 
-    public function banTypo3PagesAction()
+    public function banTypo3PagesAction(): void
     {
         $results = $this->varnish
             ->banByTag(new PageTag())
@@ -71,10 +66,7 @@ class BanController extends ActionController
         $this->redirect('index');
     }
 
-    /**
-     * @param string $tagName
-     */
-    public function confirmBanTagByNameAction($tagName)
+    public function confirmBanTagByNameAction(string $tagName): void
     {
         if ($this->isValidTagName($tagName)) {
             $this->view->assign('tagName', $tagName);
@@ -83,10 +75,7 @@ class BanController extends ActionController
         }
     }
 
-    /**
-     * @param string $tagName
-     */
-    public function banTagByNameAction($tagName)
+    public function banTagByNameAction(string $tagName): void
     {
         $results = $this->varnish
             ->banByTag(new Tag($tagName))
@@ -102,22 +91,16 @@ class BanController extends ActionController
         $this->redirect('index');
     }
 
-    /**
-     * @param string $regex
-     */
-    public function confirmBanByRegexAction($regex)
+    public function confirmBanByRegexAction(string $regex): void
     {
-        if (false === $this->isCriticalRegex($regex)) {
+        if (!$this->isCriticalRegex($regex)) {
             $this->view->assign('regex', $regex);
         } else {
             $this->redirect('index');
         }
     }
 
-    /**
-     * @param string $regex
-     */
-    public function banByRegexAction($regex)
+    public function banByRegexAction(string $regex): void
     {
         $results = $this->varnish
             ->banByRegex($regex)
@@ -133,11 +116,7 @@ class BanController extends ActionController
         $this->redirect('index');
     }
 
-    /**
-     * @param string $regex
-     * @return bool
-     */
-    private function isCriticalRegex($regex)
+    private function isCriticalRegex(string $regex): bool
     {
         if (strlen($regex) < 6) {
             $this->addFlashMessage('Bitte geben Sie einen spezifischeren RegEx ein!', '', AbstractMessage::ERROR);
@@ -146,11 +125,7 @@ class BanController extends ActionController
         return false;
     }
 
-    /**
-     * @param string $tagName
-     * @return bool
-     */
-    private function isValidTagName($tagName)
+    private function isValidTagName(string $tagName): bool
     {
         if (strlen($tagName) < 2) {
             $this->addFlashMessage('Bitte geben Sie einen gültigen Tag-Namen ein! ', '', AbstractMessage::ERROR);

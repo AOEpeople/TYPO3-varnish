@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\TYPO3;
 
 /***************************************************************
@@ -33,63 +34,39 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class AdditionalResponseHeaders implements MiddlewareInterface
 {
-    /**
-     * @var ExtensionConfiguration
-     */
-    private $extensionConfiguration;
+    private ExtensionConfiguration $extensionConfiguration;
 
-    /**
-     * @var Header
-     */
-    private $header;
+    private Header $header;
 
-    /**
-     * @param ExtensionConfiguration $extensionConfiguration
-     * @param Header $header
-     */
     public function __construct(ExtensionConfiguration $extensionConfiguration, Header $header)
     {
         $this->extensionConfiguration = $extensionConfiguration;
         $this->header = $header;
     }
 
-    /**
-     * @param ServerRequestInterface  $request
-     * @param RequestHandlerInterface $handler
-     * @return ResponseInterface
-     */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $tsfe = $this->getTsfe($request);
         $this->sendPageTagHeader($tsfe);
         $this->sendDebugHeader();
-        if ((int)$tsfe->page['varnish_cache'] === 1) {
+        if ((int) $tsfe->page['varnish_cache'] === 1) {
             $this->header->sendEnabledHeader();
         }
 
         return $handler->handle($request);
     }
 
-    /**
-     * @param ServerRequest $request
-     * @return TypoScriptFrontendController
-     */
-    private function getTsfe(ServerRequestInterface $request)
+    private function getTsfe(ServerRequestInterface $request): TypoScriptFrontendController
     {
         // @TODO: We need the fallback '?? $GLOBALS['TSFE']' ONLY for TYPO3v10 - can be removed when we skip support for TYPO3v10!
         return $request->getAttribute('frontend.controller') ?? $GLOBALS['TSFE'];
     }
 
-    /**
-     * @param TypoScriptFrontendController $parent
-     * @return void
-     */
-    private function sendPageTagHeader(TypoScriptFrontendController $parent)
+    private function sendPageTagHeader(TypoScriptFrontendController $parent): void
     {
         $pageIdTag = new PageIdTag($parent->id);
         $pageTag = new PageTag();
@@ -98,10 +75,7 @@ class AdditionalResponseHeaders implements MiddlewareInterface
         $this->header->sendHeaderForTag($pageTag);
     }
 
-    /**
-     * @return void
-     */
-    private function sendDebugHeader()
+    private function sendDebugHeader(): void
     {
         if ($this->extensionConfiguration->isDebug()) {
             $this->header->sendDebugHeader();

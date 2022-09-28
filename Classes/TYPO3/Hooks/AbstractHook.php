@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\TYPO3\Hooks;
 
 /***************************************************************
@@ -30,14 +31,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 abstract class AbstractHook
 {
-    /**
-     * @var Varnish
-     */
-    protected $varnish;
+    protected Varnish $varnish;
 
     protected function getVarnish(): Varnish
     {
-        $this->varnish = $this->varnish ?? GeneralUtility::makeInstance(Varnish::class);
+        $this->varnish ??= GeneralUtility::makeInstance(Varnish::class);
         return $this->varnish;
     }
 }

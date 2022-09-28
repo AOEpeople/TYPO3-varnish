@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\TYPO3\Hooks;
 
 /***************************************************************
@@ -25,22 +26,34 @@ namespace Aoe\Varnish\TYPO3\Hooks;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Aoe\Varnish\Domain\Model\Tag\PageTag;
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
+use Aoe\Varnish\Domain\Model\Tag\PageTag;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 
 class TceMainHook extends AbstractHook
 {
     /**
-     * @param array $parameters
-     * @param DataHandler $parent
-     *
+     * @var string
+     */
+    private const CACHE_CMD = 'cacheCmd';
+
+    /**
+     * @var string
+     */
+    private const UID = 'uid';
+
+    /**
+     * @var string
+     */
+    private const UID_PAGE = 'uid_page';
+
+    /**
      * @todo implement cache clearing for "clearCache_pageGrandParent", "clearCache_pageSiblingChildren" and
      *       and "clearCache_disable"  http://docs.typo3.org/typo3cms/TSconfigReference/PageTsconfig/TCEmain/Index.html
      * @todo find a way how to clear all affected pages after changeing a page title in the main menu or footer
      * because it is not possible through the existings hooks to access the correct page tags which needs be cleared from cache
      */
-    public function clearCachePostProc(array $parameters, DataHandler $parent)
+    public function clearCachePostProc(array $parameters, DataHandler $parent): void
     {
         if ($this->isBackendUserInWorkspace($parent)) {
             return;
@@ -49,8 +62,8 @@ class TceMainHook extends AbstractHook
         $varnish = $this->getVarnish();
 
         // delete all Typo3 pages
-        if (isset($parameters['cacheCmd']) && $parameters['cacheCmd'] === 'pages') {
-            $pageTag = new PageTag('typo3_page');
+        if (isset($parameters[self::CACHE_CMD]) && $parameters[self::CACHE_CMD] === 'pages') {
+            $pageTag = new PageTag();
             $varnish->banByTag($pageTag);
         } else {
             $pageId = $this->extractPageIdFromParameters($parameters);
@@ -63,35 +76,25 @@ class TceMainHook extends AbstractHook
 
     /**
      * extract page id from all variants of parameters that can be given
-     *
-     * @param array $parameters
-     * @return integer
      */
-    private function extractPageIdFromParameters(array $parameters)
+    private function extractPageIdFromParameters(array $parameters): int
     {
         if (isset($parameters['table']) && $parameters['table'] === 'pages'
-            && isset($parameters['uid']) && is_numeric($parameters['uid'])
+            && isset($parameters[self::UID]) && is_numeric($parameters[self::UID])
         ) {
-            return (integer)$parameters['uid'];
+            return (int) $parameters[self::UID];
         }
-        if (isset($parameters['cacheCmd']) && is_numeric($parameters['cacheCmd'])) {
-            return (integer)$parameters['cacheCmd'];
+        if (isset($parameters[self::CACHE_CMD]) && is_numeric($parameters[self::CACHE_CMD])) {
+            return (int) $parameters[self::CACHE_CMD];
         }
-        if (isset($parameters['uid_page']) && is_numeric($parameters['uid_page'])) {
-            return (integer)$parameters['uid_page'];
+        if (isset($parameters[self::UID_PAGE]) && is_numeric($parameters[self::UID_PAGE])) {
+            return (int) $parameters[self::UID_PAGE];
         }
         return 0;
     }
 
-    /**
-     * @param DataHandler $parent
-     * @return boolean
-     */
-    private function isBackendUserInWorkspace(DataHandler $parent)
+    private function isBackendUserInWorkspace(DataHandler $parent): bool
     {
-        if ($parent->BE_USER->workspace > 0) {
-            return true;
-        }
-        return false;
+        return $parent->BE_USER->workspace > 0;
     }
 }

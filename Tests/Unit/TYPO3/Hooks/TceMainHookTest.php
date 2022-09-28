@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\Tests\Unit\TYPO3\Hooks;
 
 /***************************************************************
@@ -59,13 +60,13 @@ class TceMainHookTest extends UnitTestCase
     /**
      * initialize objects
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
-        /// https://github.com/TYPO3/TYPO3.CMS/blob/master/typo3/sysext/backend/Tests/Unit/Utility/BackendUtilityTest.php#L1044-L1053
+        /** https://github.com/TYPO3/TYPO3.CMS/blob/master/typo3/sysext/backend/Tests/Unit/Utility/BackendUtilityTest.php#L1044-L1053 */
         $cacheConfigurations = [
             'runtime' => [
-                'backend' => NullBackend::class
-            ]
+                'backend' => NullBackend::class,
+            ],
         ];
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
         $cacheManager->setCacheConfigurations($cacheConfigurations);
@@ -79,207 +80,180 @@ class TceMainHookTest extends UnitTestCase
 
         $this->varnish = $this->getMockBuilder(Varnish::class)
             ->disableOriginalConstructor()
-            ->setMethods(array('banByTag', 'banAll'))
+            ->setMethods(['banByTag', 'banAll'])
             ->getMock();
 
         $this->tceMainHook = $this->createPartialMock(TceMainHook::class, ['getVarnish']);
-        $this->tceMainHook->expects($this->any())->method('getVarnish')->willReturn($this->varnish);
+        $this->tceMainHook->method('getVarnish')
+            ->willReturn($this->varnish);
     }
 
-    /**
-     * @test
-     */
-    public function shouldBanAllTYPO3PagesIfCacheCmdIsPages()
+    public function testShouldBanAllTYPO3PagesIfCacheCmdIsPages()
     {
         $expectedTag = new PageTag();
 
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->once())->method('banByTag')->with($expectedTag);
+        $varnish->expects($this->once())
+            ->method('banByTag')
+            ->with($expectedTag);
 
         $this->tceMainHook->clearCachePostProc(
-            array('cacheCmd' => 'pages'),
+            ['cacheCmd' => 'pages'],
             $this->dataHandler
         );
     }
 
-    /**
-     * @test
-     */
-    public function shouldBanByTagIfPidGivenAsCacheCmd()
+    public function testShouldBanByTagIfPidGivenAsCacheCmd()
     {
         $expectedTag = new PageIdTag(4711);
 
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->once())->method('banByTag')->with($expectedTag);
+        $varnish->expects($this->once())
+            ->method('banByTag')
+            ->with($expectedTag);
 
         $this->tceMainHook->clearCachePostProc(
-            array('cacheCmd' => 4711),
+            ['cacheCmd' => 4711],
             $this->dataHandler
         );
     }
 
-    /**
-     */
-    public function shouldBanAllTypo3PagesWhenCacheCmdIsPages()
-    {
-        $varnish = $this->varnish;
-        $varnish->expects($this->once())->method('banByTag')->with("");
-    }
-
-    /**
-     * @test
-     */
-    public function shouldNOTBanByTagIfPidGivenAsCacheCmdAndPageIdIsZero()
+    public function testShouldNOTBanByTagIfPidGivenAsCacheCmdAndPageIdIsZero()
     {
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->never())->method('banByTag');
+        $varnish->expects($this->never())
+            ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
-            array('cacheCmd' => 0),
+            ['cacheCmd' => 0],
             $this->dataHandler
         );
     }
 
-    /**
-     * @test
-     */
-    public function shouldNOTBanByTagIfPidGivenAsCacheCmdAndPageIdIsNegative()
+    public function testShouldNOTBanByTagIfPidGivenAsCacheCmdAndPageIdIsNegative()
     {
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->never())->method('banByTag');
+        $varnish->expects($this->never())
+            ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
-            array('cacheCmd' => -1),
+            ['cacheCmd' => -1],
             $this->dataHandler
         );
     }
 
-    /**
-     * @test
-     */
-    public function shouldBanByTagIfPidGivenAsUidPage()
+    public function testShouldBanByTagIfPidGivenAsUidPage()
     {
         $expectedTag = new PageIdTag(4712);
 
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->once())->method('banByTag')->with($expectedTag);
+        $varnish->expects($this->once())
+            ->method('banByTag')
+            ->with($expectedTag);
 
         $this->tceMainHook->clearCachePostProc(
-            array('uid_page' => 4712),
+            ['uid_page' => 4712],
             $this->dataHandler
         );
     }
 
-    /**
-     * @test
-     */
-    public function shouldNOTBanByTagIfPidGivenAsUidPageAndPageIdIsZero()
+    public function testShouldNOTBanByTagIfPidGivenAsUidPageAndPageIdIsZero()
     {
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->never())->method('banByTag');
+        $varnish->expects($this->never())
+            ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
-            array('uid_page' => 0),
+            ['uid_page' => 0],
             $this->dataHandler
         );
     }
 
-    /**
-     * @test
-     */
-    public function shouldNOTBanByTagIfPidGivenAsUidPageAndPageIdIsNegative()
+    public function testShouldNOTBanByTagIfPidGivenAsUidPageAndPageIdIsNegative()
     {
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->never())->method('banByTag');
+        $varnish->expects($this->never())
+            ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
-            array('uid_page' => -1),
+            ['uid_page' => -1],
             $this->dataHandler
         );
     }
 
-    /**
-     * @test
-     */
-    public function shouldBanByTagIfPidGivenWithTablePages()
+    public function testShouldBanByTagIfPidGivenWithTablePages()
     {
         $expectedTag = new PageIdTag(4713);
 
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->once())->method('banByTag')->with($expectedTag);
+        $varnish->expects($this->once())
+            ->method('banByTag')
+            ->with($expectedTag);
 
         $this->tceMainHook->clearCachePostProc(
-            array('table' => 'pages', 'uid' => 4713),
+            ['table' => 'pages', 'uid' => 4713],
             $this->dataHandler
         );
     }
 
-    /**
-     * @test
-     */
-    public function shouldNOTBanByTagIfPidGivenWithTablePagesAndPageIdIsZero()
+    public function testShouldNOTBanByTagIfPidGivenWithTablePagesAndPageIdIsZero()
     {
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->never())->method('banByTag');
+        $varnish->expects($this->never())
+            ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
-            array('table' => 'pages', 'uid' => 0),
+            ['table' => 'pages', 'uid' => 0],
             $this->dataHandler
         );
     }
 
-    /**
-     * @test
-     */
-    public function shouldNOTBanByTagIfPidGivenWithTablePagesAndPageIdIsNegative()
+    public function testShouldNOTBanByTagIfPidGivenWithTablePagesAndPageIdIsNegative()
     {
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->never())->method('banByTag');
+        $varnish->expects($this->never())
+            ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
-            array('table' => 'pages', 'uid' => -1),
+            ['table' => 'pages', 'uid' => -1],
             $this->dataHandler
         );
     }
 
-    /**
-     * @test
-     */
-    public function shouldNOTBanByTagIfPidGivenWithOtherTableThanPages()
+    public function testShouldNOTBanByTagIfPidGivenWithOtherTableThanPages()
     {
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->never())->method('banByTag');
+        $varnish->expects($this->never())
+            ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
-            array('table' => 'fe_users', 'uid' => 1),
+            ['table' => 'fe_users', 'uid' => 1],
             $this->dataHandler
         );
     }
 
-    /**
-     * @test
-     */
-    public function shouldNOTBanByTagIfBeUserIsInWorkspace()
+    public function testShouldNOTBanByTagIfBeUserIsInWorkspace()
     {
         $this->dataHandler->BE_USER->workspace = 1;
 
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->never())->method('banByTag');
+        $varnish->expects($this->never())
+            ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
-            array('cacheCmd' => 4715),
+            ['cacheCmd' => 4715],
             $this->dataHandler
         );
     }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\Domain\Model\Tag;
 
 /***************************************************************
@@ -29,35 +30,20 @@ use Aoe\Varnish\Domain\Model\TagInterface;
 
 class Tag implements TagInterface
 {
-    /**
-     * @var string
-     */
-    protected $identifier;
+    private string $identifier;
 
-    /**
-     * @param string $identifier
-     */
-    public function __construct($identifier)
+    public function __construct(string $identifier)
     {
         $this->identifier = $identifier;
     }
 
-    /**
-     * @return string
-     */
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return $this->identifier;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isValid()
+    public function isValid(): bool
     {
-        if (strlen($this->identifier) > 0) {
-            return true;
-        }
-        return false;
+        return strlen($this->identifier) > 0;
     }
 }

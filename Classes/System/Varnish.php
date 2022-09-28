@@ -1,4 +1,5 @@
 <?php
+
 namespace Aoe\Varnish\System;
 
 /***************************************************************
@@ -32,26 +33,12 @@ use TYPO3\CMS\Core\SingletonInterface;
 
 class Varnish implements SingletonInterface
 {
-    /**
-     * @var Http
-     */
-    private $http;
+    private Http $http;
 
-    /**
-     * @var ExtensionConfiguration
-     */
-    private $extensionConfiguration;
+    private ExtensionConfiguration $extensionConfiguration;
 
-    /**
-     * @var LogManager
-     */
-    private $logManager;
+    private LogManager $logManager;
 
-    /**
-     * @param Http $http
-     * @param ExtensionConfiguration $extensionConfiguration
-     * @param LogManager $logManager
-     */
     public function __construct(Http $http, ExtensionConfiguration $extensionConfiguration, LogManager $logManager)
     {
         $this->http = $http;
@@ -62,61 +49,47 @@ class Varnish implements SingletonInterface
     }
 
     /**
-     * @return array
+     * @return mixed[]
      */
-    public function shutdown()
+    public function shutdown(): array
     {
         $phrases = $this->http->wait();
         if (is_array($phrases)) {
             foreach ($phrases as $phrase) {
                 if ($phrase['success']) {
-                    $this->logManager->getLogger(__CLASS__)->info($phrase['reason']);
+                    $this->logManager->getLogger(__CLASS__)
+                        ->info($phrase['reason']);
                 } else {
-                    $this->logManager->getLogger(__CLASS__)->alert($phrase['reason']);
+                    $this->logManager->getLogger(__CLASS__)
+                        ->alert($phrase['reason']);
                 }
             }
         }
         return $phrases;
     }
 
-    /**
-     * @param TagInterface $tag
-     * @return Varnish
-     */
-    public function banByTag(TagInterface $tag)
+    public function banByTag(TagInterface $tag): self
     {
-        if (false === $tag->isValid()) {
-            throw new \RuntimeException('Tag is not valid', 1435159558);
+        if (!$tag->isValid()) {
+            throw new \RuntimeException('Tag is not valid', 1_435_159_558);
         }
         $this->request('BAN', ['X-Ban-Tags' => $tag->getIdentifier()], $this->extensionConfiguration->getBanTimeout());
         return $this;
     }
 
-    /**
-     * @return Varnish
-     */
-    public function banAll()
+    public function banAll(): self
     {
         $this->request('BAN', ['X-Ban-All' => '1'], $this->extensionConfiguration->getBanTimeout());
         return $this;
     }
 
-    /**
-     * @param string $regex
-     * @return Varnish
-     */
-    public function banByRegex($regex)
+    public function banByRegex(string $regex): self
     {
         $this->request('BAN', ['X-Ban-Regex' => $regex], $this->extensionConfiguration->getBanTimeout());
         return $this;
     }
 
-    /**
-     * @param string $method
-     * @param array $headers
-     * @param integer $timeout
-     */
-    private function request($method, $headers = [], $timeout = null)
+    private function request(string $method, array $headers = [], int $timeout = null): void
     {
         if ($timeout === null) {
             $timeout = $this->extensionConfiguration->getDefaultTimeout();
