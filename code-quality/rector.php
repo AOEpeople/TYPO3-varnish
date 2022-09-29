@@ -89,39 +89,6 @@ return static function (ContainerConfigurator $containerConfigurator): void
                 __DIR__ . '/../Classes/Domain/Model/Tag/PageIdTag.php',
                 __DIR__ . '/../Tests/Unit/TYPO3/Hooks/ContentPostProcOutputHookTest.php',
             ],
-
-            /*
-            RecastingRemovalRector::class,
-            ConsistentPregDelimiterRector::class,
-            PostIncDecToPreIncDecRector::class,
-            ReturnBinaryAndToEarlyReturnRector::class,
-            MakeBoolPropertyRespectIsHasWasMethodNamingRector::class,
-            MoveOutMethodCallInsideIfConditionRector::class,
-            ReturnArrayClassMethodToYieldRector::class,
-            AddArrayParamDocTypeRector::class,
-            AddArrayReturnDocTypeRector::class,
-            ReturnFluentChainMethodCallToNormalMethodCallRector::class,
-            IssetOnPropertyObjectToPropertyExistsRector::class,
-            FlipTypeControlToUseExclusiveTypeRector::class,
-            RenameVariableToMatchNewTypeRector::class,
-            AddLiteralSeparatorToNumberRector::class,
-            RenameForeachValueVariableToMatchMethodCallReturnTypeRector::class,
-            ChangeReadOnlyVariableWithDefaultValueToConstantRector::class,
-            PrivatizeLocalPropertyToPrivatePropertyRector::class,
-            RemoveDelegatingParentCallRector::class,
-            */
-
-
-            // @todo strict php
-            /*
-            ArgumentAdderRector::class,
-            ParamTypeDeclarationRector::class,
-            ReturnTypeDeclarationRector::class,
-            JsonThrowOnErrorRector::class,
-            AddArrayDefaultToArrayPropertyRector::class,
-            SimplifyIfReturnBoolRector::class,
-            SimplifyBoolIdenticalTrueRector::class,
-            */
         ]
     );
 
