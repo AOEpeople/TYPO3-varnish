@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0" xmlns:t3="http://typo3.org/schemas/xliff">
+	<file source-language="en" datatype="plaintext" original="messages" date="2022-10-17T20:22:34Z" product-name="lang">
+		<header/>
+		<body>
+			<trans-unit id="varnish.field" xml:space="preserve">
+				<source>Varnish-Cache enabled</source>
+				<target>Varnish-Cache aktiviert</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

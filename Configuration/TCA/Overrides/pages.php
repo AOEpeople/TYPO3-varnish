@@ -6,7 +6,7 @@ if (!defined('TYPO3_MODE')) {
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('pages', [
     'varnish_cache' => [
         'exclude' => 0,
-        'label' => 'LLL:EXT:varnish/locallang_db.xml:varnish.field',
+        'label' => 'LLL:EXT:varnish/Resources/Private/Language/locallang_db.xlf:varnish.field',
         'config' => [
             'type' => 'check',
             'default' => '0',
