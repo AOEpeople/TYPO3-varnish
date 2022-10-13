@@ -80,6 +80,13 @@
             "@composer code-style",
             "@composer code-analysis",
             "@composer code-compatibility"
+        ],
+        "extension-release": [
+            "rm -rf .Build",
+            "rm -rf code-quality",
+            "rm -rf Tests/",
+            "rm .gitignore",
+            "rm .scrutinizer.yml"
         ]
     },
     "extra": {
