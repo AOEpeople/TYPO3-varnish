@@ -32,6 +32,8 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
 
 class TceMainHook extends AbstractHook
 {
+    private static array $bannedPageIds = [];
+
     /**
      * @var string
      */
@@ -61,13 +63,15 @@ class TceMainHook extends AbstractHook
 
         $varnish = $this->getVarnish();
 
-        // delete all Typo3 pages
         if (isset($parameters[self::CACHE_CMD]) && $parameters[self::CACHE_CMD] === 'pages') {
+            // ban all TYPO3-pages
             $pageTag = new PageTag();
             $varnish->banByTag($pageTag);
         } else {
             $pageId = $this->extractPageIdFromParameters($parameters);
-            if ($pageId > 0) {
+            if ($pageId > 0 && !in_array($pageId, self::$bannedPageIds)) {
+                // ban specific TYPO3-page
+                self::$bannedPageIds[] = $pageId;
                 $pageIdTag = new PageIdTag($pageId);
                 $varnish->banByTag($pageIdTag);
             }

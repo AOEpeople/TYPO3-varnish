@@ -204,6 +204,30 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
+    public function testShouldBanByPageIdTagOnlyOnce()
+    {
+        $expectedTag = new PageIdTag(4714);
+
+        /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
+        $varnish = $this->varnish;
+        $varnish->expects($this->once())
+            ->method('banByTag')
+            ->with($expectedTag);
+
+        $this->tceMainHook->clearCachePostProc(
+            ['table' => 'pages', 'uid' => 4714],
+            $this->dataHandler
+        );
+        $this->tceMainHook->clearCachePostProc(
+            ['table' => 'pages', 'uid' => 4714],
+            $this->dataHandler
+        );
+        $this->tceMainHook->clearCachePostProc(
+            ['table' => 'pages', 'uid' => 4714],
+            $this->dataHandler
+        );
+    }
+
     public function testShouldNOTBanByTagIfPidGivenWithTablePagesAndPageIdIsZero()
     {
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
