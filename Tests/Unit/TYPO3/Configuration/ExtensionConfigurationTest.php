@@ -42,17 +42,17 @@ class ExtensionConfigurationTest extends UnitTestCase
 
     public function testIsDebugShouldReturnTrue()
     {
-        $this->assertTrue($this->createConfiguration('debug', 1)->isDebug());
+        self::assertTrue($this->createConfiguration('debug', 1)->isDebug());
     }
 
     public function testIsDebugShouldReturnFalse()
     {
-        $this->assertFalse($this->createConfiguration('debug', 0)->isDebug());
+        self::assertFalse($this->createConfiguration('debug', 0)->isDebug());
     }
 
     public function testGetHostsShouldSingleHost()
     {
-        $this->assertSame(
+        self::assertSame(
             ['http://www.aoe.com'],
             $this->createConfiguration('hosts', 'www.aoe.com')
                 ->getHosts()
@@ -61,7 +61,7 @@ class ExtensionConfigurationTest extends UnitTestCase
 
     public function testGetHostsShouldMultipleHost()
     {
-        $this->assertSame(
+        self::assertSame(
             ['http://www.aoe.com', 'http://test.aoe.com', 'http://test1.aoe.com'],
             $this->createConfiguration('hosts', 'www.aoe.com,test.aoe.com,test1.aoe.com')
                 ->getHosts()
@@ -70,12 +70,12 @@ class ExtensionConfigurationTest extends UnitTestCase
 
     public function testGetDefaultTimeoutShouldReturnInteger()
     {
-        $this->assertSame(0, $this->createConfiguration('default_timeout', '0')->getDefaultTimeout());
+        self::assertSame(0, $this->createConfiguration('default_timeout', '0')->getDefaultTimeout());
     }
 
     public function testGetBanTimeoutShouldReturnInteger()
     {
-        $this->assertSame(10, $this->createConfiguration('ban_timeout', '10')->getBanTimeout());
+        self::assertSame(10, $this->createConfiguration('ban_timeout', '10')->getBanTimeout());
     }
 
     /**

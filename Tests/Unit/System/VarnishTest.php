@@ -60,12 +60,12 @@ class VarnishTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->http = $this->getMockBuilder(Http::class)
-            ->setMethods(['request', 'wait'])
+            ->onlyMethods(['request', 'wait'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->extensionConfiguration = $this->getMockBuilder(ExtensionConfiguration::class)
-            ->setMethods(['getHosts', 'getBanTimeout', 'getDefaultTimeout'])
+            ->onlyMethods(['getHosts', 'getBanTimeout', 'getDefaultTimeout'])
             ->disableOriginalConstructor()
             ->getMock();
         $this->extensionConfiguration
@@ -80,7 +80,7 @@ class VarnishTest extends UnitTestCase
 
         $this->logManager = $this->getMockBuilder(LogManager::class)
             ->disableOriginalConstructor()
-            ->setMethods(['getLogger'])
+            ->onlyMethods(['getLogger'])
             ->getMock();
 
         $this->varnish = new Varnish($this->http, $this->extensionConfiguration, $this->logManager);
@@ -92,9 +92,9 @@ class VarnishTest extends UnitTestCase
         $this->expectExceptionCode(1_435_159_558);
 
         $tag = $this->getMockBuilder(TagInterface::class)
-            ->setMethods(['isValid', 'getIdentifier'])
+            ->onlyMethods(['isValid', 'getIdentifier'])
             ->getMock();
-        $tag->expects($this->once())
+        $tag->expects(self::once())
             ->method('isValid')
             ->willReturn(false);
         /** @var TagInterface $tag */
@@ -103,7 +103,7 @@ class VarnishTest extends UnitTestCase
 
     public function testBanByTagShouldCallHttpCorrectly()
     {
-        $this->http->expects($this->once())
+        $this->http->expects(self::once())
             ->method('request')
             ->with(
                 'BAN',
@@ -113,12 +113,12 @@ class VarnishTest extends UnitTestCase
             );
         /** @var TagInterface|\PHPUnit\Framework\MockObject\MockObject $tag */
         $tag = $this->getMockBuilder(TagInterface::class)
-            ->setMethods(['isValid', 'getIdentifier'])
+            ->onlyMethods(['isValid', 'getIdentifier'])
             ->getMock();
-        $tag->expects($this->once())
+        $tag->expects(self::once())
             ->method('isValid')
             ->willReturn(true);
-        $tag->expects($this->once())
+        $tag->expects(self::once())
             ->method('getIdentifier')
             ->willReturn('my_identifier');
         $this->varnish->banByTag($tag);
@@ -126,7 +126,7 @@ class VarnishTest extends UnitTestCase
 
     public function testBanAllShouldCallHttpCorrectly()
     {
-        $this->http->expects($this->once())
+        $this->http->expects(self::once())
             ->method('request')
             ->with('BAN', 'domain.tld', ['X-Ban-All' => '1'], 10);
         $this->varnish->banAll();
@@ -135,7 +135,7 @@ class VarnishTest extends UnitTestCase
     public function testBanByRegexShouldCallHttpCorrectly()
     {
         $this->http
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('request')
             ->with('BAN', 'domain.tld', ['X-Ban-Regex' => '/*']);
         $this->varnish->banByRegex('/*');
@@ -143,7 +143,7 @@ class VarnishTest extends UnitTestCase
 
     public function testShouldLogOnShutdown()
     {
-        $this->http->expects($this->once())
+        $this->http->expects(self::once())
             ->method('wait')
             ->willReturn([
                 ['success' => true, 'reason' => 'banned all'],
@@ -152,12 +152,12 @@ class VarnishTest extends UnitTestCase
 
         $logger = $this->getMockBuilder(Logger::class)
             ->disableOriginalConstructor()
-            ->setMethods(['info', 'alert'])
+            ->onlyMethods(['info', 'alert'])
             ->getMock();
-        $logger->expects($this->once())
+        $logger->expects(self::once())
             ->method('info')
             ->with('banned all');
-        $logger->expects($this->once())
+        $logger->expects(self::once())
             ->method('alert')
             ->with('failed!');
 

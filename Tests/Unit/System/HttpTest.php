@@ -46,7 +46,7 @@ class HttpTest extends UnitTestCase
     protected function setUp(): void
     {
         $this->client = $this->getMockBuilder(Client::class)
-            ->setMethods(['requestAsync'])
+            ->onlyMethods(['requestAsync'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -60,7 +60,7 @@ class HttpTest extends UnitTestCase
         $headers = ['X-Ban-Tags' => 'my_identifier'];
         $timeout = 10;
 
-        $this->client->expects($this->once())
+        $this->client->expects(self::once())
             ->method('requestAsync')
             ->with(
                 $method,
@@ -86,7 +86,7 @@ class HttpTest extends UnitTestCase
         $headers = [];
         $timeout = 0;
 
-        $this->client->expects($this->once())
+        $this->client->expects(self::once())
             ->method('requestAsync')
             ->with(
                 $method,

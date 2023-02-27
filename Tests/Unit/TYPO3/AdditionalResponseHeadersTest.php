@@ -91,7 +91,7 @@ class AdditionalResponseHeadersTest extends UnitTestCase
     private function createExtensionConfigurationMock(bool $isDebugEnabled)
     {
         $extensionConfigurationMock = $this->getMockBuilder(ExtensionConfiguration::class)->disableOriginalConstructor()->getMock();
-        $extensionConfigurationMock->expects($this->once())
+        $extensionConfigurationMock->expects(self::once())
             ->method('isDebug')
             ->willReturn($isDebugEnabled);
         return $extensionConfigurationMock;
@@ -107,7 +107,7 @@ class AdditionalResponseHeadersTest extends UnitTestCase
     ) {
         $header = $this->getMockBuilder(Header::class)
             ->disableOriginalConstructor()
-            ->setMethods(['sendEnabledHeader', 'sendHeaderForTag', 'sendDebugHeader'])
+            ->onlyMethods(['sendEnabledHeader', 'sendHeaderForTag', 'sendDebugHeader'])
             ->getMock();
         $header->expects($this->exactly($sendEnabledHeaderCallingCount))
             ->method('sendEnabledHeader');
@@ -135,7 +135,7 @@ class AdditionalResponseHeadersTest extends UnitTestCase
 
         $requestMock = $this->getMockBuilder(ServerRequestInterface::class)->getMock();
         $requestMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getAttribute')
             ->with('frontend.controller')
             ->willReturn($frontendController);

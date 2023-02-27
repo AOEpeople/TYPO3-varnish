@@ -80,7 +80,7 @@ class TceMainHookTest extends UnitTestCase
 
         $this->varnish = $this->getMockBuilder(Varnish::class)
             ->disableOriginalConstructor()
-            ->setMethods(['banByTag', 'banAll'])
+            ->onlyMethods(['banByTag', 'banAll'])
             ->getMock();
 
         $this->tceMainHook = $this->createPartialMock(TceMainHook::class, ['getVarnish']);
@@ -94,7 +94,7 @@ class TceMainHookTest extends UnitTestCase
 
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->once())
+        $varnish->expects(self::once())
             ->method('banByTag')
             ->with($expectedTag);
 
@@ -110,7 +110,7 @@ class TceMainHookTest extends UnitTestCase
 
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->once())
+        $varnish->expects(self::once())
             ->method('banByTag')
             ->with($expectedTag);
 
@@ -124,7 +124,7 @@ class TceMainHookTest extends UnitTestCase
     {
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->never())
+        $varnish->expects(self::never())
             ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
@@ -137,7 +137,7 @@ class TceMainHookTest extends UnitTestCase
     {
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->never())
+        $varnish->expects(self::never())
             ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
@@ -152,7 +152,7 @@ class TceMainHookTest extends UnitTestCase
 
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->once())
+        $varnish->expects(self::once())
             ->method('banByTag')
             ->with($expectedTag);
 
@@ -166,7 +166,7 @@ class TceMainHookTest extends UnitTestCase
     {
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->never())
+        $varnish->expects(self::never())
             ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
@@ -179,7 +179,7 @@ class TceMainHookTest extends UnitTestCase
     {
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->never())
+        $varnish->expects(self::never())
             ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
@@ -194,7 +194,7 @@ class TceMainHookTest extends UnitTestCase
 
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->once())
+        $varnish->expects(self::once())
             ->method('banByTag')
             ->with($expectedTag);
 
@@ -210,7 +210,7 @@ class TceMainHookTest extends UnitTestCase
 
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->once())
+        $varnish->expects(self::once())
             ->method('banByTag')
             ->with($expectedTag);
 
@@ -232,7 +232,7 @@ class TceMainHookTest extends UnitTestCase
     {
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->never())
+        $varnish->expects(self::never())
             ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
@@ -245,7 +245,7 @@ class TceMainHookTest extends UnitTestCase
     {
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->never())
+        $varnish->expects(self::never())
             ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
@@ -258,7 +258,7 @@ class TceMainHookTest extends UnitTestCase
     {
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->never())
+        $varnish->expects(self::never())
             ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
@@ -273,7 +273,7 @@ class TceMainHookTest extends UnitTestCase
 
         /** @var \PHPUnit\Framework\MockObject\MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects($this->never())
+        $varnish->expects(self::never())
             ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(

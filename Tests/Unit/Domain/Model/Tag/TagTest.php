@@ -37,18 +37,18 @@ class TagTest extends UnitTestCase
     public function testSsValidShouldFailWithEmptyIdentifier()
     {
         $tag = new Tag('');
-        $this->assertFalse($tag->isValid());
+        self::assertFalse($tag->isValid());
     }
 
     public function testShouldGetIdentifier()
     {
         $tag = new Tag('myTag');
-        $this->assertSame('myTag', $tag->getIdentifier());
+        self::assertSame('myTag', $tag->getIdentifier());
     }
 
     public function testShouldGetIsValidWithIdentifier()
     {
         $tag = new Tag('myString');
-        $this->assertTrue($tag->isValid());
+        self::assertTrue($tag->isValid());
     }
 }

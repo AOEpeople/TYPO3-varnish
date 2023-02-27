@@ -37,12 +37,12 @@ class PageTagTest extends UnitTestCase
     public function testTagShouldBeValid()
     {
         $tag = new PageTag();
-        $this->assertTrue($tag->isValid());
+        self::assertTrue($tag->isValid());
     }
 
     public function testShouldGetIdentifier()
     {
         $tag = new PageTag();
-        $this->assertSame('typo3_page', $tag->getIdentifier());
+        self::assertSame('typo3_page', $tag->getIdentifier());
     }
 }

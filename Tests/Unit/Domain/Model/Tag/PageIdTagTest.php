@@ -37,30 +37,30 @@ class PageIdTagTest extends UnitTestCase
     public function testIsValidShouldFailWithNegativePageId()
     {
         $tag = new PageIdTag(-1);
-        $this->assertFalse($tag->isValid());
+        self::assertFalse($tag->isValid());
     }
 
     public function testIsValidShouldFailWithPageIdZero()
     {
         $tag = new PageIdTag(0);
-        $this->assertFalse($tag->isValid());
+        self::assertFalse($tag->isValid());
     }
 
     public function testIsValidShouldFailWithPageIdNotNumeric()
     {
         $tag = new PageIdTag('string');
-        $this->assertFalse($tag->isValid());
+        self::assertFalse($tag->isValid());
     }
 
     public function testIsValidWithInteger()
     {
         $tag = new PageIdTag(11);
-        $this->assertTrue($tag->isValid());
+        self::assertTrue($tag->isValid());
     }
 
     public function testGetIdentifier()
     {
         $tag = new PageIdTag(11);
-        $this->assertSame('page_11', $tag->getIdentifier());
+        self::assertSame('page_11', $tag->getIdentifier());
     }
 }

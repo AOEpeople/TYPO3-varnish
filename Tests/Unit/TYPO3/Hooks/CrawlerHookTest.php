@@ -89,7 +89,7 @@ class CrawlerHookTest extends UnitTestCase
     {
         $this->varnish = $this->getMockBuilder(Varnish::class)
             ->disableOriginalConstructor()
-            ->setMethods(['banByTag', 'banAll'])
+            ->onlyMethods(['banByTag', 'banAll'])
             ->getMock();
 
         $this->crawlerHook = $this->createPartialMock(CrawlerHook::class, ['isCrawlerExtensionLoaded', 'getVarnish']);
