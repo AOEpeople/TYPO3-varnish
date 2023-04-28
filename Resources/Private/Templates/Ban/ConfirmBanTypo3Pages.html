@@ -1,21 +1,16 @@
-<f:layout name="Backend"/>
+<f:flashMessages />
 
-<f:section name="main">
-    <f:flashMessages />
-
-    <h2>Bestätigung</h2>
-    <f:form method="post" action="banTypo3Pages">
-        <div class="form-group" style="max-width: 480px;">
-            <label for="">Wollen Sie wirklich alle TYPO3-Seiten bannen?</label>
-        </div>
-        <div class="help-block">
-            <f:form.submit id="confirm" value="Ja" additionalAttributes="{class: 'btn btn-default'}"/>
-        </div>
-    </f:form>
-    <f:form method="post" action="index">
-        <div class="help-block">
-            <f:form.submit id="decline" value="Nein" additionalAttributes="{class: 'btn btn-default'}"/>
-        </div>
-    </f:form>
-
-</f:section>
+<h2>Bestätigung</h2>
+<f:form method="post" action="banTypo3Pages">
+    <div class="form-group" style="max-width: 480px;">
+        <label for="">Wollen Sie wirklich alle TYPO3-Seiten bannen?</label>
+    </div>
+    <div class="help-block">
+        <f:form.submit id="confirm" value="Ja" additionalAttributes="{class: 'btn btn-default'}"/>
+    </div>
+</f:form>
+<f:form method="post" action="index">
+    <div class="help-block">
+        <f:form.submit id="decline" value="Nein" additionalAttributes="{class: 'btn btn-default'}"/>
+    </div>
+</f:form>

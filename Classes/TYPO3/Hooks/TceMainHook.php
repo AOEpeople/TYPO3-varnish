@@ -32,8 +32,6 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
 
 class TceMainHook extends AbstractHook
 {
-    private static array $bannedPageIds = [];
-
     /**
      * @var string
      */
@@ -48,6 +46,8 @@ class TceMainHook extends AbstractHook
      * @var string
      */
     private const UID_PAGE = 'uid_page';
+
+    private static array $bannedPageIds = [];
 
     /**
      * @todo implement cache clearing for "clearCache_pageGrandParent", "clearCache_pageSiblingChildren" and
@@ -69,7 +69,7 @@ class TceMainHook extends AbstractHook
             $varnish->banByTag($pageTag);
         } else {
             $pageId = $this->extractPageIdFromParameters($parameters);
-            if ($pageId > 0 && !in_array($pageId, self::$bannedPageIds)) {
+            if ($pageId > 0 && !in_array($pageId, self::$bannedPageIds, true)) {
                 // ban specific TYPO3-page
                 self::$bannedPageIds[] = $pageId;
                 $pageIdTag = new PageIdTag($pageId);

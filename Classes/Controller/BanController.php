@@ -29,24 +29,35 @@ namespace Aoe\Varnish\Controller;
 use Aoe\Varnish\Domain\Model\Tag\PageTag;
 use Aoe\Varnish\Domain\Model\Tag\Tag;
 use Aoe\Varnish\System\Varnish;
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 class BanController extends ActionController
 {
+    private ModuleTemplateFactory $moduleTemplateFactory;
+
     private Varnish $varnish;
 
-    public function __construct(Varnish $varnish)
+    public function __construct(ModuleTemplateFactory $moduleTemplateFactory, Varnish $varnish)
     {
+        $this->moduleTemplateFactory = $moduleTemplateFactory;
         $this->varnish = $varnish;
     }
 
-    public function indexAction(): void
+    public function indexAction(): ResponseInterface
     {
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $moduleTemplate->setContent($this->view->render());
+        return $this->htmlResponse($moduleTemplate->renderContent());
     }
 
-    public function confirmBanTypo3PagesAction(): void
+    public function confirmBanTypo3PagesAction(): ResponseInterface
     {
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $moduleTemplate->setContent($this->view->render());
+        return $this->htmlResponse($moduleTemplate->renderContent());
     }
 
     public function banTypo3PagesAction(): void
@@ -66,13 +77,16 @@ class BanController extends ActionController
         $this->redirect('index');
     }
 
-    public function confirmBanTagByNameAction(string $tagName): void
+    public function confirmBanTagByNameAction(string $tagName): ResponseInterface
     {
         if ($this->isValidTagName($tagName)) {
             $this->view->assign('tagName', $tagName);
-        } else {
-            $this->redirect('index');
+            $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+            $moduleTemplate->setContent($this->view->render());
+            return $this->htmlResponse($moduleTemplate->renderContent());
         }
+
+        $this->redirect('index');
     }
 
     public function banTagByNameAction(string $tagName): void
@@ -91,13 +105,16 @@ class BanController extends ActionController
         $this->redirect('index');
     }
 
-    public function confirmBanByRegexAction(string $regex): void
+    public function confirmBanByRegexAction(string $regex): ResponseInterface
     {
         if (!$this->isCriticalRegex($regex)) {
             $this->view->assign('regex', $regex);
-        } else {
-            $this->redirect('index');
+            $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+            $moduleTemplate->setContent($this->view->render());
+            return $this->htmlResponse($moduleTemplate->renderContent());
         }
+
+        $this->redirect('index');
     }
 
     public function banByRegexAction(string $regex): void

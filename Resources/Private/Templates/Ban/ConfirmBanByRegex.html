@@ -1,22 +1,17 @@
-<f:layout name="Backend"/>
+<f:flashMessages />
 
-<f:section name="main">
-    <f:flashMessages />
-
-    <h2>Bestätigung</h2>
-    <f:form method="post" action="banByRegex">
-        <div class="form-group" style="max-width: 480px;">
-            <label for="">Wollen Sie wirklich einen BAN-Request auf dieses Muster anwenden?</label>
-            <f:form.textfield id="regex" name="regex" value="{regex}" readonly="TRUE" additionalAttributes="{class: 'form-control'}"/>
-        </div>
-        <div class="help-block">
-            <f:form.submit id="confirm" value="Ja" additionalAttributes="{class: 'btn btn-default'}"/>
-        </div>
-    </f:form>
-    <f:form method="post" action="index">
-        <div class="help-block">
-            <f:form.submit id="decline" value="Nein" additionalAttributes="{class: 'btn btn-default'}"/>
-        </div>
-    </f:form>
-
-</f:section>
+<h2>Bestätigung</h2>
+<f:form method="post" action="banByRegex">
+    <div class="form-group" style="max-width: 480px;">
+        <label for="">Wollen Sie wirklich einen BAN-Request auf dieses Muster anwenden?</label>
+        <f:form.textfield id="regex" name="regex" value="{regex}" readonly="TRUE" additionalAttributes="{class: 'form-control'}"/>
+    </div>
+    <div class="help-block">
+        <f:form.submit id="confirm" value="Ja" additionalAttributes="{class: 'btn btn-default'}"/>
+    </div>
+</f:form>
+<f:form method="post" action="index">
+    <div class="help-block">
+        <f:form.submit id="decline" value="Nein" additionalAttributes="{class: 'btn btn-default'}"/>
+    </div>
+</f:form>

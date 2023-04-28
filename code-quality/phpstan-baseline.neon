@@ -4,3 +4,11 @@ parameters:
 			message: "#^Cognitive complexity for \"Aoe\\\\Varnish\\\\System\\\\Http\\:\\:wait\\(\\)\" is 11, keep it under 8$#"
 			count: 1
 			path: ../Classes/System/Http.php
+		-
+			message: "#^Method Aoe\\\\Varnish\\\\Controller\\\\BanController\\:\\:confirmBanByRegexAction\\(\\) should return Psr\\\\Http\\\\Message\\\\ResponseInterface but return statement is missing\\.$#"
+			count: 1
+			path: ../Classes/Controller/BanController.php
+		-
+			message: "#^Method Aoe\\\\Varnish\\\\Controller\\\\BanController\\:\\:confirmBanTagByNameAction\\(\\) should return Psr\\\\Http\\\\Message\\\\ResponseInterface but return statement is missing\\.$#"
+			count: 1
+			path: ../Classes/Controller/BanController.php
