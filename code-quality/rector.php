@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
 use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\Property\RemoveUnusedPrivatePropertyRector;
 use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
@@ -37,6 +38,7 @@ return RectorConfig::configure()
         ChangeAndIfToEarlyReturnRector::class,
         TypedPropertyFromStrictSetUpRector::class,
         AddMethodCallBasedStrictParamTypeRector::class,
+        FlipTypeControlToUseExclusiveTypeRector::class,
     ])
     ->withAutoloadPaths([__DIR__ . '/../Classes'])
     ->registerService(RemoveUnusedPrivatePropertyRector::class);
