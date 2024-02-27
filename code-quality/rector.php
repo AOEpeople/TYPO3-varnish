@@ -18,7 +18,8 @@ return RectorConfig::configure()
         __DIR__ . '/rector.php',
     ])
     ->withPhpSets(
-        php82: true
+        false,
+        true
     )
     ->withSets([
         SetList::CODE_QUALITY,
