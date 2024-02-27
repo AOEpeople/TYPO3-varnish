@@ -19,7 +19,7 @@ jobs:
           mysql -u root -proot -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';"
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up PHP Version ${{ matrix.php }}
         uses: shivammathur/setup-php@v2
