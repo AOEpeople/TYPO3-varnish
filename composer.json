@@ -67,7 +67,7 @@
             "./.Build/bin/phpstan analyse -c code-quality/phpstan.neon --memory-limit=1G"
         ],
         "code-analysis--baseline": [
-            "./.Build/bin/phpstan analyse -c code-quality/phpstan.neon --memory-limit=1G --generate-baseline"
+            "./.Build/bin/phpstan analyse -c code-quality/phpstan.neon --memory-limit=1G --generate-baseline --allow-empty-baseline"
         ],
         "code-compatibility": [
             "[ -e ./.Build/vendor/symplify/easy-coding-standard/vendor/squizlabs/php_codesniffer/bin/phpcs ] || composer install",
