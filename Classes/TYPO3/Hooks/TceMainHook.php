@@ -88,12 +88,15 @@ class TceMainHook extends AbstractHook
         ) {
             return (int) $parameters[self::UID];
         }
+
         if (isset($parameters[self::CACHE_CMD]) && is_numeric($parameters[self::CACHE_CMD])) {
             return (int) $parameters[self::CACHE_CMD];
         }
+
         if (isset($parameters[self::UID_PAGE]) && is_numeric($parameters[self::UID_PAGE])) {
             return (int) $parameters[self::UID_PAGE];
         }
+
         return 0;
     }
 

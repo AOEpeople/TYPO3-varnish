@@ -34,21 +34,21 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class TagTest extends UnitTestCase
 {
-    public function testSsValidShouldFailWithEmptyIdentifier()
+    public function testSsValidShouldFailWithEmptyIdentifier(): void
     {
         $tag = new Tag('');
-        self::assertFalse($tag->isValid());
+        $this->assertFalse($tag->isValid());
     }
 
-    public function testShouldGetIdentifier()
+    public function testShouldGetIdentifier(): void
     {
         $tag = new Tag('myTag');
-        self::assertSame('myTag', $tag->getIdentifier());
+        $this->assertSame('myTag', $tag->getIdentifier());
     }
 
-    public function testShouldGetIsValidWithIdentifier()
+    public function testShouldGetIsValidWithIdentifier(): void
     {
         $tag = new Tag('myString');
-        self::assertTrue($tag->isValid());
+        $this->assertTrue($tag->isValid());
     }
 }

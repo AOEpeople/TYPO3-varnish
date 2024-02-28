@@ -78,6 +78,7 @@ class Http
                 if ($reason instanceof Exception) {
                     $reason = $reason->getMessage();
                 }
+
                 $phrases[] = [
                     'reason' => $reason,
                     'success' => false,
@@ -89,6 +90,7 @@ class Http
                 ];
             }
         }
+
         return $phrases;
     }
 }

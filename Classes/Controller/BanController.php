@@ -102,6 +102,7 @@ class BanController extends ActionController
                 $this->addFlashMessage($result['reason'], '', AbstractMessage::ERROR);
             }
         }
+
         $this->redirect('index');
     }
 
@@ -130,6 +131,7 @@ class BanController extends ActionController
                 $this->addFlashMessage($result['reason'], '', AbstractMessage::ERROR);
             }
         }
+
         $this->redirect('index');
     }
 
@@ -139,6 +141,7 @@ class BanController extends ActionController
             $this->addFlashMessage('Bitte geben Sie einen spezifischeren RegEx ein!', '', AbstractMessage::ERROR);
             return true;
         }
+
         return false;
     }
 
@@ -148,6 +151,7 @@ class BanController extends ActionController
             $this->addFlashMessage('Bitte geben Sie einen gültigen Tag-Namen ein! ', '', AbstractMessage::ERROR);
             return false;
         }
+
         return true;
     }
 }

@@ -34,33 +34,33 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class PageIdTagTest extends UnitTestCase
 {
-    public function testIsValidShouldFailWithNegativePageId()
+    public function testIsValidShouldFailWithNegativePageId(): void
     {
         $tag = new PageIdTag(-1);
-        self::assertFalse($tag->isValid());
+        $this->assertFalse($tag->isValid());
     }
 
-    public function testIsValidShouldFailWithPageIdZero()
+    public function testIsValidShouldFailWithPageIdZero(): void
     {
         $tag = new PageIdTag(0);
-        self::assertFalse($tag->isValid());
+        $this->assertFalse($tag->isValid());
     }
 
-    public function testIsValidShouldFailWithPageIdNotNumeric()
+    public function testIsValidShouldFailWithPageIdNotNumeric(): void
     {
         $tag = new PageIdTag('string');
-        self::assertFalse($tag->isValid());
+        $this->assertFalse($tag->isValid());
     }
 
-    public function testIsValidWithInteger()
+    public function testIsValidWithInteger(): void
     {
         $tag = new PageIdTag(11);
-        self::assertTrue($tag->isValid());
+        $this->assertTrue($tag->isValid());
     }
 
-    public function testGetIdentifier()
+    public function testGetIdentifier(): void
     {
         $tag = new PageIdTag(11);
-        self::assertSame('page_11', $tag->getIdentifier());
+        $this->assertSame('page_11', $tag->getIdentifier());
     }
 }

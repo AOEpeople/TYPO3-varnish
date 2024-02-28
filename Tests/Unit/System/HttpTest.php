@@ -30,6 +30,7 @@ use Aoe\Varnish\System\Http;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * @covers \Aoe\Varnish\System\Http
@@ -37,9 +38,9 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class HttpTest extends UnitTestCase
 {
     /**
-     * @var Client|\PHPUnit\Framework\MockObject\MockObject
+     * @var Client
      */
-    private $client;
+    private MockObject $client;
 
     private Http $http;
 
@@ -53,7 +54,7 @@ class HttpTest extends UnitTestCase
         $this->http = new Http($this->client);
     }
 
-    public function testRequestShouldCallClientCorrectly()
+    public function testRequestShouldCallClientCorrectly(): void
     {
         $method = 'BAN';
         $url = 'domain.tld';
@@ -79,7 +80,7 @@ class HttpTest extends UnitTestCase
         );
     }
 
-    public function testRequestShouldCallClientWithDefaultParams()
+    public function testRequestShouldCallClientWithDefaultParams(): void
     {
         $method = 'BAN';
         $url = 'domain.tld';

@@ -34,15 +34,15 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class PageTagTest extends UnitTestCase
 {
-    public function testTagShouldBeValid()
+    public function testTagShouldBeValid(): void
     {
         $tag = new PageTag();
-        self::assertTrue($tag->isValid());
+        $this->assertTrue($tag->isValid());
     }
 
-    public function testShouldGetIdentifier()
+    public function testShouldGetIdentifier(): void
     {
         $tag = new PageTag();
-        self::assertSame('typo3_page', $tag->getIdentifier());
+        $this->assertSame('typo3_page', $tag->getIdentifier());
     }
 }

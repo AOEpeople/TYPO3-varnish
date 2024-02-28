@@ -40,7 +40,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  */
 class AdditionalResponseHeadersTest extends UnitTestCase
 {
-    public function testShouldSendAllHeader()
+    public function testShouldSendAllHeader(): void
     {
         // mocking
         $extensionConfigurationMock = $this->createExtensionConfigurationMock(true);
@@ -55,7 +55,7 @@ class AdditionalResponseHeadersTest extends UnitTestCase
         $subject->process($requestMock, $handlerMock);
     }
 
-    public function testShouldNotSendDebugHeader()
+    public function testShouldNotSendDebugHeader(): void
     {
         // mocking
         $extensionConfigurationMock = $this->createExtensionConfigurationMock(false);
@@ -70,7 +70,7 @@ class AdditionalResponseHeadersTest extends UnitTestCase
         $subject->process($requestMock, $handlerMock);
     }
 
-    public function testShouldNotSendVarnishEnabledHeader()
+    public function testShouldNotSendVarnishEnabledHeader(): void
     {
         // mocking
         $extensionConfigurationMock = $this->createExtensionConfigurationMock(true);
@@ -146,7 +146,7 @@ class AdditionalResponseHeadersTest extends UnitTestCase
         MockObject $frontendController,
         int $pageId,
         bool $isVanishCacheEnabled
-    ) {
+    ): void {
         $reflection = new \ReflectionClass($frontendController);
         $reflectionPropertyId = $reflection->getProperty('id');
         $reflectionPropertyId->setAccessible(true);
