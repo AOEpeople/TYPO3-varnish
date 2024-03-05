@@ -27,25 +27,34 @@ namespace Aoe\Varnish\Tests\Unit\Domain\Model\Tag;
  ***************************************************************/
 
 use Aoe\Varnish\Domain\Model\Tag\Tag;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \Aoe\Varnish\Domain\Model\Tag\Tag
  */
 class TagTest extends UnitTestCase
 {
+    /**
+     * @test
+     */
     public function testSsValidShouldFailWithEmptyIdentifier(): void
     {
         $tag = new Tag('');
         $this->assertFalse($tag->isValid());
     }
 
+    /**
+     * @test
+     */
     public function testShouldGetIdentifier(): void
     {
         $tag = new Tag('myTag');
         $this->assertSame('myTag', $tag->getIdentifier());
     }
 
+    /**
+     * @test
+     */
     public function testShouldGetIsValidWithIdentifier(): void
     {
         $tag = new Tag('myString');

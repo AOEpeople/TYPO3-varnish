@@ -30,13 +30,13 @@ use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 use Aoe\Varnish\Domain\Model\Tag\PageTag;
 use Aoe\Varnish\System\Varnish;
 use Aoe\Varnish\TYPO3\Hooks\TceMainHook;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Cache\Backend\NullBackend;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \Aoe\Varnish\TYPO3\Hooks\TceMainHook
@@ -89,6 +89,9 @@ class TceMainHookTest extends UnitTestCase
             ->willReturn($this->varnish);
     }
 
+    /**
+     * @test
+     */
     public function testShouldBanAllTYPO3PagesIfCacheCmdIsPages(): void
     {
         $expectedTag = new PageTag();
@@ -105,6 +108,9 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
+    /**
+     * @test
+     */
     public function testShouldBanByTagIfPidGivenAsCacheCmd(): void
     {
         $expectedTag = new PageIdTag(4711);
@@ -121,6 +127,9 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
+    /**
+     * @test
+     */
     public function testShouldNOTBanByTagIfPidGivenAsCacheCmdAndPageIdIsZero(): void
     {
         /** @var MockObject $varnish */
@@ -134,6 +143,9 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
+    /**
+     * @test
+     */
     public function testShouldNOTBanByTagIfPidGivenAsCacheCmdAndPageIdIsNegative(): void
     {
         /** @var MockObject $varnish */
@@ -147,6 +159,9 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
+    /**
+     * @test
+     */
     public function testShouldBanByTagIfPidGivenAsUidPage(): void
     {
         $expectedTag = new PageIdTag(4712);
@@ -163,6 +178,9 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
+    /**
+     * @test
+     */
     public function testShouldNOTBanByTagIfPidGivenAsUidPageAndPageIdIsZero(): void
     {
         /** @var MockObject $varnish */
@@ -176,6 +194,9 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
+    /**
+     * @test
+     */
     public function testShouldNOTBanByTagIfPidGivenAsUidPageAndPageIdIsNegative(): void
     {
         /** @var MockObject $varnish */
@@ -189,6 +210,9 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
+    /**
+     * @test
+     */
     public function testShouldBanByTagIfPidGivenWithTablePages(): void
     {
         $expectedTag = new PageIdTag(4713);
@@ -205,6 +229,9 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
+    /**
+     * @test
+     */
     public function testShouldBanByPageIdTagOnlyOnce(): void
     {
         $expectedTag = new PageIdTag(4714);
@@ -229,6 +256,9 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
+    /**
+     * @test
+     */
     public function testShouldNOTBanByTagIfPidGivenWithTablePagesAndPageIdIsZero(): void
     {
         /** @var MockObject $varnish */
@@ -242,6 +272,9 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
+    /**
+     * @test
+     */
     public function testShouldNOTBanByTagIfPidGivenWithTablePagesAndPageIdIsNegative(): void
     {
         /** @var MockObject $varnish */
@@ -255,6 +288,9 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
+    /**
+     * @test
+     */
     public function testShouldNOTBanByTagIfPidGivenWithOtherTableThanPages(): void
     {
         /** @var MockObject $varnish */
@@ -268,6 +304,9 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
+    /**
+     * @test
+     */
     public function testShouldNOTBanByTagIfBeUserIsInWorkspace(): void
     {
         $this->dataHandler->BE_USER->workspace = 1;

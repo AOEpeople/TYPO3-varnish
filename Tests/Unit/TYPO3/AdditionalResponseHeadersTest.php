@@ -29,17 +29,20 @@ namespace Aoe\Varnish\Tests\Unit\TYPO3;
 use Aoe\Varnish\System\Header;
 use Aoe\Varnish\TYPO3\AdditionalResponseHeaders;
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \Aoe\Varnish\TYPO3\AdditionalResponseHeaders
  */
 class AdditionalResponseHeadersTest extends UnitTestCase
 {
+    /**
+     * @test
+     */
     public function testShouldSendAllHeader(): void
     {
         // mocking
@@ -55,6 +58,9 @@ class AdditionalResponseHeadersTest extends UnitTestCase
         $subject->process($requestMock, $handlerMock);
     }
 
+    /**
+     * @test
+     */
     public function testShouldNotSendDebugHeader(): void
     {
         // mocking
@@ -70,6 +76,9 @@ class AdditionalResponseHeadersTest extends UnitTestCase
         $subject->process($requestMock, $handlerMock);
     }
 
+    /**
+     * @test
+     */
     public function testShouldNotSendVarnishEnabledHeader(): void
     {
         // mocking

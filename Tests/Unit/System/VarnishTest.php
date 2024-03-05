@@ -30,11 +30,11 @@ use Aoe\Varnish\Domain\Model\TagInterface;
 use Aoe\Varnish\System\Http;
 use Aoe\Varnish\System\Varnish;
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use RuntimeException;
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogManager;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \Aoe\Varnish\System\Varnish
@@ -87,6 +87,9 @@ class VarnishTest extends UnitTestCase
         $this->varnish = new Varnish($this->http, $this->extensionConfiguration, $this->logManager);
     }
 
+    /**
+     * @test
+     */
     public function testBanByTagShouldThrowExceptionOnInvalidTag(): void
     {
         $this->expectException(RuntimeException::class);
@@ -102,6 +105,9 @@ class VarnishTest extends UnitTestCase
         $this->varnish->banByTag($tag);
     }
 
+    /**
+     * @test
+     */
     public function testBanByTagShouldCallHttpCorrectly(): void
     {
         $this->http->expects(self::once())
@@ -125,6 +131,9 @@ class VarnishTest extends UnitTestCase
         $this->varnish->banByTag($tag);
     }
 
+    /**
+     * @test
+     */
     public function testBanAllShouldCallHttpCorrectly(): void
     {
         $this->http->expects(self::once())
@@ -133,6 +142,9 @@ class VarnishTest extends UnitTestCase
         $this->varnish->banAll();
     }
 
+    /**
+     * @test
+     */
     public function testBanByRegexShouldCallHttpCorrectly(): void
     {
         $this->http
@@ -142,6 +154,9 @@ class VarnishTest extends UnitTestCase
         $this->varnish->banByRegex('/*');
     }
 
+    /**
+     * @test
+     */
     public function testShouldLogOnShutdown(): void
     {
         $this->http->expects(self::once())

@@ -28,8 +28,8 @@ namespace Aoe\Varnish\Tests\Unit\System;
 
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 use Aoe\Varnish\System\Header;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use RuntimeException;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \Aoe\Varnish\System\Header
@@ -43,6 +43,9 @@ class HeaderTest extends UnitTestCase
         $this->header = new Header();
     }
 
+    /**
+     * @test
+     */
     public function testShouldThrowRuntimeExceptionWithInvalidTag(): void
     {
         $this->expectException(RuntimeException::class);

@@ -27,37 +27,52 @@ namespace Aoe\Varnish\Tests\Unit\Domain\Model\Tag;
  ***************************************************************/
 
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \Aoe\Varnish\Domain\Model\Tag\PageTag
  */
 class PageIdTagTest extends UnitTestCase
 {
+    /**
+     * @test
+     */
     public function testIsValidShouldFailWithNegativePageId(): void
     {
         $tag = new PageIdTag(-1);
         $this->assertFalse($tag->isValid());
     }
 
+    /**
+     * @test
+     */
     public function testIsValidShouldFailWithPageIdZero(): void
     {
         $tag = new PageIdTag(0);
         $this->assertFalse($tag->isValid());
     }
 
+    /**
+     * @test
+     */
     public function testIsValidShouldFailWithPageIdNotNumeric(): void
     {
         $tag = new PageIdTag('string');
         $this->assertFalse($tag->isValid());
     }
 
+    /**
+     * @test
+     */
     public function testIsValidWithInteger(): void
     {
         $tag = new PageIdTag(11);
         $this->assertTrue($tag->isValid());
     }
 
+    /**
+     * @test
+     */
     public function testGetIdentifier(): void
     {
         $tag = new PageIdTag(11);

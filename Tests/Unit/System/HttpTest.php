@@ -29,8 +29,8 @@ namespace Aoe\Varnish\Tests\Unit\System;
 use Aoe\Varnish\System\Http;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \Aoe\Varnish\System\Http
@@ -54,6 +54,9 @@ class HttpTest extends UnitTestCase
         $this->http = new Http($this->client);
     }
 
+    /**
+     * @test
+     */
     public function testRequestShouldCallClientCorrectly(): void
     {
         $method = 'BAN';
@@ -80,6 +83,9 @@ class HttpTest extends UnitTestCase
         );
     }
 
+    /**
+     * @test
+     */
     public function testRequestShouldCallClientWithDefaultParams(): void
     {
         $method = 'BAN';

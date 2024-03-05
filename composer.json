@@ -24,7 +24,7 @@
         "typo3/cms-extbase": "^11.5"
     },
     "require-dev": {
-        "nimut/testing-framework": "^6.0",
+        "typo3/testing-framework": "^7.0.4",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpstan/phpstan": "^1.10",
         "rector/rector": "^1.0",

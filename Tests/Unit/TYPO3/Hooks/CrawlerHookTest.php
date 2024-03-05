@@ -29,8 +29,8 @@ namespace Aoe\Varnish\Tests\Unit\TYPO3\Hooks;
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 use Aoe\Varnish\System\Varnish;
 use Aoe\Varnish\TYPO3\Hooks\CrawlerHook;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \Aoe\Varnish\TYPO3\Hooks\CrawlerHook
@@ -41,6 +41,9 @@ class CrawlerHookTest extends UnitTestCase
 
     private CrawlerHook $crawlerHook;
 
+    /**
+     * @test
+     */
     public function testShouldClearVarnishCache(): void
     {
         $this->initializeTest(true);
@@ -52,6 +55,9 @@ class CrawlerHookTest extends UnitTestCase
         $this->crawlerHook->clearVarnishCache([], $tsfe);
     }
 
+    /**
+     * @test
+     */
     public function testShouldNotClearVarnishCacheWhenCrawlerExtensionIsNotLoaded(): void
     {
         $this->initializeTest(false);
@@ -63,6 +69,9 @@ class CrawlerHookTest extends UnitTestCase
         $this->crawlerHook->clearVarnishCache([], $tsfe);
     }
 
+    /**
+     * @test
+     */
     public function testShouldNotClearVarnishCacheWhenCrawlerIsNotRunning(): void
     {
         $this->initializeTest(true);

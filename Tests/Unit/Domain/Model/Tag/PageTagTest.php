@@ -27,19 +27,25 @@ namespace Aoe\Varnish\Tests\Unit\Domain\Model\Tag;
  ***************************************************************/
 
 use Aoe\Varnish\Domain\Model\Tag\PageTag;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \Aoe\Varnish\Domain\Model\Tag\PageTag
  */
 class PageTagTest extends UnitTestCase
 {
+    /**
+     * @test
+     */
     public function testTagShouldBeValid(): void
     {
         $tag = new PageTag();
         $this->assertTrue($tag->isValid());
     }
 
+    /**
+     * @test
+     */
     public function testShouldGetIdentifier(): void
     {
         $tag = new PageTag();
