@@ -37,6 +37,8 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class HttpTest extends UnitTestCase
 {
+    protected bool $resetSingletonInstances = true;
+
     /**
      * @var Client
      */

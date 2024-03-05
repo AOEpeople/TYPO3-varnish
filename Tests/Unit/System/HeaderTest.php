@@ -36,6 +36,8 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class HeaderTest extends UnitTestCase
 {
+    protected bool $resetSingletonInstances = true;
+
     private Header $header;
 
     protected function setUp(): void

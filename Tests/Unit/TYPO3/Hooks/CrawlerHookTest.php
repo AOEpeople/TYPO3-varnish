@@ -37,6 +37,8 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class CrawlerHookTest extends UnitTestCase
 {
+    protected bool $resetSingletonInstances = true;
+
     private Varnish $varnish;
 
     private CrawlerHook $crawlerHook;

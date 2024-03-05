@@ -40,6 +40,8 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class AdditionalResponseHeadersTest extends UnitTestCase
 {
+    protected bool $resetSingletonInstances = true;
+
     /**
      * @test
      */

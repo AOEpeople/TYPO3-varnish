@@ -43,6 +43,8 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class TceMainHookTest extends UnitTestCase
 {
+    protected bool $resetSingletonInstances = true;
+
     /**
      * @var Varnish
      */

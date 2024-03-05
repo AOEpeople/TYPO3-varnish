@@ -34,6 +34,8 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class PageTagTest extends UnitTestCase
 {
+    protected bool $resetSingletonInstances = true;
+
     /**
      * @test
      */

@@ -41,6 +41,8 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class VarnishTest extends UnitTestCase
 {
+    protected bool $resetSingletonInstances = true;
+
     private Varnish $varnish;
 
     /**

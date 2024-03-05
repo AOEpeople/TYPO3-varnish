@@ -35,10 +35,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class ExtensionConfigurationTest extends UnitTestCase
 {
-    /**
-     * @var boolean
-     */
-    protected $backupGlobals = true;
+    protected bool $resetSingletonInstances = true;
 
     /**
      * @test
