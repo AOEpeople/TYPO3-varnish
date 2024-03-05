@@ -19,7 +19,6 @@ return RectorConfig::configure()
         __DIR__ . '/rector.php',
     ])
     ->withPhpSets(
-        false,
         true
     )
     ->withSets([
