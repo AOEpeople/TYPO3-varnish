@@ -1,28 +1,63 @@
 name: Tests
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
-
-  testsuite:
-    name: all tests
+  PHPUnit:
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       matrix:
+        typo3: [ ^11.5 ]
         php: [ '7.4', '8.0', '8.1', '8.2', '8.3' ]
+
     steps:
+      - name: Start database server
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -u root -proot -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';"
+
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Composer
-        run: Build/Scripts/runTests.sh -p ${{ matrix.php }} -s composerInstallMax
+      - name: Set up PHP Version ${{ matrix.php }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
 
-      - name: Composer validate
-        run: Build/Scripts/runTests.sh -p ${{ matrix.php }} -s composerValidate
+      - name: Environment Check
+        run: |
+          php --version
+          composer --version
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install dependencies with nimut/typo3-complete:${{ matrix.typo3 }}
+        run: |
+          composer require --dev nimut/typo3-complete:${{ matrix.typo3 }} --no-progress
+          git checkout composer.json
+          ln -nfs .Build/vendor/typo3/cms/typo3 typo3
 
       - name: Lint PHP
-        run: Build/Scripts/runTests.sh -p ${{ matrix.php }} -s lint
+        run: find . -name \*.php ! -path "./.Build/*" ! -path "./scripts/*" ! -path "./typo3_src/*" | parallel --gnu php -d display_errors=stderr -l {} > /dev/null \;
 
-      - name: Unit tests
-        run: Build/Scripts/runTests.sh -p ${{ matrix.php }} -s unit
+      - name: Unit Tests without coverage
+        if: matrix.typo3 == '^11.5' && matrix.php != '7.4'
+        run: |
+          export "UNIT_XML"=Build/UnitTests.xml
+          .Build/bin/phpunit --colors -c $UNIT_XML Tests/Unit
+
+      - name: Unit Tests with coverage
+        if: matrix.typo3 == '^11.5' && matrix.php == '7.4'
+        run: |
+          export "UNIT_XML"=Build/UnitTests.xml
+          .Build/bin/phpunit --whitelist Classes --coverage-clover=unittest-coverage.clover --colors -c $UNIT_XML Tests/Unit
+
+      - name: Upload coverage results to Scrutinizer
+        if: matrix.typo3 == '^11.5' && matrix.php == '7.4'
+        run: |
+          wget https://scrutinizer-ci.com/ocular.phar
+          php ocular.phar code-coverage:upload --format=php-clover unittest-coverage.clover
