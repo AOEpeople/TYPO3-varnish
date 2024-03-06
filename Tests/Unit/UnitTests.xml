@@ -2,9 +2,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
     backupGlobals="true"
-    bootstrap="UnitTestsBootstrap.php"
+    bootstrap="../../.Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTestsBootstrap.php"
     cacheResult="false"
     colors="true"
+    convertDeprecationsToExceptions="true"
     convertErrorsToExceptions="true"
     convertWarningsToExceptions="true"
     convertNoticesToExceptions="true"
@@ -17,6 +18,7 @@
     verbose="false"
     beStrictAboutTestsThatDoNotTestAnything="false"
     failOnWarning="true"
+    failOnRisky="true"
 >
     <testsuites>
         <testsuite name="Unit tests">
