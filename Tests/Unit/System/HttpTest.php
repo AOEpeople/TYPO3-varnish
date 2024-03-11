@@ -56,9 +56,6 @@ class HttpTest extends UnitTestCase
         $this->http = new Http($this->client);
     }
 
-    /**
-     * @test
-     */
     public function testRequestShouldCallClientCorrectly(): void
     {
         $method = 'BAN';
@@ -85,9 +82,6 @@ class HttpTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
     public function testRequestShouldCallClientWithDefaultParams(): void
     {
         $method = 'BAN';

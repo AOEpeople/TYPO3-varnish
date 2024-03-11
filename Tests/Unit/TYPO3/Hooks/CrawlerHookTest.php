@@ -43,9 +43,6 @@ class CrawlerHookTest extends UnitTestCase
 
     private CrawlerHook $crawlerHook;
 
-    /**
-     * @test
-     */
     public function testShouldClearVarnishCache(): void
     {
         $this->initializeTest(true);
@@ -57,9 +54,6 @@ class CrawlerHookTest extends UnitTestCase
         $this->crawlerHook->clearVarnishCache([], $tsfe);
     }
 
-    /**
-     * @test
-     */
     public function testShouldNotClearVarnishCacheWhenCrawlerExtensionIsNotLoaded(): void
     {
         $this->initializeTest(false);
@@ -71,9 +65,6 @@ class CrawlerHookTest extends UnitTestCase
         $this->crawlerHook->clearVarnishCache([], $tsfe);
     }
 
-    /**
-     * @test
-     */
     public function testShouldNotClearVarnishCacheWhenCrawlerIsNotRunning(): void
     {
         $this->initializeTest(true);

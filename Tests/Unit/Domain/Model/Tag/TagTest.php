@@ -36,27 +36,18 @@ class TagTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;
 
-    /**
-     * @test
-     */
     public function testSsValidShouldFailWithEmptyIdentifier(): void
     {
         $tag = new Tag('');
         $this->assertFalse($tag->isValid());
     }
 
-    /**
-     * @test
-     */
     public function testShouldGetIdentifier(): void
     {
         $tag = new Tag('myTag');
         $this->assertSame('myTag', $tag->getIdentifier());
     }
 
-    /**
-     * @test
-     */
     public function testShouldGetIsValidWithIdentifier(): void
     {
         $tag = new Tag('myString');

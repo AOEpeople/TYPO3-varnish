@@ -36,18 +36,12 @@ class PageTagTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;
 
-    /**
-     * @test
-     */
     public function testTagShouldBeValid(): void
     {
         $tag = new PageTag();
         $this->assertTrue($tag->isValid());
     }
 
-    /**
-     * @test
-     */
     public function testShouldGetIdentifier(): void
     {
         $tag = new PageTag();

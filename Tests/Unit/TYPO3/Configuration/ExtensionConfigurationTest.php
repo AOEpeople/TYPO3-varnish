@@ -37,25 +37,16 @@ class ExtensionConfigurationTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;
 
-    /**
-     * @test
-     */
     public function testIsDebugShouldReturnTrue(): void
     {
         $this->assertTrue($this->createConfiguration('debug', 1)->isDebug());
     }
 
-    /**
-     * @test
-     */
     public function testIsDebugShouldReturnFalse(): void
     {
         $this->assertFalse($this->createConfiguration('debug', 0)->isDebug());
     }
 
-    /**
-     * @test
-     */
     public function testGetHostsShouldSingleHost(): void
     {
         $this->assertSame(
@@ -65,9 +56,6 @@ class ExtensionConfigurationTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
     public function testGetHostsShouldMultipleHost(): void
     {
         $this->assertSame(
@@ -77,17 +65,11 @@ class ExtensionConfigurationTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
     public function testGetDefaultTimeoutShouldReturnInteger(): void
     {
         $this->assertSame(0, $this->createConfiguration('default_timeout', '0')->getDefaultTimeout());
     }
 
-    /**
-     * @test
-     */
     public function testGetBanTimeoutShouldReturnInteger(): void
     {
         $this->assertSame(10, $this->createConfiguration('ban_timeout', '10')->getBanTimeout());

@@ -91,9 +91,6 @@ class TceMainHookTest extends UnitTestCase
             ->willReturn($this->varnish);
     }
 
-    /**
-     * @test
-     */
     public function testShouldBanAllTYPO3PagesIfCacheCmdIsPages(): void
     {
         $expectedTag = new PageTag();
@@ -110,9 +107,6 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
     public function testShouldBanByTagIfPidGivenAsCacheCmd(): void
     {
         $expectedTag = new PageIdTag(4711);
@@ -129,9 +123,6 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
     public function testShouldNOTBanByTagIfPidGivenAsCacheCmdAndPageIdIsZero(): void
     {
         /** @var MockObject $varnish */
@@ -145,9 +136,6 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
     public function testShouldNOTBanByTagIfPidGivenAsCacheCmdAndPageIdIsNegative(): void
     {
         /** @var MockObject $varnish */
@@ -161,9 +149,6 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
     public function testShouldBanByTagIfPidGivenAsUidPage(): void
     {
         $expectedTag = new PageIdTag(4712);
@@ -180,9 +165,6 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
     public function testShouldNOTBanByTagIfPidGivenAsUidPageAndPageIdIsZero(): void
     {
         /** @var MockObject $varnish */
@@ -196,9 +178,6 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
     public function testShouldNOTBanByTagIfPidGivenAsUidPageAndPageIdIsNegative(): void
     {
         /** @var MockObject $varnish */
@@ -212,9 +191,6 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
     public function testShouldBanByTagIfPidGivenWithTablePages(): void
     {
         $expectedTag = new PageIdTag(4713);
@@ -231,9 +207,6 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
     public function testShouldBanByPageIdTagOnlyOnce(): void
     {
         $expectedTag = new PageIdTag(4714);
@@ -258,9 +231,6 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
     public function testShouldNOTBanByTagIfPidGivenWithTablePagesAndPageIdIsZero(): void
     {
         /** @var MockObject $varnish */
@@ -274,9 +244,6 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
     public function testShouldNOTBanByTagIfPidGivenWithTablePagesAndPageIdIsNegative(): void
     {
         /** @var MockObject $varnish */
@@ -290,9 +257,6 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
     public function testShouldNOTBanByTagIfPidGivenWithOtherTableThanPages(): void
     {
         /** @var MockObject $varnish */
@@ -306,9 +270,6 @@ class TceMainHookTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
     public function testShouldNOTBanByTagIfBeUserIsInWorkspace(): void
     {
         $this->dataHandler->BE_USER->workspace = 1;

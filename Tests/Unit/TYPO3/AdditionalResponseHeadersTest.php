@@ -42,9 +42,6 @@ class AdditionalResponseHeadersTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;
 
-    /**
-     * @test
-     */
     public function testShouldSendAllHeader(): void
     {
         // mocking
@@ -60,9 +57,6 @@ class AdditionalResponseHeadersTest extends UnitTestCase
         $subject->process($requestMock, $handlerMock);
     }
 
-    /**
-     * @test
-     */
     public function testShouldNotSendDebugHeader(): void
     {
         // mocking
@@ -78,9 +72,6 @@ class AdditionalResponseHeadersTest extends UnitTestCase
         $subject->process($requestMock, $handlerMock);
     }
 
-    /**
-     * @test
-     */
     public function testShouldNotSendVarnishEnabledHeader(): void
     {
         // mocking

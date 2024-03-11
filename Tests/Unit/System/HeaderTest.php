@@ -45,9 +45,6 @@ class HeaderTest extends UnitTestCase
         $this->header = new Header();
     }
 
-    /**
-     * @test
-     */
     public function testShouldThrowRuntimeExceptionWithInvalidTag(): void
     {
         $this->expectException(RuntimeException::class);

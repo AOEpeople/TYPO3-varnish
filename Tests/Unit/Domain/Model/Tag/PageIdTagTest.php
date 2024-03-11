@@ -36,45 +36,30 @@ class PageIdTagTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;
 
-    /**
-     * @test
-     */
     public function testIsValidShouldFailWithNegativePageId(): void
     {
         $tag = new PageIdTag(-1);
         $this->assertFalse($tag->isValid());
     }
 
-    /**
-     * @test
-     */
     public function testIsValidShouldFailWithPageIdZero(): void
     {
         $tag = new PageIdTag(0);
         $this->assertFalse($tag->isValid());
     }
 
-    /**
-     * @test
-     */
     public function testIsValidShouldFailWithPageIdNotNumeric(): void
     {
         $tag = new PageIdTag('string');
         $this->assertFalse($tag->isValid());
     }
 
-    /**
-     * @test
-     */
     public function testIsValidWithInteger(): void
     {
         $tag = new PageIdTag(11);
         $this->assertTrue($tag->isValid());
     }
 
-    /**
-     * @test
-     */
     public function testGetIdentifier(): void
     {
         $tag = new PageIdTag(11);
