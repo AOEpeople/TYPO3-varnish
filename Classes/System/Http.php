@@ -32,7 +32,6 @@ use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Promise\Utils;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\RequestOptions;
-use Throwable;
 
 class Http
 {
@@ -58,7 +57,6 @@ class Http
 
     /**
      * @return array<int, array<string, mixed>>
-     * @throws Exception|Throwable
      */
     public function wait(): array
     {

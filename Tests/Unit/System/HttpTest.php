@@ -32,9 +32,6 @@ use GuzzleHttp\RequestOptions;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @covers \Aoe\Varnish\System\Http
- */
 class HttpTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;

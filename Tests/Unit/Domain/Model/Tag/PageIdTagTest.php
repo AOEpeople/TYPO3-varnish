@@ -29,9 +29,6 @@ namespace Aoe\Varnish\Tests\Unit\Domain\Model\Tag;
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @covers \Aoe\Varnish\Domain\Model\Tag\PageTag
- */
 class PageIdTagTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;

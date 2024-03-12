@@ -35,9 +35,6 @@ use Psr\Http\Server\RequestHandlerInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @covers \Aoe\Varnish\TYPO3\AdditionalResponseHeaders
- */
 class AdditionalResponseHeadersTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;

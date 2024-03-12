@@ -31,9 +31,6 @@ use Aoe\Varnish\System\Header;
 use RuntimeException;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @covers \Aoe\Varnish\System\Header
- */
 class HeaderTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;

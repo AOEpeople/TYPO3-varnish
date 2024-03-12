@@ -38,9 +38,6 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @covers \Aoe\Varnish\TYPO3\Hooks\TceMainHook
- */
 class TceMainHookTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;

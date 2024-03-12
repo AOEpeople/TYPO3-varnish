@@ -30,9 +30,6 @@ use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration as Typo3ExtensionConfiguration;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @covers \Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration
- */
 class ExtensionConfigurationTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;

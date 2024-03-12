@@ -36,9 +36,6 @@ use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @covers \Aoe\Varnish\System\Varnish
- */
 class VarnishTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;

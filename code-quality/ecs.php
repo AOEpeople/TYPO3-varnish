@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer;
 use PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer;
-use PhpCsFixer\Fixer\Phpdoc\GeneralPhpdocAnnotationRemoveFixer;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
 use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayListItemNewlineFixer;
 use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayOpenerAndCloserNewlineFixer;
@@ -44,6 +43,5 @@ return ECSConfig::configure()
             __DIR__ . '/../Classes/TYPO3/Configuration/ExtensionConfiguration.php',
         ],
         DeclareStrictTypesFixer::class => null,
-        GeneralPhpdocAnnotationRemoveFixer::class => null,
     ])
     ->withSpacing(OPTION::INDENTATION_SPACES, "\n");
