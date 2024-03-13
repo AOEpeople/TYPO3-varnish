@@ -30,32 +30,32 @@ use Aoe\Varnish\Domain\Model\TagInterface;
 use Aoe\Varnish\System\Http;
 use Aoe\Varnish\System\Varnish;
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use RuntimeException;
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogManager;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @covers \Aoe\Varnish\System\Varnish
- */
 class VarnishTest extends UnitTestCase
 {
+    protected bool $resetSingletonInstances = true;
+
     private Varnish $varnish;
 
     /**
-     * @var Http|\PHPUnit\Framework\MockObject\MockObject
+     * @var Http
      */
-    private $http;
+    private MockObject $http;
 
     /**
-     * @var ExtensionConfiguration|\PHPUnit\Framework\MockObject\MockObject
+     * @var ExtensionConfiguration
      */
-    private $extensionConfiguration;
+    private MockObject $extensionConfiguration;
 
     /**
-     * @var LogManager|\PHPUnit\Framework\MockObject\MockObject
+     * @var LogManager
      */
-    private $logManager;
+    private MockObject $logManager;
 
     protected function setUp(): void
     {
@@ -86,7 +86,7 @@ class VarnishTest extends UnitTestCase
         $this->varnish = new Varnish($this->http, $this->extensionConfiguration, $this->logManager);
     }
 
-    public function testBanByTagShouldThrowExceptionOnInvalidTag()
+    public function testBanByTagShouldThrowExceptionOnInvalidTag(): void
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionCode(1_435_159_558);
@@ -101,7 +101,7 @@ class VarnishTest extends UnitTestCase
         $this->varnish->banByTag($tag);
     }
 
-    public function testBanByTagShouldCallHttpCorrectly()
+    public function testBanByTagShouldCallHttpCorrectly(): void
     {
         $this->http->expects(self::once())
             ->method('request')
@@ -111,7 +111,7 @@ class VarnishTest extends UnitTestCase
                 ['X-Ban-Tags' => 'my_identifier'],
                 10
             );
-        /** @var TagInterface|\PHPUnit\Framework\MockObject\MockObject $tag */
+        /** @var TagInterface|MockObject $tag */
         $tag = $this->getMockBuilder(TagInterface::class)
             ->onlyMethods(['isValid', 'getIdentifier'])
             ->getMock();
@@ -124,7 +124,7 @@ class VarnishTest extends UnitTestCase
         $this->varnish->banByTag($tag);
     }
 
-    public function testBanAllShouldCallHttpCorrectly()
+    public function testBanAllShouldCallHttpCorrectly(): void
     {
         $this->http->expects(self::once())
             ->method('request')
@@ -132,7 +132,7 @@ class VarnishTest extends UnitTestCase
         $this->varnish->banAll();
     }
 
-    public function testBanByRegexShouldCallHttpCorrectly()
+    public function testBanByRegexShouldCallHttpCorrectly(): void
     {
         $this->http
             ->expects(self::once())
@@ -141,7 +141,7 @@ class VarnishTest extends UnitTestCase
         $this->varnish->banByRegex('/*');
     }
 
-    public function testShouldLogOnShutdown()
+    public function testShouldLogOnShutdown(): void
     {
         $this->http->expects(self::once())
             ->method('wait')

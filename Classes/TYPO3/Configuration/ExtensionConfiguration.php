@@ -49,7 +49,7 @@ class ExtensionConfiguration implements SingletonInterface
     public function getHosts(): array
     {
         $hosts = explode(',', $this->get('hosts'));
-        array_walk($hosts, function (&$value): void {
+        array_walk($hosts, static function (&$value): void {
             if (!str_contains($value, 'https://') && !str_contains($value, 'http://')) {
                 $value = 'http://' . $value;
             }

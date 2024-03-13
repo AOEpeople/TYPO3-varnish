@@ -29,18 +29,17 @@ namespace Aoe\Varnish\Tests\Unit\TYPO3;
 use Aoe\Varnish\System\Header;
 use Aoe\Varnish\TYPO3\AdditionalResponseHeaders;
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @covers \Aoe\Varnish\TYPO3\AdditionalResponseHeaders
- */
 class AdditionalResponseHeadersTest extends UnitTestCase
 {
-    public function testShouldSendAllHeader()
+    protected bool $resetSingletonInstances = true;
+
+    public function testShouldSendAllHeader(): void
     {
         // mocking
         $extensionConfigurationMock = $this->createExtensionConfigurationMock(true);
@@ -55,7 +54,7 @@ class AdditionalResponseHeadersTest extends UnitTestCase
         $subject->process($requestMock, $handlerMock);
     }
 
-    public function testShouldNotSendDebugHeader()
+    public function testShouldNotSendDebugHeader(): void
     {
         // mocking
         $extensionConfigurationMock = $this->createExtensionConfigurationMock(false);
@@ -70,7 +69,7 @@ class AdditionalResponseHeadersTest extends UnitTestCase
         $subject->process($requestMock, $handlerMock);
     }
 
-    public function testShouldNotSendVarnishEnabledHeader()
+    public function testShouldNotSendVarnishEnabledHeader(): void
     {
         // mocking
         $extensionConfigurationMock = $this->createExtensionConfigurationMock(true);
@@ -146,7 +145,7 @@ class AdditionalResponseHeadersTest extends UnitTestCase
         MockObject $frontendController,
         int $pageId,
         bool $isVanishCacheEnabled
-    ) {
+    ): void {
         $reflection = new \ReflectionClass($frontendController);
         $reflectionPropertyId = $reflection->getProperty('id');
         $reflectionPropertyId->setAccessible(true);

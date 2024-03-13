@@ -32,7 +32,6 @@ use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Promise\Utils;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\RequestOptions;
-use Throwable;
 
 class Http
 {
@@ -58,7 +57,6 @@ class Http
 
     /**
      * @return array<int, array<string, mixed>>
-     * @throws Exception|Throwable
      */
     public function wait(): array
     {
@@ -78,6 +76,7 @@ class Http
                 if ($reason instanceof Exception) {
                     $reason = $reason->getMessage();
                 }
+
                 $phrases[] = [
                     'reason' => $reason,
                     'success' => false,
@@ -89,6 +88,7 @@ class Http
                 ];
             }
         }
+
         return $phrases;
     }
 }

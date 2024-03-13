@@ -30,18 +30,12 @@ use Aoe\Varnish\Domain\Model\TagInterface;
 
 class PageTag implements TagInterface
 {
-    /**
-     * @return string
-     */
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
         return 'typo3_page';
     }
 
-    /**
-     * @return boolean
-     */
-    public function isValid()
+    public function isValid(): bool
     {
         return true;
     }

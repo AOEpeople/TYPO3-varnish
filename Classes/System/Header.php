@@ -50,6 +50,7 @@ class Header
         if (!$tag->isValid()) {
             throw new \RuntimeException('Tag is not valid', 1_435_047_447);
         }
+
         header(sprintf(self::HEADER_TAGS, $tag->getIdentifier()), false);
     }
 

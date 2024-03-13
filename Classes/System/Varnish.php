@@ -54,17 +54,16 @@ class Varnish implements SingletonInterface
     public function shutdown(): array
     {
         $phrases = $this->http->wait();
-        if (is_array($phrases)) {
-            foreach ($phrases as $phrase) {
-                if ($phrase['success']) {
-                    $this->logManager->getLogger(__CLASS__)
-                        ->info($phrase['reason']);
-                } else {
-                    $this->logManager->getLogger(__CLASS__)
-                        ->alert($phrase['reason']);
-                }
+        foreach ($phrases as $phrase) {
+            if ($phrase['success']) {
+                $this->logManager->getLogger(self::class)
+                    ->info($phrase['reason']);
+            } else {
+                $this->logManager->getLogger(self::class)
+                    ->alert($phrase['reason']);
             }
         }
+
         return $phrases;
     }
 
@@ -73,6 +72,7 @@ class Varnish implements SingletonInterface
         if (!$tag->isValid()) {
             throw new \RuntimeException('Tag is not valid', 1_435_159_558);
         }
+
         $this->request('BAN', ['X-Ban-Tags' => $tag->getIdentifier()], $this->extensionConfiguration->getBanTimeout());
         return $this;
     }

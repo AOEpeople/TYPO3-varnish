@@ -24,6 +24,7 @@ nbproject
 
 # Build folder
 .Build
+Build/testing-docker/.env
 var
 
 # PHP Dependencies + Dev

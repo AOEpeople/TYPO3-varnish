@@ -66,6 +66,6 @@ class BackendAjaxHook extends AbstractHook
 
     protected function getBackendUser(): ?BackendUserAuthentication
     {
-        return isset($GLOBALS['BE_USER']) ? $GLOBALS['BE_USER'] : null;
+        return $GLOBALS['BE_USER'] ?? null;
     }
 }

@@ -27,55 +27,49 @@ namespace Aoe\Varnish\Tests\Unit\TYPO3\Configuration;
  ***************************************************************/
 
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration as Typo3ExtensionConfiguration;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @covers \Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration
- */
 class ExtensionConfigurationTest extends UnitTestCase
 {
-    /**
-     * @var boolean
-     */
-    protected $backupGlobals = true;
+    protected bool $resetSingletonInstances = true;
 
-    public function testIsDebugShouldReturnTrue()
+    public function testIsDebugShouldReturnTrue(): void
     {
-        self::assertTrue($this->createConfiguration('debug', 1)->isDebug());
+        $this->assertTrue($this->createConfiguration('debug', 1)->isDebug());
     }
 
-    public function testIsDebugShouldReturnFalse()
+    public function testIsDebugShouldReturnFalse(): void
     {
-        self::assertFalse($this->createConfiguration('debug', 0)->isDebug());
+        $this->assertFalse($this->createConfiguration('debug', 0)->isDebug());
     }
 
-    public function testGetHostsShouldSingleHost()
+    public function testGetHostsShouldSingleHost(): void
     {
-        self::assertSame(
+        $this->assertSame(
             ['http://www.aoe.com'],
             $this->createConfiguration('hosts', 'www.aoe.com')
                 ->getHosts()
         );
     }
 
-    public function testGetHostsShouldMultipleHost()
+    public function testGetHostsShouldMultipleHost(): void
     {
-        self::assertSame(
+        $this->assertSame(
             ['http://www.aoe.com', 'http://test.aoe.com', 'http://test1.aoe.com'],
             $this->createConfiguration('hosts', 'www.aoe.com,test.aoe.com,test1.aoe.com')
                 ->getHosts()
         );
     }
 
-    public function testGetDefaultTimeoutShouldReturnInteger()
+    public function testGetDefaultTimeoutShouldReturnInteger(): void
     {
-        self::assertSame(0, $this->createConfiguration('default_timeout', '0')->getDefaultTimeout());
+        $this->assertSame(0, $this->createConfiguration('default_timeout', '0')->getDefaultTimeout());
     }
 
-    public function testGetBanTimeoutShouldReturnInteger()
+    public function testGetBanTimeoutShouldReturnInteger(): void
     {
-        self::assertSame(10, $this->createConfiguration('ban_timeout', '10')->getBanTimeout());
+        $this->assertSame(10, $this->createConfiguration('ban_timeout', '10')->getBanTimeout());
     }
 
     /**
