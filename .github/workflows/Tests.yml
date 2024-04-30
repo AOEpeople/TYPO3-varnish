@@ -57,7 +57,7 @@ jobs:
           .Build/bin/phpunit --coverage-filter Classes --coverage-clover=unittest-coverage.clover --colors -c $UNIT_XML Tests/Unit
 
       - name: Upload coverage results to Scrutinizer
-        if: matrix.typo3 == '^11.5' && matrix.php == '7.4'
+        if: matrix.typo3 == '^11.5' && matrix.php == '8.3'
         run: |
           wget https://scrutinizer-ci.com/ocular.phar
           php ocular.phar code-coverage:upload --format=php-clover unittest-coverage.clover
