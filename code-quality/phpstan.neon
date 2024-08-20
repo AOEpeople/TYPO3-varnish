@@ -8,6 +8,9 @@ parameters:
     paths:
         - "../Classes/"
 
+    ignoreErrors:
+            - identifier: missingType.iterableValue
+
     inferPrivatePropertyTypeFromConstructor: true
 
 services:

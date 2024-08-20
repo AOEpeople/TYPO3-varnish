@@ -32,18 +32,15 @@ use Aoe\Varnish\System\Varnish;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 class BanController extends ActionController
 {
-    private ModuleTemplateFactory $moduleTemplateFactory;
-
-    private Varnish $varnish;
-
-    public function __construct(ModuleTemplateFactory $moduleTemplateFactory, Varnish $varnish)
-    {
-        $this->moduleTemplateFactory = $moduleTemplateFactory;
-        $this->varnish = $varnish;
+    public function __construct(
+        private ModuleTemplateFactory $moduleTemplateFactory,
+        private Varnish $varnish
+    ) {
     }
 
     public function indexAction(): ResponseInterface
@@ -74,7 +71,7 @@ class BanController extends ActionController
             }
         }
 
-        return $this->redirect('index');
+        $this->redirect('index');
     }
 
     public function confirmBanTagByNameAction(string $tagName): ResponseInterface
@@ -86,7 +83,7 @@ class BanController extends ActionController
             return $moduleTemplate->renderResponse('confirmBanTagByName');
         }
 
-        return $this->redirect('index');
+        return new ForwardResponse('index');
     }
 
     public function banTagByNameAction(string $tagName): void
@@ -116,7 +113,7 @@ class BanController extends ActionController
             return $moduleTemplate->renderResponse('confirmBanByRegex');
         }
 
-        $this->redirect('index');
+        return new ForwardResponse('index');
     }
 
     public function banByRegexAction(string $regex): void
