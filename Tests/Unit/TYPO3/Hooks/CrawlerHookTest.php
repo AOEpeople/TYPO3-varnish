@@ -27,8 +27,8 @@ namespace Aoe\Varnish\Tests\Unit\TYPO3\Hooks;
  ***************************************************************/
 
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
+use Aoe\Varnish\EventListener\Crawler;
 use Aoe\Varnish\System\Varnish;
-use Aoe\Varnish\TYPO3\Hooks\CrawlerHook;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -38,7 +38,7 @@ class CrawlerHookTest extends UnitTestCase
 
     private Varnish $varnish;
 
-    private CrawlerHook $crawlerHook;
+    private Crawler $crawlerEvent;
 
     public function testShouldClearVarnishCache(): void
     {
@@ -48,7 +48,7 @@ class CrawlerHookTest extends UnitTestCase
         $this->varnish->expects(self::once())->method('banByTag')->with(new PageIdTag($pageId));
 
         $tsfe = $this->createTsfeMock($pageId, true);
-        $this->crawlerHook->clearVarnishCache([], $tsfe);
+        $this->crawlerEvent->clearVarnishCache($tsfe);
     }
 
     public function testShouldNotClearVarnishCacheWhenCrawlerExtensionIsNotLoaded(): void
@@ -59,7 +59,7 @@ class CrawlerHookTest extends UnitTestCase
         $this->varnish->expects(self::never())->method('banByTag');
 
         $tsfe = $this->createTsfeMock($pageId, false);
-        $this->crawlerHook->clearVarnishCache([], $tsfe);
+        $this->crawlerEvent->clearVarnishCache($tsfe);
     }
 
     public function testShouldNotClearVarnishCacheWhenCrawlerIsNotRunning(): void
@@ -70,7 +70,7 @@ class CrawlerHookTest extends UnitTestCase
         $this->varnish->expects(self::never())->method('banByTag');
 
         $tsfe = $this->createTsfeMock($pageId, false);
-        $this->crawlerHook->clearVarnishCache([], $tsfe);
+        $this->crawlerEvent->clearVarnishCache($tsfe);
     }
 
     private function createTsfeMock(int $pageId, bool $isCrawlerRunning): TypoScriptFrontendController
@@ -92,8 +92,8 @@ class CrawlerHookTest extends UnitTestCase
             ->onlyMethods(['banByTag', 'banAll'])
             ->getMock();
 
-        $this->crawlerHook = $this->createPartialMock(CrawlerHook::class, ['isCrawlerExtensionLoaded', 'getVarnish']);
-        $this->crawlerHook->expects(self::any())->method('getVarnish')->willReturn($this->varnish);
-        $this->crawlerHook->expects(self::any())->method('isCrawlerExtensionLoaded')->willReturn($isCrawlerExtensionLoaded);
+        $this->crawlerEvent = $this->createPartialMock(Crawler::class, ['isCrawlerExtensionLoaded', 'getVarnish']);
+        $this->crawlerEvent->expects(self::any())->method('getVarnish')->willReturn($this->varnish);
+        $this->crawlerEvent->expects(self::any())->method('isCrawlerExtensionLoaded')->willReturn($isCrawlerExtensionLoaded);
     }
 }

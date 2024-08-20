@@ -59,6 +59,8 @@ class VarnishTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->http = $this->getMockBuilder(Http::class)
             ->onlyMethods(['request', 'wait'])
             ->disableOriginalConstructor()

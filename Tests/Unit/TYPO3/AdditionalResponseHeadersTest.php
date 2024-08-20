@@ -84,10 +84,7 @@ class AdditionalResponseHeadersTest extends UnitTestCase
         $subject->process($requestMock, $handlerMock);
     }
 
-    /**
-     * @return ExtensionConfiguration|MockObject
-     */
-    private function createExtensionConfigurationMock(bool $isDebugEnabled)
+    private function createExtensionConfigurationMock(bool $isDebugEnabled): MockObject
     {
         $extensionConfigurationMock = $this->getMockBuilder(ExtensionConfiguration::class)->disableOriginalConstructor()->getMock();
         $extensionConfigurationMock->expects(self::once())
@@ -96,14 +93,11 @@ class AdditionalResponseHeadersTest extends UnitTestCase
         return $extensionConfigurationMock;
     }
 
-    /**
-     * @return MockObject
-     */
     private function createHeaderMock(
         int $sendEnabledHeaderCallingCount,
         int $sendHeaderForTagCallingCount,
         int $sendDebugHeaderCallingCount
-    ) {
+    ): MockObject {
         $header = $this->getMockBuilder(Header::class)
             ->disableOriginalConstructor()
             ->onlyMethods(['sendEnabledHeader', 'sendHeaderForTag', 'sendDebugHeader'])
@@ -117,10 +111,7 @@ class AdditionalResponseHeadersTest extends UnitTestCase
         return $header;
     }
 
-    /**
-     * @return ServerRequestInterface MockObject
-     */
-    private function createRequestMock(bool $isVanishCacheEnabled)
+    private function createRequestMock(bool $isVanishCacheEnabled): MockObject
     {
         $frontendController = $this
             ->getMockBuilder(TypoScriptFrontendController::class)

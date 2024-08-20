@@ -35,3 +35,4 @@ var
 /typo3conf
 /vendor
 .php_cs.cache
+Tests/Unit/.phpunit.cache

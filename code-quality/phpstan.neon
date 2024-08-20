@@ -9,8 +9,6 @@ parameters:
         - "../Classes/"
 
     inferPrivatePropertyTypeFromConstructor: true
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
 
 services:
     -

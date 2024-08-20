@@ -5,10 +5,8 @@ declare(strict_types=1);
 use Rector\CodeQuality\Rector\Identical\FlipTypeControlToUseExclusiveTypeRector;
 use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\Property\RemoveUnusedPrivatePropertyRector;
-use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
 use Rector\Set\ValueObject\SetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
-use Rector\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddMethodCallBasedStrictParamTypeRector;
 use Rector\TypeDeclaration\Rector\Property\TypedPropertyFromStrictSetUpRector;
 
@@ -33,8 +31,6 @@ return RectorConfig::configure()
         PHPUnitSetList::PHPUNIT_CODE_QUALITY
     ])
     ->withSkip([
-        FinalizeClassesWithoutChildrenRector::class,
-        ChangeAndIfToEarlyReturnRector::class,
         TypedPropertyFromStrictSetUpRector::class,
         AddMethodCallBasedStrictParamTypeRector::class,
         FlipTypeControlToUseExclusiveTypeRector::class,

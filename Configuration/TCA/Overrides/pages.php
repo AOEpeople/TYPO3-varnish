@@ -1,9 +1,10 @@
 <?php
-if (!defined('TYPO3_MODE')) {
-    die('Access denied.');
-}
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('pages', [
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
+defined('TYPO3') or die();
+
+ExtensionManagementUtility::addTCAcolumns('pages', [
     'varnish_cache' => [
         'exclude' => 0,
         'label' => 'LLL:EXT:varnish/Resources/Private/Language/locallang_db.xlf:varnish.field',
@@ -14,7 +15,7 @@ if (!defined('TYPO3_MODE')) {
     ]
 ]);
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
+ExtensionManagementUtility::addFieldsToPalette(
     'pages',
     'caching',
     'varnish_cache'

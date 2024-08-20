@@ -6,3 +6,15 @@ services:
 
   Aoe\Varnish\:
     resource: '../Classes/*'
+
+  Aoe\Varnish\EventListener\Crawler:
+    tags:
+      - name: event.listener
+        identifier: 'aoe-varnish/crawler-hook'
+        event: TYPO3\CMS\Frontend\Event\ShouldUseCachedPageDataIfAvailableEvent
+
+  Aoe\Varnish\EventListener\ClearCacheMenu:
+    tags:
+      - name: event.listener
+        identifier: 'aoe-varnish/toolbar/clear-cache-menu'
+        event: TYPO3\CMS\Backend\Backend\Event\ModifyClearCacheActionsEvent

@@ -39,6 +39,7 @@ class HeaderTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->header = new Header();
     }
 

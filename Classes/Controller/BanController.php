@@ -31,7 +31,7 @@ use Aoe\Varnish\Domain\Model\Tag\Tag;
 use Aoe\Varnish\System\Varnish;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 class BanController extends ActionController
@@ -49,15 +49,15 @@ class BanController extends ActionController
     public function indexAction(): ResponseInterface
     {
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $moduleTemplate->setContent($this->view->render());
-        return $this->htmlResponse($moduleTemplate->renderContent());
+
+        return $moduleTemplate->renderResponse('index');
     }
 
     public function confirmBanTypo3PagesAction(): ResponseInterface
     {
         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $moduleTemplate->setContent($this->view->render());
-        return $this->htmlResponse($moduleTemplate->renderContent());
+
+        return $moduleTemplate->renderResponse('confirmBanTypo3Pages');
     }
 
     public function banTypo3PagesAction(): void
@@ -70,23 +70,23 @@ class BanController extends ActionController
             if ($result['success']) {
                 $this->addFlashMessage($result['reason']);
             } else {
-                $this->addFlashMessage($result['reason'], '', AbstractMessage::ERROR);
+                $this->addFlashMessage($result['reason'], '', ContextualFeedbackSeverity::ERROR);
             }
         }
 
-        $this->redirect('index');
+        return $this->redirect('index');
     }
 
     public function confirmBanTagByNameAction(string $tagName): ResponseInterface
     {
         if ($this->isValidTagName($tagName)) {
-            $this->view->assign('tagName', $tagName);
             $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-            $moduleTemplate->setContent($this->view->render());
-            return $this->htmlResponse($moduleTemplate->renderContent());
+            $moduleTemplate->assign('tagName', $tagName);
+
+            return $moduleTemplate->renderResponse('confirmBanTagByName');
         }
 
-        $this->redirect('index');
+        return $this->redirect('index');
     }
 
     public function banTagByNameAction(string $tagName): void
@@ -99,7 +99,7 @@ class BanController extends ActionController
             if ($result['success']) {
                 $this->addFlashMessage($result['reason']);
             } else {
-                $this->addFlashMessage($result['reason'], '', AbstractMessage::ERROR);
+                $this->addFlashMessage($result['reason'], '', ContextualFeedbackSeverity::ERROR);
             }
         }
 
@@ -111,8 +111,9 @@ class BanController extends ActionController
         if (!$this->isCriticalRegex($regex)) {
             $this->view->assign('regex', $regex);
             $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-            $moduleTemplate->setContent($this->view->render());
-            return $this->htmlResponse($moduleTemplate->renderContent());
+            $moduleTemplate->assign('regex', $regex);
+
+            return $moduleTemplate->renderResponse('confirmBanByRegex');
         }
 
         $this->redirect('index');
@@ -128,7 +129,7 @@ class BanController extends ActionController
             if ($result['success']) {
                 $this->addFlashMessage($result['reason']);
             } else {
-                $this->addFlashMessage($result['reason'], '', AbstractMessage::ERROR);
+                $this->addFlashMessage($result['reason'], '', ContextualFeedbackSeverity::ERROR);
             }
         }
 
@@ -138,7 +139,7 @@ class BanController extends ActionController
     private function isCriticalRegex(string $regex): bool
     {
         if (strlen($regex) < 6) {
-            $this->addFlashMessage('Bitte geben Sie einen spezifischeren RegEx ein!', '', AbstractMessage::ERROR);
+            $this->addFlashMessage('Bitte geben Sie einen spezifischeren RegEx ein!', '', ContextualFeedbackSeverity::ERROR);
             return true;
         }
 
@@ -148,7 +149,7 @@ class BanController extends ActionController
     private function isValidTagName(string $tagName): bool
     {
         if (strlen($tagName) < 2) {
-            $this->addFlashMessage('Bitte geben Sie einen gültigen Tag-Namen ein! ', '', AbstractMessage::ERROR);
+            $this->addFlashMessage('Bitte geben Sie einen gültigen Tag-Namen ein! ', '', ContextualFeedbackSeverity::ERROR);
             return false;
         }
 

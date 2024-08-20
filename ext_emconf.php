@@ -4,10 +4,10 @@ $EM_CONF['varnish'] = [
     'title' => 'TYPO3 Varnish',
     'description' => 'Allow varnish connection within TYPO3',
     'category' => 'misc',
-    'version' => '11.1.1',
+    'version' => '12.0.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '11.5.0-12.4.99',
+            'typo3' => '12.4.0-12.4.99',
         ],
         'conflicts' => [],
         'suggests' => [],
