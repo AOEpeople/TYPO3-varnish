@@ -47,8 +47,8 @@ class PageIdTagTest extends UnitTestCase
 
     public function testIsValidShouldFailWithPageIdNotNumeric(): void
     {
+        $this->expectException(\TypeError::class);
         $tag = new PageIdTag('string');
-        $this->assertFalse($tag->isValid());
     }
 
     public function testIsValidWithInteger(): void

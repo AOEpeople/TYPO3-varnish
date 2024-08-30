@@ -45,8 +45,7 @@ class HeaderTest extends UnitTestCase
 
     public function testShouldThrowRuntimeExceptionWithInvalidTag(): void
     {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionCode(1_435_047_447);
+        $this->expectException(\TypeError::class);
         $tag = new PageIdTag('adfasdf');
         $this->header->sendHeaderForTag($tag);
     }
