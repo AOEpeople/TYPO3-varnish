@@ -57,7 +57,7 @@ class BanController extends ActionController
         return $moduleTemplate->renderResponse('confirmBanTypo3Pages');
     }
 
-    public function banTypo3PagesAction(): void
+    public function banTypo3PagesAction(): ResponseInterface
     {
         $results = $this->varnish
             ->banByTag(new PageTag())
@@ -71,7 +71,7 @@ class BanController extends ActionController
             }
         }
 
-        $this->redirect('index');
+        return new ForwardResponse('index');
     }
 
     public function confirmBanTagByNameAction(string $tagName): ResponseInterface
@@ -86,7 +86,7 @@ class BanController extends ActionController
         return new ForwardResponse('index');
     }
 
-    public function banTagByNameAction(string $tagName): void
+    public function banTagByNameAction(string $tagName): ResponseInterface
     {
         $results = $this->varnish
             ->banByTag(new Tag($tagName))
@@ -100,7 +100,7 @@ class BanController extends ActionController
             }
         }
 
-        $this->redirect('index');
+        return new ForwardResponse('index');
     }
 
     public function confirmBanByRegexAction(string $regex): ResponseInterface
@@ -116,7 +116,7 @@ class BanController extends ActionController
         return new ForwardResponse('index');
     }
 
-    public function banByRegexAction(string $regex): void
+    public function banByRegexAction(string $regex): ResponseInterface
     {
         $results = $this->varnish
             ->banByRegex($regex)
@@ -130,7 +130,7 @@ class BanController extends ActionController
             }
         }
 
-        $this->redirect('index');
+        return new ForwardResponse('index');
     }
 
     private function isCriticalRegex(string $regex): bool

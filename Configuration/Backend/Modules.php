@@ -9,7 +9,7 @@ return [
         'access' => 'user',
         'standalone' => true,
         'workspaces' => 'live',
-        'iconIdentifier' => 'module-varnish',
+        'iconIdentifier' => 'varnish',
         'labels' => 'LLL:EXT:varnish/Resources/Private/Language/locallang_mod.xlf',
         'extensionName' => 'Varnish',
         'controllerActions' => [
