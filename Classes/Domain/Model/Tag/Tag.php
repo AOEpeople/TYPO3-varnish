@@ -30,11 +30,9 @@ use Aoe\Varnish\Domain\Model\TagInterface;
 
 class Tag implements TagInterface
 {
-    private string $identifier;
-
-    public function __construct(string $identifier)
-    {
-        $this->identifier = $identifier;
+    public function __construct(
+        private string $identifier
+    ) {
     }
 
     public function getIdentifier(): string

@@ -38,14 +38,10 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class AdditionalResponseHeaders implements MiddlewareInterface
 {
-    private ExtensionConfiguration $extensionConfiguration;
-
-    private Header $header;
-
-    public function __construct(ExtensionConfiguration $extensionConfiguration, Header $header)
-    {
-        $this->extensionConfiguration = $extensionConfiguration;
-        $this->header = $header;
+    public function __construct(
+        private ExtensionConfiguration $extensionConfiguration,
+        private Header $header
+    ) {
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface

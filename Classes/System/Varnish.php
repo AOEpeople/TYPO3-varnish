@@ -33,18 +33,11 @@ use TYPO3\CMS\Core\SingletonInterface;
 
 class Varnish implements SingletonInterface
 {
-    private Http $http;
-
-    private ExtensionConfiguration $extensionConfiguration;
-
-    private LogManager $logManager;
-
-    public function __construct(Http $http, ExtensionConfiguration $extensionConfiguration, LogManager $logManager)
-    {
-        $this->http = $http;
-        $this->extensionConfiguration = $extensionConfiguration;
-        $this->logManager = $logManager;
-
+    public function __construct(
+        private Http $http,
+        private ExtensionConfiguration $extensionConfiguration,
+        private LogManager $logManager
+    ) {
         register_shutdown_function([$this, 'shutdown']);
     }
 

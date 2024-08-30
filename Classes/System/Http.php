@@ -35,16 +35,14 @@ use GuzzleHttp\RequestOptions;
 
 class Http
 {
-    private Client $client;
-
     /**
      * @var PromiseInterface[]
      */
     private array $promises = [];
 
-    public function __construct(Client $client)
-    {
-        $this->client = $client;
+    public function __construct(
+        private Client $client
+    ) {
     }
 
     public function request(string $method, string $url, array $headers = [], int $timeout = 0): void

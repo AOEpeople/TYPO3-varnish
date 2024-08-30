@@ -30,17 +30,9 @@ use Aoe\Varnish\Domain\Model\TagInterface;
 
 class PageIdTag implements TagInterface
 {
-    /**
-     * @var int
-     */
-    private $pageId;
-
-    /**
-     * @param int $pageId
-     */
-    public function __construct($pageId)
-    {
-        $this->pageId = $pageId;
+    public function __construct(
+        private int $pageId
+    ) {
     }
 
     public function getIdentifier(): string
