@@ -28,7 +28,6 @@ namespace Aoe\Varnish\Tests\Unit\System;
 
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 use Aoe\Varnish\System\Header;
-use RuntimeException;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 class HeaderTest extends UnitTestCase
