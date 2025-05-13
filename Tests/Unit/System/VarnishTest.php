@@ -48,11 +48,6 @@ class VarnishTest extends UnitTestCase
     private MockObject $http;
 
     /**
-     * @var ExtensionConfiguration
-     */
-    private MockObject $extensionConfiguration;
-
-    /**
      * @var LogManager
      */
     private MockObject $logManager;
@@ -66,17 +61,17 @@ class VarnishTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->extensionConfiguration = $this->getMockBuilder(ExtensionConfiguration::class)
+        $extensionConfiguration = $this->getMockBuilder(ExtensionConfiguration::class)
             ->onlyMethods(['getHosts', 'getBanTimeout', 'getDefaultTimeout'])
             ->disableOriginalConstructor()
             ->getMock();
-        $this->extensionConfiguration
+        $extensionConfiguration
             ->method('getHosts')
             ->willReturn(['domain.tld']);
-        $this->extensionConfiguration
+        $extensionConfiguration
             ->method('getBanTimeout')
             ->willReturn(10);
-        $this->extensionConfiguration
+        $extensionConfiguration
             ->method('getDefaultTimeout')
             ->willReturn(0);
 
@@ -85,7 +80,7 @@ class VarnishTest extends UnitTestCase
             ->onlyMethods(['getLogger'])
             ->getMock();
 
-        $this->varnish = new Varnish($this->http, $this->extensionConfiguration, $this->logManager);
+        $this->varnish = new Varnish($this->http, $extensionConfiguration, $this->logManager);
     }
 
     public function testBanByTagShouldThrowExceptionOnInvalidTag(): void
