@@ -82,7 +82,7 @@ class Varnish implements SingletonInterface
         return $this;
     }
 
-    private function request(string $method, array $headers = [], int $timeout = null): void
+    private function request(string $method, array $headers = [], ?int $timeout = null): void
     {
         if ($timeout === null) {
             $timeout = $this->extensionConfiguration->getDefaultTimeout();
