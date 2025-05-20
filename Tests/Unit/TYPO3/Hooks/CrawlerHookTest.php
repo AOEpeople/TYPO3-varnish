@@ -29,6 +29,7 @@ namespace Aoe\Varnish\Tests\Unit\TYPO3\Hooks;
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 use Aoe\Varnish\EventListener\Crawler;
 use Aoe\Varnish\System\Varnish;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -36,16 +37,18 @@ class CrawlerHookTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;
 
-    private Varnish $varnish;
+    private MockObject&Varnish $varnish;
 
-    private Crawler $crawlerEvent;
+    private MockObject&Crawler $crawlerEvent;
 
     public function testShouldClearVarnishCache(): void
     {
         $this->initializeTest(true);
 
         $pageId = 123456;
-        $this->varnish->expects(self::once())->method('banByTag')->with(new PageIdTag($pageId));
+        $this->varnish->expects($this->once())
+            ->method('banByTag')
+            ->with(new PageIdTag($pageId));
 
         $tsfe = $this->createTsfeMock($pageId, true);
         $this->crawlerEvent->clearVarnishCache($tsfe);
@@ -56,7 +59,8 @@ class CrawlerHookTest extends UnitTestCase
         $this->initializeTest(false);
 
         $pageId = 123456;
-        $this->varnish->expects(self::never())->method('banByTag');
+        $this->varnish->expects($this->never())
+            ->method('banByTag');
 
         $tsfe = $this->createTsfeMock($pageId, false);
         $this->crawlerEvent->clearVarnishCache($tsfe);
@@ -67,7 +71,8 @@ class CrawlerHookTest extends UnitTestCase
         $this->initializeTest(true);
 
         $pageId = 123456;
-        $this->varnish->expects(self::never())->method('banByTag');
+        $this->varnish->expects($this->never())
+            ->method('banByTag');
 
         $tsfe = $this->createTsfeMock($pageId, false);
         $this->crawlerEvent->clearVarnishCache($tsfe);
@@ -93,7 +98,11 @@ class CrawlerHookTest extends UnitTestCase
             ->getMock();
 
         $this->crawlerEvent = $this->createPartialMock(Crawler::class, ['isCrawlerExtensionLoaded', 'getVarnish']);
-        $this->crawlerEvent->expects(self::any())->method('getVarnish')->willReturn($this->varnish);
-        $this->crawlerEvent->expects(self::any())->method('isCrawlerExtensionLoaded')->willReturn($isCrawlerExtensionLoaded);
+        $this->crawlerEvent
+            ->method('getVarnish')
+            ->willReturn($this->varnish);
+        $this->crawlerEvent
+            ->method('isCrawlerExtensionLoaded')
+            ->willReturn($isCrawlerExtensionLoaded);
     }
 }

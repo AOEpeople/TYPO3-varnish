@@ -62,7 +62,7 @@ class HttpTest extends UnitTestCase
         $headers = ['X-Ban-Tags' => 'my_identifier'];
         $timeout = 10;
 
-        $this->client->expects(self::once())
+        $this->client->expects($this->once())
             ->method('requestAsync')
             ->with(
                 $method,
@@ -88,7 +88,7 @@ class HttpTest extends UnitTestCase
         $headers = [];
         $timeout = 0;
 
-        $this->client->expects(self::once())
+        $this->client->expects($this->once())
             ->method('requestAsync')
             ->with(
                 $method,

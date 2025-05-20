@@ -61,7 +61,7 @@ class BackendAjaxHook extends AbstractHook
     protected function isAuthorizedBackendSession(): bool
     {
         $backendUser = $this->getBackendUser();
-        return $backendUser !== null && $backendUser instanceof BackendUserAuthentication && isset($backendUser->user['uid']);
+        return $backendUser !== null && isset($backendUser->user['uid']);
     }
 
     protected function getBackendUser(): ?BackendUserAuthentication

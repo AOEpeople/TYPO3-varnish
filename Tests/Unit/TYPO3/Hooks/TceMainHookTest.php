@@ -78,6 +78,7 @@ class TceMainHookTest extends UnitTestCase
         /** @var BackendUserAuthentication $beUser */
         $beUser = $this->getMockBuilder(BackendUserAuthentication::class)->getMock();
         $beUser->workspace = 0;
+
         $this->dataHandler->BE_USER = $beUser;
 
         $this->varnish = $this->getMockBuilder(Varnish::class)
@@ -96,7 +97,7 @@ class TceMainHookTest extends UnitTestCase
 
         /** @var MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects(self::once())
+        $varnish->expects($this->once())
             ->method('banByTag')
             ->with($expectedTag);
 
@@ -112,7 +113,7 @@ class TceMainHookTest extends UnitTestCase
 
         /** @var MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects(self::once())
+        $varnish->expects($this->once())
             ->method('banByTag')
             ->with($expectedTag);
 
@@ -126,7 +127,7 @@ class TceMainHookTest extends UnitTestCase
     {
         /** @var MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects(self::never())
+        $varnish->expects($this->never())
             ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
@@ -139,7 +140,7 @@ class TceMainHookTest extends UnitTestCase
     {
         /** @var MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects(self::never())
+        $varnish->expects($this->never())
             ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
@@ -154,7 +155,7 @@ class TceMainHookTest extends UnitTestCase
 
         /** @var MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects(self::once())
+        $varnish->expects($this->once())
             ->method('banByTag')
             ->with($expectedTag);
 
@@ -168,7 +169,7 @@ class TceMainHookTest extends UnitTestCase
     {
         /** @var MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects(self::never())
+        $varnish->expects($this->never())
             ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
@@ -181,7 +182,7 @@ class TceMainHookTest extends UnitTestCase
     {
         /** @var MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects(self::never())
+        $varnish->expects($this->never())
             ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
@@ -196,7 +197,7 @@ class TceMainHookTest extends UnitTestCase
 
         /** @var MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects(self::once())
+        $varnish->expects($this->once())
             ->method('banByTag')
             ->with($expectedTag);
 
@@ -212,7 +213,7 @@ class TceMainHookTest extends UnitTestCase
 
         /** @var MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects(self::once())
+        $varnish->expects($this->once())
             ->method('banByTag')
             ->with($expectedTag);
 
@@ -234,7 +235,7 @@ class TceMainHookTest extends UnitTestCase
     {
         /** @var MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects(self::never())
+        $varnish->expects($this->never())
             ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
@@ -247,7 +248,7 @@ class TceMainHookTest extends UnitTestCase
     {
         /** @var MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects(self::never())
+        $varnish->expects($this->never())
             ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
@@ -260,7 +261,7 @@ class TceMainHookTest extends UnitTestCase
     {
         /** @var MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects(self::never())
+        $varnish->expects($this->never())
             ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(
@@ -275,7 +276,7 @@ class TceMainHookTest extends UnitTestCase
 
         /** @var MockObject $varnish */
         $varnish = $this->varnish;
-        $varnish->expects(self::never())
+        $varnish->expects($this->never())
             ->method('banByTag');
 
         $this->tceMainHook->clearCachePostProc(

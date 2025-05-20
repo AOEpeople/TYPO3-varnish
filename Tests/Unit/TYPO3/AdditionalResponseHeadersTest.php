@@ -47,7 +47,8 @@ class AdditionalResponseHeadersTest extends UnitTestCase
 
         $requestMock = $this->createRequestMock(true);
         $handlerMock = $this->getMockBuilder(RequestHandlerInterface::class)->getMock();
-        $handlerMock->expects(self::once())->method('handle');
+        $handlerMock->expects($this->once())
+            ->method('handle');
 
         // execute
         $subject = new AdditionalResponseHeaders($extensionConfigurationMock, $headerMock);
@@ -62,7 +63,8 @@ class AdditionalResponseHeadersTest extends UnitTestCase
 
         $requestMock = $this->createRequestMock(true);
         $handlerMock = $this->getMockBuilder(RequestHandlerInterface::class)->getMock();
-        $handlerMock->expects(self::once())->method('handle');
+        $handlerMock->expects($this->once())
+            ->method('handle');
 
         // execute
         $subject = new AdditionalResponseHeaders($extensionConfigurationMock, $headerMock);
@@ -77,7 +79,8 @@ class AdditionalResponseHeadersTest extends UnitTestCase
 
         $requestMock = $this->createRequestMock(false);
         $handlerMock = $this->getMockBuilder(RequestHandlerInterface::class)->getMock();
-        $handlerMock->expects(self::once())->method('handle');
+        $handlerMock->expects($this->once())
+            ->method('handle');
 
         // execute
         $subject = new AdditionalResponseHeaders($extensionConfigurationMock, $headerMock);
@@ -87,7 +90,7 @@ class AdditionalResponseHeadersTest extends UnitTestCase
     private function createExtensionConfigurationMock(bool $isDebugEnabled): MockObject
     {
         $extensionConfigurationMock = $this->getMockBuilder(ExtensionConfiguration::class)->disableOriginalConstructor()->getMock();
-        $extensionConfigurationMock->expects(self::once())
+        $extensionConfigurationMock->expects($this->once())
             ->method('isDebug')
             ->willReturn($isDebugEnabled);
         return $extensionConfigurationMock;
@@ -125,7 +128,7 @@ class AdditionalResponseHeadersTest extends UnitTestCase
 
         $requestMock = $this->getMockBuilder(ServerRequestInterface::class)->getMock();
         $requestMock
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('getAttribute')
             ->with('frontend.controller')
             ->willReturn($frontendController);

@@ -83,7 +83,7 @@ class ExtensionConfigurationTest extends UnitTestCase
 
         $typo3ExtensionConfiguration = $this->getMockBuilder(Typo3ExtensionConfiguration::class)->getMock();
         $typo3ExtensionConfiguration
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('get')
             ->with('varnish')
             ->willReturn($defaultConfig);

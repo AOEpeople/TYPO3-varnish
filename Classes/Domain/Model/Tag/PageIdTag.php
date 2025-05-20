@@ -42,6 +42,6 @@ class PageIdTag implements TagInterface
 
     public function isValid(): bool
     {
-        return is_int($this->pageId) && $this->pageId > 0;
+        return $this->pageId > 0;
     }
 }

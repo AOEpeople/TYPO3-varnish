@@ -91,7 +91,7 @@ class VarnishTest extends UnitTestCase
         $tag = $this->getMockBuilder(TagInterface::class)
             ->onlyMethods(['isValid', 'getIdentifier'])
             ->getMock();
-        $tag->expects(self::once())
+        $tag->expects($this->once())
             ->method('isValid')
             ->willReturn(false);
         /** @var TagInterface $tag */
@@ -100,7 +100,7 @@ class VarnishTest extends UnitTestCase
 
     public function testBanByTagShouldCallHttpCorrectly(): void
     {
-        $this->http->expects(self::once())
+        $this->http->expects($this->once())
             ->method('request')
             ->with(
                 'BAN',
@@ -112,10 +112,10 @@ class VarnishTest extends UnitTestCase
         $tag = $this->getMockBuilder(TagInterface::class)
             ->onlyMethods(['isValid', 'getIdentifier'])
             ->getMock();
-        $tag->expects(self::once())
+        $tag->expects($this->once())
             ->method('isValid')
             ->willReturn(true);
-        $tag->expects(self::once())
+        $tag->expects($this->once())
             ->method('getIdentifier')
             ->willReturn('my_identifier');
         $this->varnish->banByTag($tag);
@@ -123,7 +123,7 @@ class VarnishTest extends UnitTestCase
 
     public function testBanAllShouldCallHttpCorrectly(): void
     {
-        $this->http->expects(self::once())
+        $this->http->expects($this->once())
             ->method('request')
             ->with('BAN', 'domain.tld', ['X-Ban-All' => '1'], 10);
         $this->varnish->banAll();
@@ -132,7 +132,7 @@ class VarnishTest extends UnitTestCase
     public function testBanByRegexShouldCallHttpCorrectly(): void
     {
         $this->http
-            ->expects(self::once())
+            ->expects($this->once())
             ->method('request')
             ->with('BAN', 'domain.tld', ['X-Ban-Regex' => '/*']);
         $this->varnish->banByRegex('/*');
@@ -140,7 +140,7 @@ class VarnishTest extends UnitTestCase
 
     public function testShouldLogOnShutdown(): void
     {
-        $this->http->expects(self::once())
+        $this->http->expects($this->once())
             ->method('wait')
             ->willReturn([
                 ['success' => true, 'reason' => 'banned all'],
@@ -151,10 +151,10 @@ class VarnishTest extends UnitTestCase
             ->disableOriginalConstructor()
             ->onlyMethods(['info', 'alert'])
             ->getMock();
-        $logger->expects(self::once())
+        $logger->expects($this->once())
             ->method('info')
             ->with('banned all');
-        $logger->expects(self::once())
+        $logger->expects($this->once())
             ->method('alert')
             ->with('failed!');
 
