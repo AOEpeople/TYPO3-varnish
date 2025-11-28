@@ -14,11 +14,13 @@ jobs:
         allow-failure: [false]
 
         exclude:
-          - php: 8.5
+          - typo3: ^12.4
+            php: 8.5
             allow-failure: false
 
         include:
-          - php: 8.5
+          - typo3: ^12.4
+            php: 8.5
             allow-failure: true
 
     steps:
