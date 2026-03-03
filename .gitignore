@@ -25,6 +25,7 @@ nbproject
 # Build folder
 .Build
 Build/testing-docker/.env
+Documentation-GENERATED-temp
 var
 
 # PHP Dependencies + Dev
