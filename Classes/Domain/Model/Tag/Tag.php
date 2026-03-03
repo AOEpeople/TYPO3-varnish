@@ -42,6 +42,6 @@ class Tag implements TagInterface
 
     public function isValid(): bool
     {
-        return strlen($this->identifier) > 0;
+        return $this->identifier !== '';
     }
 }

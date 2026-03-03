@@ -28,7 +28,7 @@ namespace Aoe\Varnish\TYPO3;
 
 use Aoe\Varnish\Domain\Model\Tag\PageIdTag;
 use Aoe\Varnish\Domain\Model\Tag\PageTag;
-use Aoe\Varnish\System\Header;
+use Aoe\Varnish\Domain\Model\TagInterface;
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -38,43 +38,64 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class AdditionalResponseHeaders implements MiddlewareInterface
 {
+    /**
+     * @var string
+     */
+    public const HEADER_TAGS = 'X-Tags';
+
+    /**
+     * @var string
+     */
+    public const HEADER_DEBUG = 'X-Debug';
+
+    /**
+     * @var string
+     */
+    public const HEADER_ENABLED = 'X-Varnish-enabled';
+
     public function __construct(
-        private ExtensionConfiguration $extensionConfiguration,
-        private Header $header
+        private ExtensionConfiguration $extensionConfiguration
     ) {
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        $response = $handler->handle($request);
         $tsfe = $this->getTsfe($request);
-        $this->sendPageTagHeader($tsfe);
-        $this->sendDebugHeader();
-        if ((int) $tsfe->page['varnish_cache'] === 1) {
-            $this->header->sendEnabledHeader();
+
+        if ($tsfe instanceof TypoScriptFrontendController) {
+            $tags = $this->getTags($tsfe);
+            foreach ($tags as $tag) {
+                if ($tag->isValid()) {
+                    $response = $response->withAddedHeader(self::HEADER_TAGS, $tag->getIdentifier());
+                }
+            }
+
+            if ($this->extensionConfiguration->isDebug()) {
+                $response = $response->withHeader(self::HEADER_DEBUG, '1');
+            }
+
+            if (isset($tsfe->page['varnish_cache']) && (int) $tsfe->page['varnish_cache'] === 1) {
+                $response = $response->withHeader(self::HEADER_ENABLED, '1');
+            }
         }
 
-        return $handler->handle($request);
+        return $response;
     }
 
-    private function getTsfe(ServerRequestInterface $request): TypoScriptFrontendController
+    private function getTsfe(ServerRequestInterface $request): ?TypoScriptFrontendController
     {
-        // @TODO: We need the fallback '?? $GLOBALS['TSFE']' ONLY for TYPO3v10 - can be removed when we skip support for TYPO3v10!
-        return $request->getAttribute('frontend.controller') ?? $GLOBALS['TSFE'];
+        return $request->getAttribute('frontend.controller') ?? null;
     }
 
-    private function sendPageTagHeader(TypoScriptFrontendController $parent): void
+    /**
+     * @return TagInterface[]
+     */
+    private function getTags(TypoScriptFrontendController $tsfe): array
     {
-        $pageIdTag = new PageIdTag($parent->id);
-        $pageTag = new PageTag();
-
-        $this->header->sendHeaderForTag($pageIdTag);
-        $this->header->sendHeaderForTag($pageTag);
-    }
-
-    private function sendDebugHeader(): void
-    {
-        if ($this->extensionConfiguration->isDebug()) {
-            $this->header->sendDebugHeader();
-        }
+        return [
+            new PageIdTag($tsfe->id),
+            new PageTag(),
+        ];
     }
 }
