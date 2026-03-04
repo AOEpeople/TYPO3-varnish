@@ -28,6 +28,9 @@ namespace Aoe\Varnish\System;
 
 use Aoe\Varnish\Domain\Model\TagInterface;
 
+/**
+ * @deprecated since 12.0.4, will be remove in 13.0.0
+ */
 class Header
 {
     /**

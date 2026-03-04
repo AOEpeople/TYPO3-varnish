@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guides xmlns="https://www.phpdoc.org/guides" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.phpdoc.org/guides ../vendor/phpdocumentor/guides-cli/resources/schema/guides.xsd" links-are-relative="true">
+  <extension class="\T3Docs\Typo3DocsTheme\DependencyInjection\Typo3DocsThemeExtension"
+             project-repository="https://github.com/aoepeople/typo3-varnish"
+             project-issues="https://github.com/aoepeople/typo3-varnish/issues"
+             edit-on-github-branch="main"
+             edit-on-github="aoepeople/typo3-varnish"
+             typo3-core-preferred="stable"
+             interlink-shortcode="aoepeople/typo3-varnish"
+  />
+  <project
+      title="varnish"
+      release="dev"
+      version="dev"
+      copyright="2018-2026 AOE GmbH"
+  />
+</guides>

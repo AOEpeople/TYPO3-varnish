@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Aoe\Varnish\Tests\Unit\TYPO3;
 
 /***************************************************************
@@ -26,16 +28,16 @@ namespace Aoe\Varnish\Tests\Unit\TYPO3;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use Aoe\Varnish\System\Header;
 use Aoe\Varnish\TYPO3\AdditionalResponseHeaders;
 use Aoe\Varnish\TYPO3\Configuration\ExtensionConfiguration;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-class AdditionalResponseHeadersTest extends UnitTestCase
+final class AdditionalResponseHeadersTest extends UnitTestCase
 {
     protected bool $resetSingletonInstances = true;
 
@@ -43,15 +45,37 @@ class AdditionalResponseHeadersTest extends UnitTestCase
     {
         // mocking
         $extensionConfigurationMock = $this->createExtensionConfigurationMock(true);
-        $headerMock = $this->createHeaderMock(1, 2, 1);
 
         $requestMock = $this->createRequestMock(true);
-        $handlerMock = $this->getMockBuilder(RequestHandlerInterface::class)->getMock();
+
+        $responseMock = $this->createMock(ResponseInterface::class);
+        $responseMock->expects($this->exactly(2))
+            ->method('withAddedHeader')
+            ->with('X-Tags', $this->anything())
+            ->willReturnSelf();
+        $responseMock->expects($this->exactly(2))
+            ->method('withHeader')
+            ->willReturnCallback(function (string $name, $value) use ($responseMock): \PHPUnit\Framework\MockObject\MockObject {
+                static $count = 0;
+                if ($count === 0) {
+                    $this->assertSame('X-Debug', $name);
+                    $this->assertEquals('1', $value);
+                } elseif ($count === 1) {
+                    $this->assertSame('X-Varnish-enabled', $name);
+                    $this->assertEquals('1', $value);
+                }
+
+                $count++;
+                return $responseMock;
+            });
+
+        $handlerMock = $this->createMock(RequestHandlerInterface::class);
         $handlerMock->expects($this->once())
-            ->method('handle');
+            ->method('handle')
+            ->willReturn($responseMock);
 
         // execute
-        $subject = new AdditionalResponseHeaders($extensionConfigurationMock, $headerMock);
+        $subject = new AdditionalResponseHeaders($extensionConfigurationMock);
         $subject->process($requestMock, $handlerMock);
     }
 
@@ -59,15 +83,25 @@ class AdditionalResponseHeadersTest extends UnitTestCase
     {
         // mocking
         $extensionConfigurationMock = $this->createExtensionConfigurationMock(false);
-        $headerMock = $this->createHeaderMock(1, 2, 0);
 
         $requestMock = $this->createRequestMock(true);
-        $handlerMock = $this->getMockBuilder(RequestHandlerInterface::class)->getMock();
+
+        $responseMock = $this->createMock(ResponseInterface::class);
+        $responseMock->expects($this->exactly(2))
+            ->method('withAddedHeader')
+            ->willReturnSelf();
+        $responseMock->expects($this->once())
+            ->method('withHeader')
+            ->with('X-Varnish-enabled', '1')
+            ->willReturnSelf();
+
+        $handlerMock = $this->createMock(RequestHandlerInterface::class);
         $handlerMock->expects($this->once())
-            ->method('handle');
+            ->method('handle')
+            ->willReturn($responseMock);
 
         // execute
-        $subject = new AdditionalResponseHeaders($extensionConfigurationMock, $headerMock);
+        $subject = new AdditionalResponseHeaders($extensionConfigurationMock);
         $subject->process($requestMock, $handlerMock);
     }
 
@@ -75,63 +109,52 @@ class AdditionalResponseHeadersTest extends UnitTestCase
     {
         // mocking
         $extensionConfigurationMock = $this->createExtensionConfigurationMock(true);
-        $headerMock = $this->createHeaderMock(0, 2, 1);
 
         $requestMock = $this->createRequestMock(false);
-        $handlerMock = $this->getMockBuilder(RequestHandlerInterface::class)->getMock();
+
+        $responseMock = $this->createMock(ResponseInterface::class);
+        $responseMock->expects($this->exactly(2))
+            ->method('withAddedHeader')
+            ->willReturnSelf();
+        $responseMock->expects($this->once())
+            ->method('withHeader')
+            ->with('X-Debug', '1')
+            ->willReturnSelf();
+
+        $handlerMock = $this->createMock(RequestHandlerInterface::class);
         $handlerMock->expects($this->once())
-            ->method('handle');
+            ->method('handle')
+            ->willReturn($responseMock);
 
         // execute
-        $subject = new AdditionalResponseHeaders($extensionConfigurationMock, $headerMock);
+        $subject = new AdditionalResponseHeaders($extensionConfigurationMock);
         $subject->process($requestMock, $handlerMock);
     }
 
     private function createExtensionConfigurationMock(bool $isDebugEnabled): MockObject
     {
-        $extensionConfigurationMock = $this->getMockBuilder(ExtensionConfiguration::class)->disableOriginalConstructor()->getMock();
-        $extensionConfigurationMock->expects($this->once())
+        $extensionConfigurationMock = $this->createMock(ExtensionConfiguration::class);
+        $extensionConfigurationMock
             ->method('isDebug')
             ->willReturn($isDebugEnabled);
         return $extensionConfigurationMock;
     }
 
-    private function createHeaderMock(
-        int $sendEnabledHeaderCallingCount,
-        int $sendHeaderForTagCallingCount,
-        int $sendDebugHeaderCallingCount
-    ): MockObject {
-        $header = $this->getMockBuilder(Header::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods(['sendEnabledHeader', 'sendHeaderForTag', 'sendDebugHeader'])
-            ->getMock();
-        $header->expects($this->exactly($sendEnabledHeaderCallingCount))
-            ->method('sendEnabledHeader');
-        $header->expects($this->exactly($sendHeaderForTagCallingCount))
-            ->method('sendHeaderForTag');
-        $header->expects($this->exactly($sendDebugHeaderCallingCount))
-            ->method('sendDebugHeader');
-        return $header;
-    }
-
     private function createRequestMock(bool $isVanishCacheEnabled): MockObject
     {
-        $frontendController = $this
-            ->getMockBuilder(TypoScriptFrontendController::class)
-            ->disableOriginalConstructor()
-            ->getMock();
+        $tsfe = $this->createStub(TypoScriptFrontendController::class);
         $this->setTypoScriptFrontendControllerReflectionProperties(
-            $frontendController,
+            $tsfe,
             12345,
             $isVanishCacheEnabled
         );
 
-        $requestMock = $this->getMockBuilder(ServerRequestInterface::class)->getMock();
+        $requestMock = $this->createMock(ServerRequestInterface::class);
         $requestMock
             ->expects($this->once())
             ->method('getAttribute')
             ->with('frontend.controller')
-            ->willReturn($frontendController);
+            ->willReturn($tsfe);
         return $requestMock;
     }
 

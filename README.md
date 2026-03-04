@@ -15,6 +15,21 @@ You can download and install this extension or use composer.
 Copyright: (c) 2016 - 2024, AOE GmbH
 License: GPLv3, <http://www.gnu.org/licenses/gpl-3.0.en.html>
 
+## Documentation
+
+The documentation is available online at [docs.typo3.org][2].
+
+If you want you can also render the documentation locally, this can be really helpful when adjusting
+the documentation to check before commiting.
+
+The local rendering requires docker and can be done like this:
+
+```bash
+docker run --rm --pull always -v $(pwd):/project -it ghcr.io/typo3-documentation/render-guides:latest --config=Documentation
+```
+
+And then open `Documentation-GENERATED-temp/Index.html` with your browser.
+
 ## Contributing
 
 	1. Fork the repository on Github
