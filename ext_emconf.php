@@ -4,7 +4,7 @@ $EM_CONF['varnish'] = [
     'title' => 'TYPO3 Varnish',
     'description' => 'Allow varnish connection within TYPO3',
     'category' => 'misc',
-    'version' => '12.1.0',
+    'version' => '12.1.1',
     'constraints' => [
         'depends' => [
             'typo3' => '12.4.0-12.4.99',
@@ -12,7 +12,7 @@ $EM_CONF['varnish'] = [
         'conflicts' => [],
         'suggests' => [],
     ],
-    'state' => 'beta',
+    'state' => 'stable',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
     'author' => 'AOE Developers',
